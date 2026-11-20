@@ -1,6 +1,6 @@
 /**
- * Persistência da checklist de compras (localStorage).
- * Os checkboxes já vêm no HTML — este script só salva/restaura as marcas.
+ * Checklist de compras + estimativa de preços (AlimentacaoPrecos).
+ * Shopping checklist + price estimates.
  */
 (function () {
   function storageKey(semana) {
@@ -22,16 +22,6 @@
     } catch (e) {}
   }
 
-  function updateProgress(root) {
-    var boxes = root.querySelectorAll('input[type="checkbox"]');
-    var done = 0;
-    for (var i = 0; i < boxes.length; i++) {
-      if (boxes[i].checked) done++;
-    }
-    var el = root.querySelector("[data-shop-progress]");
-    if (el) el.textContent = done + " de " + boxes.length + " itens";
-  }
-
   function plainText(el) {
     return (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
   }
@@ -48,6 +38,72 @@
     setTimeout(function () {
       URL.revokeObjectURL(url);
     }, 500);
+  }
+
+  function paintEstimates(root) {
+    var P = window.AlimentacaoPrecos;
+    if (!P) return;
+    var cat = P.loadCatalog();
+    var total = 0;
+    var matched = 0;
+    var labels = root.querySelectorAll("label.shop-item");
+    for (var i = 0; i < labels.length; i++) {
+      var label = labels[i];
+      var span = label.querySelector("span:not(.shop-price)");
+      if (!span) continue;
+      var text = plainText(span).replace(/\s*≈.*$/, "").replace(/\s*R\$.*$/, "");
+      // restore clean text in first span if we nested before
+      var nameSpan = label.querySelector("[data-item-name]") || span;
+      if (!nameSpan.getAttribute("data-item-name")) {
+        nameSpan.setAttribute("data-item-name", "1");
+      }
+      var est = P.estimateLine(text, cat);
+      var priceEl = label.querySelector(".shop-price");
+      if (!priceEl) {
+        priceEl = document.createElement("span");
+        priceEl.className = "shop-price";
+        label.appendChild(priceEl);
+      }
+      if (est.matched && est.estimate != null) {
+        priceEl.textContent = P.formatBRL(est.estimate);
+        priceEl.title = est.detail || "";
+        priceEl.className = "shop-price shop-price-ok";
+        total += est.estimate;
+        matched++;
+      } else if (est.matched && est.detail) {
+        priceEl.textContent = est.detail;
+        priceEl.className = "shop-price shop-price-ref";
+      } else {
+        priceEl.textContent = "—";
+        priceEl.className = "shop-price";
+        priceEl.title = "Sem preço no catálogo";
+      }
+    }
+    var sum = root.querySelector("[data-shop-total]");
+    if (!sum) {
+      sum = document.createElement("p");
+      sum.className = "shop-total";
+      sum.setAttribute("data-shop-total", "1");
+      var actions = root.querySelector(".shop-actions");
+      if (actions) root.insertBefore(sum, actions);
+      else root.appendChild(sum);
+    }
+    sum.innerHTML =
+      "<strong>Estimativa da lista:</strong> " +
+      P.formatBRL(total) +
+      ' <span class="footer-note">(' +
+      matched +
+      " itens com preço · <a href=\"precos.html\">atualizar após a compra</a>)</span>";
+  }
+
+  function updateProgress(root) {
+    var boxes = root.querySelectorAll('input[type="checkbox"]');
+    var done = 0;
+    for (var i = 0; i < boxes.length; i++) {
+      if (boxes[i].checked) done++;
+    }
+    var el = root.querySelector("[data-shop-progress]");
+    if (el) el.textContent = done + " de " + boxes.length + " itens";
   }
 
   function init() {
@@ -90,6 +146,7 @@
       else root.appendChild(progress);
     }
     updateProgress(root);
+    paintEstimates(root);
 
     root.addEventListener("click", function (ev) {
       var t = ev.target;
@@ -101,9 +158,16 @@
         var list = root.querySelectorAll("label.shop-item");
         for (var j = 0; j < list.length; j++) {
           var inp = list[j].querySelector("input");
-          var span = list[j].querySelector("span");
+          var nameEl = list[j].querySelector("[data-item-name]") || list[j].querySelector("span");
+          var priceEl = list[j].querySelector(".shop-price");
           var mark = inp && inp.checked ? "☑" : "☐";
-          lines.push(mark + " " + plainText(span));
+          var price = priceEl ? "  " + plainText(priceEl) : "";
+          lines.push(mark + " " + plainText(nameEl) + price);
+        }
+        var tot = root.querySelector("[data-shop-total]");
+        if (tot) {
+          lines.push("");
+          lines.push(plainText(tot));
         }
         downloadTxt("compras-semana-" + semana + "-keep.txt", lines.join("\r\n"));
         var hint = document.getElementById("keep-hint");

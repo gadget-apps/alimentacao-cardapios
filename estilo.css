@@ -455,3 +455,44 @@ a:hover {
 .shop-progress {
   margin: 0 0 0.55rem;
 }
+
+.shop-item {
+  justify-content: flex-start;
+}
+
+.shop-item span[data-item-name],
+.shop-item > span:first-of-type {
+  flex: 1;
+  min-width: 0;
+}
+
+.shop-price {
+  margin-left: auto;
+  flex: 0 0 auto;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--muted);
+  white-space: nowrap;
+  padding-left: 0.75rem;
+}
+
+.shop-price-ok {
+  color: var(--accent);
+}
+
+.shop-price-ref {
+  font-weight: 600;
+  font-size: 0.8rem;
+  max-width: 9rem;
+  white-space: normal;
+  text-align: right;
+}
+
+.shop-total {
+  margin: 0.75rem 0 0.5rem;
+  padding: 0.75rem 0.9rem;
+  background: var(--accent-soft);
+  border-radius: 12px;
+  color: var(--ink);
+  font-size: 1rem;
+}

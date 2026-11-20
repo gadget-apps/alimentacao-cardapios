@@ -1,5 +1,5 @@
-# 8 semanas · economia de proteína (aprovado):
-# - porco 1–2 marmitas/semana (cubos refogados/shoyu — sem moída)
+﻿# 8 semanas · economia de proteína (aprovado):
+# - porco 1-2 marmitas/semana (cubos refogados/shoyu - sem moída)
 # - frango 1 almoço/semana
 # - ovo 1 almoço/semana
 # - clássica/almôndegas = acém/músculo moído; patinho só recheado
@@ -57,7 +57,7 @@ function Write-Week($w) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Semana $n — $($w.title)</title>
+  <title>Semana $n - $($w.title)</title>
   <link rel="stylesheet" href="estilo.css?v=13" />
 </head>
 <body class="semana-$n">
@@ -75,7 +75,7 @@ $(Chips $w.chips)
     <section class="card">
       <div class="passo"><div class="passo-num">1</div><div class="passo-body">
         <h3>Compras da semana</h3>
-        <p>Proteína econômica: porco 1–2× · frango 1 almoço · ovo 1 almoço · acém moído na clássica/almôndegas · patinho só no recheado.</p>
+        <p>Proteína econômica: porco 1-2× · frango 1 almoço · ovo 1 almoço · acém moído na clássica/almôndegas · patinho só no recheado.</p>
       </div></div>
       <div id="lista-compras" data-semana="$n">
         <ul class="shop-check">
@@ -90,8 +90,8 @@ $(Shop $w.shop)
 
     <section class="card">
       <div class="passo"><div class="passo-num">2</div><div class="passo-body">
-        <h3>Domingo — cozinhe tudo (~$($w.prepTime))</h3>
-        <p>Monte cada pote 300–500 g no total (proteína ~150 g + guarnição + 2 cs arroz quando couber).</p>
+        <h3>Domingo - cozinhe tudo (~$($w.prepTime))</h3>
+        <p>Monte cada pote 300-500 g no total (proteína ~150 g + guarnição + 2 cs arroz quando couber).</p>
       </div></div>
       <article class="recipe">$($w.prepA)</article>
       <article class="recipe">$($w.prepB)</article>
@@ -111,13 +111,13 @@ $(Pots $w.pots)
 
     <section class="card">
       <div class="passo"><div class="passo-num">3</div><div class="passo-body">
-        <h3>Durante a semana — só esquentar</h3>
-        <p>Almoço: pote 300–500 g. Jantar Ter–Qui: 300–400 g sem arroz/feijão.</p>
+        <h3>Durante a semana - só esquentar</h3>
+        <p>Almoço: pote 300-500 g. Jantar Ter-Qui: 300-400 g sem arroz/feijão.</p>
       </div></div>
 $daysHtml
     </section>
   </main>
-  <script src="precos-store.js?v=3"></script>
+  <script src="precos-store.js?v=4"></script>
   <script src="keep-lista.js?v=7"></script>
   <script src="tema.js?v=1"></script>
   <script src="nav-drawer.js?v=1"></script>
@@ -140,16 +140,16 @@ $weeks = @(
     chips=@("Panela","Porco","Frango almoço","Ovo almoço"); prepTime="1h50"
     potNote="Receitas: <a href=`"receitas.html#s1`">semana 1</a>."
     shop=@(
-      "Acém/músculo (panela) — 400 g",
-      "Patinho moído — 320 g (só 2 recheados × ~160 g)",
-      "Pernil ou lombo (porco) em cubos — 180 g (refogado)",
-      "Peito de frango — 380 g (1 almoço + 1 jantar)",
-      "Ovos — 8 un (1 almoço omelete 4 + 1 jantar omelete 4)",
-      "Quiabo — 200 g",
-      "Pimentão — 1 · Abobrinha — 2",
-      "Brócolis — 400 g · Vagem — 200 g · Tomate/pepino",
-      "Mussarela — 60 g · Tomate p/ molho · Shoyu",
-      "Arroz integral — 300 g · Feijão — 250 g",
+      "Acém/músculo (panela) - 400 g",
+      "Patinho moído - 320 g (só 2 recheados × ~160 g)",
+      "Pernil ou lombo (porco) em cubos - 180 g (refogado)",
+      "Peito de frango - 380 g (1 almoço + 1 jantar)",
+      "Ovos - 8 un (1 almoço omelete 4 + 1 jantar omelete 4)",
+      "Quiabo - 200 g",
+      "Pimentão - 1 · Abobrinha - 2",
+      "Brócolis - 400 g · Vagem - 200 g · Tomate/pepino",
+      "Mussarela - 60 g · Tomate p/ molho · Shoyu",
+      "Arroz integral - 300 g · Feijão - 250 g",
       "Cebola · alho · temperos · azeite · limão"
     )
     prepA=$arroz
@@ -174,17 +174,17 @@ $weeks = @(
       @("Qui almoço","Abobrinha recheada (patinho)","2 cs arroz"),
       @("Qui jantar","Panela + brócolis","nada"),
       @("Sex almoço","Frango + brócolis","2 cs arroz"),
-      @("Sáb almoço","Omelete + abobrinha","2 cs — sem feijão"),
+      @("Sáb almoço","Omelete + abobrinha","2 cs - sem feijão"),
       @("Dom almoço","Panela + legume","2 cs arroz + 2 cs feijão")
     )
     days=@(
-      @{label="Segunda — almoço"; body="<strong>Panela + quiabo</strong>`n        <span class=`"dia-qtd`">pote 300–500 g</span>"},
-      @{label="Terça — almoço + jantar"; body="<strong>Almoço: pimentão recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango + brócolis</strong>"},
-      @{label="Quarta — almoço + jantar"; body="<strong>Almoço: porco em cubos refogado + vagem</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
-      @{label="Quinta — almoço + jantar"; body="<strong>Almoço: abobrinha recheada</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela + brócolis</strong>"},
-      @{label="Sexta — almoço"; body="<strong>Frango + brócolis</strong>`n        <span class=`"dia-qtd`">almoço econômico</span>"},
-      @{label="Sábado — almoço"; body="<strong>Omelete + abobrinha</strong>`n        <span class=`"dia-qtd`">almoço econômico</span>"},
-      @{label="Domingo — almoço"; body="<strong>Panela + legume</strong>`n        <ul><li>Prep da <a href=`"SEMANA_NEXT`">próxima semana</a></li></ul>"}
+      @{label="Segunda - almoço"; body="<strong>Panela + quiabo</strong>`n        <span class=`"dia-qtd`">pote 300-500 g</span>"},
+      @{label="Terça - almoço + jantar"; body="<strong>Almoço: pimentão recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango + brócolis</strong>"},
+      @{label="Quarta - almoço + jantar"; body="<strong>Almoço: porco em cubos refogado + vagem</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
+      @{label="Quinta - almoço + jantar"; body="<strong>Almoço: abobrinha recheada</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela + brócolis</strong>"},
+      @{label="Sexta - almoço"; body="<strong>Frango + brócolis</strong>`n        <span class=`"dia-qtd`">almoço econômico</span>"},
+      @{label="Sábado - almoço"; body="<strong>Omelete + abobrinha</strong>`n        <span class=`"dia-qtd`">almoço econômico</span>"},
+      @{label="Domingo - almoço"; body="<strong>Panela + legume</strong>`n        <ul><li>Prep da <a href=`"SEMANA_NEXT`">próxima semana</a></li></ul>"}
     )
   },
 
@@ -193,15 +193,15 @@ $weeks = @(
     chips=@("Recheados","Porco shoyu","Acém almôndegas","Frango/ovo almoço"); prepTime="1h45"
     potNote="<a href=`"receitas.html#s2`">Receitas semana 2</a>."
     shop=@(
-      "Patinho moído — 480 g (3 recheados × ~160 g)",
-      "Acém/músculo moído — 360 g (almôndegas × 2)",
-      "Pernil ou lombo (porco) em cubos — 180 g (shoyu)",
-      "Peito de frango — 200 g (1 almoço)",
-      "Ovos — 1 dúzia (omelete almoço 4 + jantar 4 + liga almôndegas)",
-      "Berinjela — 1 · Tomate firme — 3 · Chuchu — 1",
-      "Brócolis — 400 g · Vagem — 400 g · Couve — 1 maço · Abobrinha — 1",
-      "Mussarela — 90 g · Molho · Shoyu · Aveia",
-      "Arroz — 300 g · Feijão — 300 g · Cebola · alho · temperos"
+      "Patinho moído - 480 g (3 recheados × ~160 g)",
+      "Acém/músculo moído - 360 g (almôndegas × 2)",
+      "Pernil ou lombo (porco) em cubos - 180 g (shoyu)",
+      "Peito de frango - 200 g (1 almoço)",
+      "Ovos - 1 dúzia (omelete almoço 4 + jantar 4 + liga almôndegas)",
+      "Berinjela - 1 · Tomate firme - 3 · Chuchu - 1",
+      "Brócolis - 400 g · Vagem - 400 g · Couve - 1 maço · Abobrinha - 1",
+      "Mussarela - 90 g · Molho · Shoyu · Aveia",
+      "Arroz - 300 g · Feijão - 300 g · Cebola · alho · temperos"
     )
     prepA=$arroz
     prepB=@"
@@ -229,13 +229,13 @@ $weeks = @(
       @("Dom almoço","Almôndegas + brócolis","2 cs arroz + 2 cs feijão")
     )
     days=@(
-      @{label="Segunda — almoço"; body="<strong>Berinjela recheada</strong>"},
-      @{label="Terça — almoço + jantar"; body="<strong>Almoço: tomate recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
-      @{label="Quarta — almoço + jantar"; body="<strong>Almoço: chuchu recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: almôndegas (acém)</strong>"},
-      @{label="Quinta — almoço + jantar"; body="<strong>Almoço: porco em cubos shoyu + vagem</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: almôndegas + couve</strong>"},
-      @{label="Sexta — almoço"; body="<strong>Frango + brócolis</strong>"},
-      @{label="Sábado — almoço"; body="<strong>Omelete + vagem</strong>"},
-      @{label="Domingo — almoço"; body="<strong>Almôndegas + brócolis</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima semana</a></li></ul>"}
+      @{label="Segunda - almoço"; body="<strong>Berinjela recheada</strong>"},
+      @{label="Terça - almoço + jantar"; body="<strong>Almoço: tomate recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
+      @{label="Quarta - almoço + jantar"; body="<strong>Almoço: chuchu recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: almôndegas (acém)</strong>"},
+      @{label="Quinta - almoço + jantar"; body="<strong>Almoço: porco em cubos shoyu + vagem</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: almôndegas + couve</strong>"},
+      @{label="Sexta - almoço"; body="<strong>Frango + brócolis</strong>"},
+      @{label="Sábado - almoço"; body="<strong>Omelete + vagem</strong>"},
+      @{label="Domingo - almoço"; body="<strong>Almôndegas + brócolis</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima semana</a></li></ul>"}
     )
   },
 
@@ -244,16 +244,16 @@ $weeks = @(
     chips=@("Panela","Porco","Frango almoço","Ovo almoço"); prepTime="1h50"
     potNote="<a href=`"receitas.html#s3`">Receitas semana 3</a>."
     shop=@(
-      "Acém/músculo (panela) — 400 g",
-      "Patinho — 320 g (2 recheados)",
-      "Pernil ou lombo (porco) em cubos — 360 g (quiabo + shoyu)",
-      "Acém moído — 180 g (clássica)",
-      "Peito de frango — 200 g",
-      "Ovos — 8 un",
-      "Abóbora — 1 fatia · Pimentão — 1 · Quiabo — 200 g · Berinjela — 1",
-      "Brócolis — 200 g · Vagem — 200 g · Couve — 1 maço",
-      "Mussarela — 60 g · Molho · Shoyu",
-      "Arroz — 300 g · Feijão — 250 g · Temperos"
+      "Acém/músculo (panela) - 400 g",
+      "Patinho - 320 g (2 recheados)",
+      "Pernil ou lombo (porco) em cubos - 360 g (quiabo + shoyu)",
+      "Acém moído - 180 g (clássica)",
+      "Peito de frango - 200 g",
+      "Ovos - 8 un",
+      "Abóbora - 1 fatia · Pimentão - 1 · Quiabo - 200 g · Berinjela - 1",
+      "Brócolis - 200 g · Vagem - 200 g · Couve - 1 maço",
+      "Mussarela - 60 g · Molho · Shoyu",
+      "Arroz - 300 g · Feijão - 250 g · Temperos"
     )
     prepA=$arroz
     prepB=@"
@@ -269,7 +269,7 @@ $weeks = @(
         <ol><li>1 almoço frango · 1 almoço omelete · jantares.</li></ol>
 "@
     pots=@(
-      @("Seg almoço","Abóbora recheada","1–2 cs arroz"),
+      @("Seg almoço","Abóbora recheada","1-2 cs arroz"),
       @("Ter almoço","Pimentão recheado","2 cs arroz"),
       @("Ter jantar","Panela + vagem","nada"),
       @("Qua almoço","Porco + quiabo","2 cs arroz + 2 cs feijão"),
@@ -281,13 +281,13 @@ $weeks = @(
       @("Dom almoço","Clássica de acém + couve","2 cs arroz + 2 cs feijão")
     )
     days=@(
-      @{label="Segunda — almoço"; body="<strong>Abóbora recheada</strong>"},
-      @{label="Terça — almoço + jantar"; body="<strong>Almoço: pimentão recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela + vagem</strong>"},
-      @{label="Quarta — almoço + jantar"; body="<strong>Almoço: porco + quiabo</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
-      @{label="Quinta — almoço + jantar"; body="<strong>Almoço: berinjela ao molho</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela</strong>"},
-      @{label="Sexta — almoço"; body="<strong>Frango + brócolis</strong>"},
-      @{label="Sábado — almoço"; body="<strong>Omelete + couve</strong>"},
-      @{label="Domingo — almoço"; body="<strong>Clássica de acém + couve</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
+      @{label="Segunda - almoço"; body="<strong>Abóbora recheada</strong>"},
+      @{label="Terça - almoço + jantar"; body="<strong>Almoço: pimentão recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela + vagem</strong>"},
+      @{label="Quarta - almoço + jantar"; body="<strong>Almoço: porco + quiabo</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
+      @{label="Quinta - almoço + jantar"; body="<strong>Almoço: berinjela ao molho</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela</strong>"},
+      @{label="Sexta - almoço"; body="<strong>Frango + brócolis</strong>"},
+      @{label="Sábado - almoço"; body="<strong>Omelete + couve</strong>"},
+      @{label="Domingo - almoço"; body="<strong>Clássica de acém + couve</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
     )
   },
 
@@ -296,14 +296,14 @@ $weeks = @(
     chips=@("Acém","Porco","Frango almoço","Ovo almoço"); prepTime="1h30"
     potNote="Semana sem recheado de patinho. <a href=`"receitas.html#s4`">Receitas</a>."
     shop=@(
-      "Acém/músculo moído — 720 g (clássica + almôndegas×2 + 1 refogado)",
-      "Pernil ou lombo (porco) em cubos — 540 g (shoyu + pimentão + chuchu)",
-      "Peito de frango — 200 g",
-      "Ovos — 1 dúzia",
-      "Pimentão — 2 · Abobrinha — 1 · Chuchu — 1",
-      "Brócolis — 400 g · Vagem — 400 g · Couve — 1 maço",
+      "Acém/músculo moído - 720 g (clássica + almôndegas×2 + 1 refogado)",
+      "Pernil ou lombo (porco) em cubos - 540 g (shoyu + pimentão + chuchu)",
+      "Peito de frango - 200 g",
+      "Ovos - 1 dúzia",
+      "Pimentão - 2 · Abobrinha - 1 · Chuchu - 1",
+      "Brócolis - 400 g · Vagem - 400 g · Couve - 1 maço",
       "Shoyu · Temperos · Aveia",
-      "Arroz — 300 g · Feijão — 350 g"
+      "Arroz - 300 g · Feijão - 350 g"
     )
     prepA=$arroz
     prepB=@"
@@ -331,13 +331,13 @@ $weeks = @(
       @("Dom almoço","Almôndegas (acém) + couve","2 cs arroz + 2 cs feijão")
     )
     days=@(
-      @{label="Segunda — almoço"; body="<strong>Clássica (acém) + brócolis</strong>"},
-      @{label="Terça — almoço + jantar"; body="<strong>Almoço: porco em cubos shoyu</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
-      @{label="Quarta — almoço + jantar"; body="<strong>Almoço: almôndegas (acém)</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: porco + abobrinha</strong>"},
-      @{label="Quinta — almoço + jantar"; body="<strong>Almoço: porco + pimentão</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango</strong>"},
-      @{label="Sexta — almoço"; body="<strong>Frango + brócolis</strong>"},
-      @{label="Sábado — almoço"; body="<strong>Omelete + chuchu</strong>"},
-      @{label="Domingo — almoço"; body="<strong>Almôndegas (acém) + couve</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
+      @{label="Segunda - almoço"; body="<strong>Clássica (acém) + brócolis</strong>"},
+      @{label="Terça - almoço + jantar"; body="<strong>Almoço: porco em cubos shoyu</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
+      @{label="Quarta - almoço + jantar"; body="<strong>Almoço: almôndegas (acém)</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: porco + abobrinha</strong>"},
+      @{label="Quinta - almoço + jantar"; body="<strong>Almoço: porco + pimentão</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango</strong>"},
+      @{label="Sexta - almoço"; body="<strong>Frango + brócolis</strong>"},
+      @{label="Sábado - almoço"; body="<strong>Omelete + chuchu</strong>"},
+      @{label="Domingo - almoço"; body="<strong>Almôndegas (acém) + couve</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
     )
   },
 
@@ -346,17 +346,17 @@ $weeks = @(
     chips=@("Recheados","Porco","Frango almoço","Ovo almoço"); prepTime="1h50"
     potNote="<a href=`"receitas.html#s5`">Receitas semana 5</a>."
     shop=@(
-      "Acém/músculo (panela) — 200 g",
-      "Patinho — 640 g (4 recheados × 160 g)",
-      "Pernil ou lombo (porco) em cubos — 180 g (shoyu)",
-      "Acém moído — 180 g (clássica)",
-      "Peito de frango — 200 g",
-      "Ovos — 8 un",
-      "Quiabo — 200 g",
-      "Abobrinha — 2 · Pimentão — 1 · Berinjela — 1 · Tomate firme — 2",
-      "Brócolis — 200 g · Vagem — 400 g · Pepino",
-      "Mussarela — 120 g · Molho · Shoyu",
-      "Arroz — 300 g · Feijão — 250 g"
+      "Acém/músculo (panela) - 200 g",
+      "Patinho - 640 g (4 recheados × 160 g)",
+      "Pernil ou lombo (porco) em cubos - 180 g (shoyu)",
+      "Acém moído - 180 g (clássica)",
+      "Peito de frango - 200 g",
+      "Ovos - 8 un",
+      "Quiabo - 200 g",
+      "Abobrinha - 2 · Pimentão - 1 · Berinjela - 1 · Tomate firme - 2",
+      "Brócolis - 200 g · Vagem - 400 g · Pepino",
+      "Mussarela - 120 g · Molho · Shoyu",
+      "Arroz - 300 g · Feijão - 250 g"
     )
     prepA=$arroz
     prepB=@"
@@ -384,13 +384,13 @@ $weeks = @(
       @("Dom almoço","Panela + quiabo","2 cs arroz")
     )
     days=@(
-      @{label="Segunda — almoço"; body="<strong>Abobrinha recheada</strong>"},
-      @{label="Terça — almoço + jantar"; body="<strong>Almoço: pimentão</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
-      @{label="Quarta — almoço + jantar"; body="<strong>Almoço: berinjela</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: porco em cubos shoyu</strong>"},
-      @{label="Quinta — almoço + jantar"; body="<strong>Almoço: tomate recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango</strong>"},
-      @{label="Sexta — almoço"; body="<strong>Frango + vagem</strong>"},
-      @{label="Sábado — almoço"; body="<strong>Omelete + abobrinha</strong>"},
-      @{label="Domingo — almoço"; body="<strong>Panela + quiabo</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
+      @{label="Segunda - almoço"; body="<strong>Abobrinha recheada</strong>"},
+      @{label="Terça - almoço + jantar"; body="<strong>Almoço: pimentão</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
+      @{label="Quarta - almoço + jantar"; body="<strong>Almoço: berinjela</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: porco em cubos shoyu</strong>"},
+      @{label="Quinta - almoço + jantar"; body="<strong>Almoço: tomate recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango</strong>"},
+      @{label="Sexta - almoço"; body="<strong>Frango + vagem</strong>"},
+      @{label="Sábado - almoço"; body="<strong>Omelete + abobrinha</strong>"},
+      @{label="Domingo - almoço"; body="<strong>Panela + quiabo</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
     )
   },
 
@@ -399,16 +399,16 @@ $weeks = @(
     chips=@("Recheados","Acém","Porco","Frango/ovo almoço"); prepTime="1h45"
     potNote="<a href=`"receitas.html#s6`">Receitas semana 6</a>."
     shop=@(
-      "Acém/músculo (panela jantar) — 200 g",
-      "Patinho — 320 g (2 recheados)",
-      "Acém moído — 360 g (almôndegas × 2)",
-      "Pernil ou lombo (porco) em cubos — 360 g (shoyu + pimentão)",
-      "Peito de frango — 200 g",
-      "Ovos — 1 dúzia",
-      "Abóbora — 1 fatia · Chuchu — 1 · Pimentão — 1",
-      "Brócolis — 400 g · Vagem — 400 g · Couve — 1 maço",
-      "Mussarela — 60 g · Molho · Shoyu · Aveia",
-      "Arroz — 300 g · Feijão — 300 g"
+      "Acém/músculo (panela jantar) - 200 g",
+      "Patinho - 320 g (2 recheados)",
+      "Acém moído - 360 g (almôndegas × 2)",
+      "Pernil ou lombo (porco) em cubos - 360 g (shoyu + pimentão)",
+      "Peito de frango - 200 g",
+      "Ovos - 1 dúzia",
+      "Abóbora - 1 fatia · Chuchu - 1 · Pimentão - 1",
+      "Brócolis - 400 g · Vagem - 400 g · Couve - 1 maço",
+      "Mussarela - 60 g · Molho · Shoyu · Aveia",
+      "Arroz - 300 g · Feijão - 300 g"
     )
     prepA=$arroz
     prepB=@"
@@ -424,7 +424,7 @@ $weeks = @(
         <ol><li>Almoços econômicos.</li></ol>
 "@
     pots=@(
-      @("Seg almoço","Abóbora recheada","1–2 cs arroz"),
+      @("Seg almoço","Abóbora recheada","1-2 cs arroz"),
       @("Ter almoço","Chuchu recheado","2 cs arroz"),
       @("Ter jantar","Omelete + couve","nada"),
       @("Qua almoço","Almôndegas (acém) + brócolis","2 cs arroz + 2 cs feijão"),
@@ -436,13 +436,13 @@ $weeks = @(
       @("Dom almoço","Almôndegas (acém) + legume","2 cs arroz + 2 cs feijão")
     )
     days=@(
-      @{label="Segunda — almoço"; body="<strong>Abóbora recheada</strong>"},
-      @{label="Terça — almoço + jantar"; body="<strong>Almoço: chuchu</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
-      @{label="Quarta — almoço + jantar"; body="<strong>Almoço: almôndegas (acém)</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: porco em cubos shoyu</strong>"},
-      @{label="Quinta — almoço + jantar"; body="<strong>Almoço: porco em cubos refogado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela</strong>"},
-      @{label="Sexta — almoço"; body="<strong>Frango + vagem</strong>"},
-      @{label="Sábado — almoço"; body="<strong>Omelete + brócolis</strong>"},
-      @{label="Domingo — almoço"; body="<strong>Almôndegas (acém)</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
+      @{label="Segunda - almoço"; body="<strong>Abóbora recheada</strong>"},
+      @{label="Terça - almoço + jantar"; body="<strong>Almoço: chuchu</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
+      @{label="Quarta - almoço + jantar"; body="<strong>Almoço: almôndegas (acém)</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: porco em cubos shoyu</strong>"},
+      @{label="Quinta - almoço + jantar"; body="<strong>Almoço: porco em cubos refogado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela</strong>"},
+      @{label="Sexta - almoço"; body="<strong>Frango + vagem</strong>"},
+      @{label="Sábado - almoço"; body="<strong>Omelete + brócolis</strong>"},
+      @{label="Domingo - almoço"; body="<strong>Almôndegas (acém)</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
     )
   },
 
@@ -451,16 +451,16 @@ $weeks = @(
     chips=@("Panela","Porco","Acém","Frango/ovo almoço"); prepTime="1h50"
     potNote="<a href=`"receitas.html#s7`">Receitas semana 7</a>."
     shop=@(
-      "Acém/músculo (panela) — 200 g",
-      "Patinho — 480 g (3 recheados)",
-      "Pernil ou lombo (porco) em cubos — 180 g (shoyu)",
-      "Acém moído — 360 g (almôndegas + clássica)",
-      "Peito de frango — 200 g",
-      "Ovos — 8 un",
-      "Quiabo — 200 g · Pimentão — 1 · Berinjela — 1 · Tomate firme — 2 · Abobrinha — 1",
-      "Brócolis — 400 g · Vagem — 400 g",
-      "Mussarela — 90 g · Molho · Shoyu · Aveia",
-      "Arroz — 300 g · Feijão — 250 g"
+      "Acém/músculo (panela) - 200 g",
+      "Patinho - 480 g (3 recheados)",
+      "Pernil ou lombo (porco) em cubos - 180 g (shoyu)",
+      "Acém moído - 360 g (almôndegas + clássica)",
+      "Peito de frango - 200 g",
+      "Ovos - 8 un",
+      "Quiabo - 200 g · Pimentão - 1 · Berinjela - 1 · Tomate firme - 2 · Abobrinha - 1",
+      "Brócolis - 400 g · Vagem - 400 g",
+      "Mussarela - 90 g · Molho · Shoyu · Aveia",
+      "Arroz - 300 g · Feijão - 250 g"
     )
     prepA=$arroz
     prepB=@"
@@ -488,13 +488,13 @@ $weeks = @(
       @("Dom almoço","Almôndegas (acém) + vagem","2 cs arroz + 2 cs feijão")
     )
     days=@(
-      @{label="Segunda — almoço"; body="<strong>Panela + quiabo</strong>"},
-      @{label="Terça — almoço + jantar"; body="<strong>Almoço: pimentão</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
-      @{label="Quarta — almoço + jantar"; body="<strong>Almoço: berinjela</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: porco em cubos shoyu</strong>"},
-      @{label="Quinta — almoço + jantar"; body="<strong>Almoço: tomate recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango</strong>"},
-      @{label="Sexta — almoço"; body="<strong>Frango + vagem</strong>"},
-      @{label="Sábado — almoço"; body="<strong>Omelete + brócolis</strong>"},
-      @{label="Domingo — almoço"; body="<strong>Almôndegas (acém)</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
+      @{label="Segunda - almoço"; body="<strong>Panela + quiabo</strong>"},
+      @{label="Terça - almoço + jantar"; body="<strong>Almoço: pimentão</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
+      @{label="Quarta - almoço + jantar"; body="<strong>Almoço: berinjela</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: porco em cubos shoyu</strong>"},
+      @{label="Quinta - almoço + jantar"; body="<strong>Almoço: tomate recheado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango</strong>"},
+      @{label="Sexta - almoço"; body="<strong>Frango + vagem</strong>"},
+      @{label="Sábado - almoço"; body="<strong>Omelete + brócolis</strong>"},
+      @{label="Domingo - almoço"; body="<strong>Almôndegas (acém)</strong>`n        <ul><li><a href=`"SEMANA_NEXT`">Próxima</a></li></ul>"}
     )
   },
 
@@ -503,15 +503,15 @@ $weeks = @(
     chips=@("Panela","Porco","Frango almoço","Ovo almoço"); prepTime="1h50"
     potNote="<a href=`"receitas.html#s8`">Receitas semana 8</a>."
     shop=@(
-      "Acém/músculo (panela) — 400 g",
-      "Patinho — 320 g (2 recheados)",
-      "Pernil ou lombo (porco) em cubos — 180 g (refogado)",
-      "Peito de frango — 380 g (1 almoço + 1 jantar)",
-      "Ovos — 8 un",
-      "Quiabo — 200 g · Pimentão — 1 · Abobrinha — 2",
-      "Brócolis — 400 g · Vagem — 200 g",
-      "Mussarela — 60 g · Molho · Shoyu",
-      "Arroz — 300 g · Feijão — 250 g · Temperos"
+      "Acém/músculo (panela) - 400 g",
+      "Patinho - 320 g (2 recheados)",
+      "Pernil ou lombo (porco) em cubos - 180 g (refogado)",
+      "Peito de frango - 380 g (1 almoço + 1 jantar)",
+      "Ovos - 8 un",
+      "Quiabo - 200 g · Pimentão - 1 · Abobrinha - 2",
+      "Brócolis - 400 g · Vagem - 200 g",
+      "Mussarela - 60 g · Molho · Shoyu",
+      "Arroz - 300 g · Feijão - 250 g · Temperos"
     )
     prepA=$arroz
     prepB=@"
@@ -539,13 +539,13 @@ $weeks = @(
       @("Dom almoço","Panela + quiabo","2 cs arroz")
     )
     days=@(
-      @{label="Segunda — almoço"; body="<strong>Panela + quiabo</strong>"},
-      @{label="Terça — almoço + jantar"; body="<strong>Almoço: pimentão</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango</strong>"},
-      @{label="Quarta — almoço + jantar"; body="<strong>Almoço: porco em cubos refogado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
-      @{label="Quinta — almoço + jantar"; body="<strong>Almoço: abobrinha recheada</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela</strong>"},
-      @{label="Sexta — almoço"; body="<strong>Frango + brócolis</strong>"},
-      @{label="Sábado — almoço"; body="<strong>Omelete + abobrinha</strong>"},
-      @{label="Domingo — almoço"; body="<strong>Panela + quiabo</strong>`n        <ul><li>Ciclo: <a href=`"SEMANA_NEXT`">Semana 1</a></li></ul>"}
+      @{label="Segunda - almoço"; body="<strong>Panela + quiabo</strong>"},
+      @{label="Terça - almoço + jantar"; body="<strong>Almoço: pimentão</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: frango</strong>"},
+      @{label="Quarta - almoço + jantar"; body="<strong>Almoço: porco em cubos refogado</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: omelete</strong>"},
+      @{label="Quinta - almoço + jantar"; body="<strong>Almoço: abobrinha recheada</strong><strong style=`"margin-top:0.6rem;display:block`">Jantar: panela</strong>"},
+      @{label="Sexta - almoço"; body="<strong>Frango + brócolis</strong>"},
+      @{label="Sábado - almoço"; body="<strong>Omelete + abobrinha</strong>"},
+      @{label="Domingo - almoço"; body="<strong>Panela + quiabo</strong>`n        <ul><li>Ciclo: <a href=`"SEMANA_NEXT`">Semana 1</a></li></ul>"}
     )
   }
 )

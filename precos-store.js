@@ -44,7 +44,7 @@
   var ALIASES = {
     patinho: ["patinho", "patinho moido"],
     acem: ["acem", "acém", "musculo", "músculo", "paleta", "carne de panela", "panela", "acem moido", "acém moído"],
-    porco: ["porco", "pernil", "lombo", "lombo suino", "lombo suíno"],
+    porco: ["porco", "pernil", "lombo", "lombo suino", "lombo suíno", "porco em cubos", "pernil ou lombo"],
     frango: ["frango", "peito de frango", "peito"],
     ovo: ["ovo", "ovos", "duzia", "dúzia"],
     quiabo: ["quiabo"],

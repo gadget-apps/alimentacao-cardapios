@@ -34,7 +34,8 @@
     colorau: 1,
     paprica: 1,
     louro: 1,
-    pimenta: 1
+    pimenta: 1,
+    alho: 1
   };
 
   var DEFAULTS_AQA = {
@@ -70,6 +71,7 @@
     { name: "Arroz integral", qty: "1 kg", estimate: 8.0, note: "lote semanal ~300 g" },
     { name: "Feijão", qty: "1 kg", estimate: 9.0, note: "lote semanal ~250–350 g" },
     { name: "Azeite", qty: "500 ml", estimate: 28.0, note: "todas as receitas" },
+    { name: "Alho industrializado", qty: "1 pote", estimate: 9.0, note: "substitui alho fresco · todas as receitas" },
     { name: "Sal", qty: "1 kg", estimate: 3.0, note: "despensa" },
     { name: "Colorau", qty: "1 pote", estimate: 4.0, note: "panela, moída, porco" },
     { name: "Cominho", qty: "1 pote", estimate: 5.0, note: "panela, moída, recheados" },
@@ -102,7 +104,7 @@
     arroz: ["arroz", "arroz integral"],
     feijao: ["feijao", "feijão"],
     cebola: ["cebola"],
-    alho: ["alho"],
+    alho: ["alho", "alho industrializado", "alho paste", "alho em pasta", "alho triturado"],
     azeite: ["azeite"],
     limao: ["limao", "limão"],
     shoyu: ["shoyu", "molho shoyu", "agridoce"],
@@ -128,15 +130,18 @@
     var f = fold(label);
     // Linha só de despensa (ex. "Arroz · Feijão · Temperos").
     // Pantry-only shopping line (e.g. rice · beans · seasonings).
-    if (/arroz|feijao|tempero|azeite|shoyu|aveia|\bsal\b|colorau|cominho|paprica|oregano|louro|pimenta/.test(f)) {
+    if (/arroz|feijao|tempero|azeite|shoyu|aveia|\bsal\b|colorau|cominho|paprica|oregano|louro|pimenta|alho industrializado|alho em pasta|alho triturado/.test(f)) {
       if (
-        !/patinho|acem|musculo|porco|pernil|lombo|frango|ovo|quiabo|brocolis|vagem|couve|abobrinha|berinjela|pimentao|chuchu|tomate|pepino|abobora|mussarela|queijo|cebola|alho|limao|molho|cheiro/.test(
+        !/patinho|acem|musculo|porco|pernil|lombo|frango|ovo|quiabo|brocolis|vagem|couve|abobrinha|berinjela|pimentao|chuchu|tomate|pepino|abobora|mussarela|queijo|cebola|limao|molho|cheiro/.test(
           f
         )
       ) {
         return true;
       }
     }
+    // Linha só de alho (despensa industrializado).
+    // Garlic-only line (industrial pantry).
+    if (/^alho\b/.test(f) && !/patinho|porco|frango|cebola/.test(f)) return true;
     return false;
   }
 

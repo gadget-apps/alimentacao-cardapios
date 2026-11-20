@@ -19,8 +19,8 @@ function Test-SkipShopItem([string]$t) {
   # Weekly list excludes dry pantry only. Fresh ingredients stay on the week.
   $f = $t.ToLowerInvariant()
   if ($f -match '^(arroz|feij)') { return $true }
-  if ($f -match '^(temperos?|shoyu|aveia|azeite|\bsal\b|colorau|cominho|p[aá]prica|or[eé]gano|louro|pimenta)(\s|$|·)') { return $true }
-  if ($f -match '^(temperos?|shoyu|aveia|azeite)\s*$') { return $true }
+  if ($f -match '^(temperos?|shoyu|aveia|azeite|\bsal\b|colorau|cominho|p[aá]prica|or[eé]gano|louro|pimenta|alho)(\s|$|·)') { return $true }
+  if ($f -match '^(temperos?|shoyu|aveia|azeite|alho)\s*$') { return $true }
   return $false
 }
 
@@ -180,7 +180,6 @@ $weeks = @(
       "Mussarela - 60 g",
       "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça",
       "Limão - 2 un",
       "Cheiro-verde - 1 maço"
     )
@@ -240,7 +239,6 @@ $weeks = @(
       "Mussarela - 90 g",
       "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça",
       "Limão - 2 un",
       "Cheiro-verde - 1 maço"
     )
@@ -301,7 +299,6 @@ $weeks = @(
       "Mussarela - 60 g",
       "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça",
       "Limão - 2 un",
       "Cheiro-verde - 1 maço"
     )
@@ -357,7 +354,6 @@ $weeks = @(
       "Vagem - 400 g",
       "Couve - 1 maço",
       "Cebola - 1",
-      "Alho - 1 cabeça",
       "Limão - 2 un",
       "Cheiro-verde - 1 maço"
     )
@@ -419,7 +415,6 @@ $weeks = @(
       "Mussarela - 120 g",
       "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça",
       "Limão - 2 un",
       "Cheiro-verde - 1 maço"
     )
@@ -479,7 +474,6 @@ $weeks = @(
       "Mussarela - 60 g",
       "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça",
       "Limão - 2 un",
       "Cheiro-verde - 1 maço"
     )
@@ -540,7 +534,6 @@ $weeks = @(
       "Mussarela - 90 g",
       "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça",
       "Limão - 2 un",
       "Cheiro-verde - 1 maço"
     )
@@ -598,7 +591,6 @@ $weeks = @(
       "Mussarela - 60 g",
       "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça",
       "Limão - 2 un",
       "Cheiro-verde - 1 maço"
     )

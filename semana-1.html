@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Semana 1 — passo a passo</title>
-  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="estilo.css?v=4" />
 </head>
 <body>
   <main class="wrap">
@@ -36,37 +36,37 @@
         </div>
       </div>
       <div id="lista-compras" data-semana="1">
-        <ul class="checklist">
-        <li>Patinho moído — 1,8 kg</li>
-        <li>Ovos — 1 dúzia (jantares omelete + liga almôndegas)</li>
-        <li>Pimentão — 2</li>
-        <li>Abobrinha — 1 a 2</li>
-        <li>Berinjela — 1</li>
-        <li>Chuchu — 1</li>
-        <li>Brócolis — 400 g</li>
-        <li>Vagem — 300 g</li>
-        <li>Couve — 1 maço</li>
-        <li>Tomate</li>
-        <li>Pepino</li>
-        <li>Cebola — 3</li>
-        <li>Alho</li>
-        <li>Arroz integral — 500 g</li>
-        <li>Feijão — 500 g</li>
-        <li>Cominho</li>
-        <li>Páprica</li>
-        <li>Colorau</li>
-        <li>Orégano</li>
-        <li>Limão</li>
-        <li>Molho shoyu/agridoce pronto</li>
-        <li>Azeite</li>
-        <li>Sal</li>
+        <ul class="shop-check">
+          <li><label class="shop-item"><input type="checkbox" data-id="i0" /><span>Patinho moído — 1,8 kg</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i1" /><span>Ovos — 1 dúzia (jantares omelete + liga almôndegas)</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i2" /><span>Pimentão — 2</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i3" /><span>Abobrinha — 1 a 2</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i4" /><span>Berinjela — 1</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i5" /><span>Chuchu — 1</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i6" /><span>Brócolis — 400 g</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i7" /><span>Vagem — 300 g</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i8" /><span>Couve — 1 maço</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i9" /><span>Tomate</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i10" /><span>Pepino</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i11" /><span>Cebola — 3</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i12" /><span>Alho</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i13" /><span>Arroz integral — 500 g</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i14" /><span>Feijão — 500 g</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i15" /><span>Cominho</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i16" /><span>Páprica</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i17" /><span>Colorau</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i18" /><span>Orégano</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i19" /><span>Limão</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i20" /><span>Molho shoyu/agridoce pronto</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i21" /><span>Azeite</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i22" /><span>Sal</span></label></li>
         </ul>
         <div class="shop-actions">
           <button type="button" class="btn-keep" data-keep-download data-semana="1">Baixar lista (Google Keep)</button>
           <button type="button" class="btn-keep btn-keep-secondary" data-keep-reset data-semana="1">Limpar marcas</button>
         </div>
         <div id="keep-hint" class="keep-hint" hidden>
-          <strong>No Keep:</strong> abra o arquivo, copie tudo, cole numa nota nova e toque no ícone de checklist.
+          <strong>No Keep:</strong> copie o arquivo, cole numa nota e ative a checklist.
         </div>
       </div>
     </section>
@@ -247,6 +247,6 @@
       </article>
     </section>
   </main>
-  <script src="keep-lista.js"></script>
+  <script src="keep-lista.js?v=4"></script>
 </body>
 </html>

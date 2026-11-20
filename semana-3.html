@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Semana 3 — passo a passo</title>
-  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="estilo.css?v=4" />
 </head>
 <body>
   <main class="wrap">
@@ -35,30 +35,30 @@
         </div>
       </div>
       <div id="lista-compras" data-semana="3">
-        <ul class="checklist">
-        <li>Patinho moído — 1,7 a 1,8 kg</li>
-        <li>Frango — ~220 g (jantar quinta)</li>
-        <li>Ovos — 1 dúzia (jantares omelete + liga almôndegas)</li>
-        <li>Abobrinha — 3 a 4</li>
-        <li>Abóbora cabocha — 1 fatia grossa</li>
-        <li>Tomate — 2 a 3 + salada</li>
-        <li>Berinjela — 1</li>
-        <li>Chuchu — 1</li>
-        <li>Pimentão — 1</li>
-        <li>Brócolis — 400 g</li>
-        <li>Arroz integral — 500 g</li>
-        <li>Feijão — 500 g</li>
-        <li>Cebola</li>
-        <li>Alho</li>
-        <li>Molho pronto</li>
-        <li>Temperos (páprica, orégano, cominho, sal)</li>
+        <ul class="shop-check">
+          <li><label class="shop-item"><input type="checkbox" data-id="i0" /><span>Patinho moído — 1,7 a 1,8 kg</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i1" /><span>Frango — ~220 g (jantar quinta)</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i2" /><span>Ovos — 1 dúzia (jantares omelete + liga almôndegas)</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i3" /><span>Abobrinha — 3 a 4</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i4" /><span>Abóbora cabocha — 1 fatia grossa</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i5" /><span>Tomate — 2 a 3 + salada</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i6" /><span>Berinjela — 1</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i7" /><span>Chuchu — 1</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i8" /><span>Pimentão — 1</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i9" /><span>Brócolis — 400 g</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i10" /><span>Arroz integral — 500 g</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i11" /><span>Feijão — 500 g</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i12" /><span>Cebola</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i13" /><span>Alho</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i14" /><span>Molho pronto</span></label></li>
+          <li><label class="shop-item"><input type="checkbox" data-id="i15" /><span>Temperos (páprica, orégano, cominho, sal)</span></label></li>
         </ul>
         <div class="shop-actions">
           <button type="button" class="btn-keep" data-keep-download data-semana="3">Baixar lista (Google Keep)</button>
           <button type="button" class="btn-keep btn-keep-secondary" data-keep-reset data-semana="3">Limpar marcas</button>
         </div>
         <div id="keep-hint" class="keep-hint" hidden>
-          <strong>No Keep:</strong> abra o arquivo, copie tudo, cole numa nota nova e toque no ícone de checklist.
+          <strong>No Keep:</strong> copie o arquivo, cole numa nota e ative a checklist.
         </div>
       </div>
     </section>
@@ -341,6 +341,6 @@
     </section>
 
   </main>
-  <script src="keep-lista.js"></script>
+  <script src="keep-lista.js?v=4"></script>
 </body>
 </html>

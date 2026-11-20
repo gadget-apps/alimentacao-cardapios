@@ -27,27 +27,49 @@
     </section>
 
     <!-- PASSO 1 -->
-    <section class="card">
+        <section class="card">
       <div class="passo">
         <div class="passo-num">1</div>
         <div class="passo-body">
-          <h3>Compre isto (para a semana toda)</h3>
-          <p>Uma lista só. Leve no mercado.</p>
+          <h3>Compras da semana</h3>
+          <p>Um item por linha. Marque os itens aqui no celular enquanto compra — as marcas ficam salvas neste aparelho.</p>
         </div>
       </div>
-      <div id="lista-compras"><ul class="checklist">
-        <li><strong>Patinho moído</strong> — 1,8 kg</li>
-        <li><strong>Ovos</strong> — 2 dúzias</li>
-        <li><strong>Queijo</strong> — 400–500 g · <strong>Pãozinho</strong> — 7</li>
-        <li><strong>Para rechear:</strong> 2 pimentões · 1–2 abobrinhas · 1 berinjela · 1 chuchu</li>
-        <li><strong>Acompanhamento:</strong> 400 g brócolis · 300 g vagem · 1 maço de couve</li>
-        <li><strong>Salada / base:</strong> tomate · pepino · 3 cebolas · alho · arroz integral 500 g · feijão 500 g</li>
-        <li><strong>Temperos:</strong> cominho · páprica · colorau · orégano · limão · molho shoyu/agridoce pronto · azeite · sal</li>
-      </ul>
-    <button type="button" class="btn-keep" data-keep-download data-semana="1">Baixar lista (Google Keep)</button>
-      <div id="keep-hint" class="keep-hint" hidden>
-        <strong>No Keep:</strong> abra o arquivo, copie tudo, cole numa nota nova e toque no icone de checklist.
-      </div>
+      <div id="lista-compras" data-semana="1">
+        <ul class="checklist">
+        <li>Patinho moído — 1,8 kg</li>
+        <li>Ovos — 2 dúzias</li>
+        <li>Queijo — 400–500 g</li>
+        <li>Pãozinho — 7 unidades</li>
+        <li>Pimentão — 2</li>
+        <li>Abobrinha — 1 a 2</li>
+        <li>Berinjela — 1</li>
+        <li>Chuchu — 1</li>
+        <li>Brócolis — 400 g</li>
+        <li>Vagem — 300 g</li>
+        <li>Couve — 1 maço</li>
+        <li>Tomate</li>
+        <li>Pepino</li>
+        <li>Cebola — 3</li>
+        <li>Alho</li>
+        <li>Arroz integral — 500 g</li>
+        <li>Feijão — 500 g</li>
+        <li>Cominho</li>
+        <li>Páprica</li>
+        <li>Colorau</li>
+        <li>Orégano</li>
+        <li>Limão</li>
+        <li>Molho shoyu/agridoce pronto</li>
+        <li>Azeite</li>
+        <li>Sal</li>
+        </ul>
+        <div class="shop-actions">
+          <button type="button" class="btn-keep" data-keep-download data-semana="1">Baixar lista (Google Keep)</button>
+          <button type="button" class="btn-keep btn-keep-secondary" data-keep-reset data-semana="1">Limpar marcas</button>
+        </div>
+        <div id="keep-hint" class="keep-hint" hidden>
+          <strong>No Keep:</strong> abra o arquivo, copie tudo, cole numa nota nova e toque no ícone de checklist.
+        </div>
       </div>
     </section>
 

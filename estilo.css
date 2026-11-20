@@ -378,3 +378,63 @@ a:hover {
   margin: 0.4rem 0 0;
   padding-left: 1.2rem;
 }
+
+.shop-check {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.shop-check li {
+  margin: 0;
+}
+
+.shop-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.7rem 0.85rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 0.98rem;
+  line-height: 1.35;
+  user-select: none;
+}
+
+.shop-item input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.1rem;
+  flex: 0 0 auto;
+  accent-color: var(--accent);
+}
+
+.shop-check li.done .shop-item {
+  background: var(--accent-soft);
+  border-color: #b7d0c3;
+}
+
+.shop-check li.done .shop-item span {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.shop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.shop-actions .btn-keep {
+  margin-top: 0;
+}
+
+.shop-progress {
+  margin: 0 0 0.55rem;
+}

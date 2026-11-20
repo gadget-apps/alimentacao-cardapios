@@ -114,15 +114,17 @@ $(Shop $w.shop)
 
     <section class="card">
       <div class="passo"><div class="passo-num">2</div><div class="passo-body">
-        <h3>Domingo - cozinhe tudo (~$($w.prepTime))</h3>
-        <p>Monte cada pote 300-500 g no total (proteína ~150 g + guarnição + 2 cs arroz quando couber).</p>
+        <h3>Domingo — ordem de preparo (~$($w.prepTime))</h3>
+        <p><strong>Não é receita.</strong> É a lista do que cozinhar hoje, na ordem A→D. O passo a passo fica em <a href="receitas.html">Receitas</a>.</p>
+        <p>No fim: monte os potes (300–500 g = ~150 g proteína + guarnição + 2 cs arroz se couber).</p>
       </div></div>
       <article class="recipe">$($w.prepA)</article>
       <article class="recipe">$($w.prepB)</article>
       <article class="recipe">$($w.prepC)</article>
       <article class="recipe">$($w.prepD)</article>
       <article class="recipe">
-        <h3>Monte os potes</h3>
+        <h3>Depois: monte os potes da semana</h3>
+        <p class="footer-note">Cada linha = 1 pote (tampa). Arroz/feijão só onde indicado.</p>
         <table class="table">
           <thead><tr><th>Tampa</th><th>Prato</th><th>Arroz / feijão</th></tr></thead>
           <tbody>
@@ -153,8 +155,8 @@ $daysHtml
 }
 
 $arroz = @"
-        <h3>A) Arroz + feijão</h3>
-        <ol><li>Lote da semana: <a href="receitas.html#arroz">Receitas → Arroz e feijão</a>.</li></ol>
+        <h3>A) Cozinhar: arroz + feijão (lote)</h3>
+        <p class="footer-note">Passo a passo: <a href="receitas.html#arroz">Receitas → Arroz e feijão</a></p>
 "@
 
 $weeks = @(
@@ -181,16 +183,16 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Carne de panela (400 g)</h3>
-        <ol><li>2 potes de proteína (com quiabo / com brócolis). <a href="receitas.html#panela">Receita</a>.</li></ol>
+        <h3>B) Cozinhar: carne de panela (400 g)</h3>
+        <p class="footer-note">Rende 2 potes · <a href="receitas.html#panela">Receita</a></p>
 "@
     prepC=@"
-        <h3>C) Recheados (patinho 320 g) + porco em cubos refogado (180 g)</h3>
-        <ol><li>Pimentão e abobrinha. Porco em cubos refogado (não moído). <a href="receitas.html#recheados">Recheados</a> · <a href="receitas.html#porco">Porco em cubos</a>.</li></ol>
+        <h3>C) Cozinhar: recheados (320 g patinho) + porco em cubos (180 g)</h3>
+        <p class="footer-note">Pimentão + abobrinha · <a href="receitas.html#recheados">Recheados</a> · <a href="receitas.html#porco">Porco</a></p>
 "@
     prepD=@"
-        <h3>D) Frango 380 g + ovos</h3>
-        <ol><li>Grelhe o frango (almoço + jantar). Omeletes na hora ou no domingo.</li></ol>
+        <h3>D) Cozinhar: frango (380 g) + ovos</h3>
+        <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete</a></p>
 "@
     pots=@(
       @("Seg almoço","Panela + quiabo","2 cs arroz"),
@@ -238,16 +240,16 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Patinho 480 g → 3 recheados</h3>
-        <ol><li>Berinjela, tomate, chuchu. <a href="receitas.html#recheados">Guia</a>.</li></ol>
+        <h3>B) Cozinhar: 3 recheados (480 g patinho)</h3>
+        <p class="footer-note">Berinjela · tomate · chuchu · <a href="receitas.html#recheados">Receita</a></p>
 "@
     prepC=@"
-        <h3>C) Acém 360 g → almôndegas · porco 180 g → shoyu</h3>
-        <ol><li><a href="receitas.html#almondegas">Almôndegas</a> · <a href="receitas.html#shoyu">Shoyu</a> com porco.</li></ol>
+        <h3>C) Cozinhar: almôndegas (360 g acém) + porco shoyu (180 g)</h3>
+        <p class="footer-note"><a href="receitas.html#almondegas">Almôndegas</a> · <a href="receitas.html#porco">Porco</a> / <a href="receitas.html#shoyu">Shoyu</a></p>
 "@
     prepD=@"
-        <h3>D) Frango 200 g + ovos</h3>
-        <ol><li>Frango = almoço. Omelete almoço e jantar.</li></ol>
+        <h3>D) Cozinhar: frango (200 g) + ovos</h3>
+        <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete</a></p>
 "@
     pots=@(
       @("Seg almoço","Berinjela recheada","2 cs arroz"),
@@ -296,16 +298,16 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Panela 400 g</h3>
-        <ol><li><a href="receitas.html#panela">Receita</a>.</li></ol>
+        <h3>B) Cozinhar: carne de panela (400 g)</h3>
+        <p class="footer-note"><a href="receitas.html#panela">Receita</a></p>
 "@
     prepC=@"
-        <h3>C) Recheados (patinho) + porco (quiabo/shoyu) + clássica (acém)</h3>
-        <ol><li>Abóbora e pimentão. Porco com quiabo e shoyu. Clássica de acém.</li></ol>
+        <h3>C) Cozinhar: recheados (patinho) + porco + clássica (acém)</h3>
+        <p class="footer-note">Abóbora · pimentão · quiabo · <a href="receitas.html#recheados">Recheados</a> · <a href="receitas.html#porco">Porco</a> · <a href="receitas.html#classica">Clássica</a></p>
 "@
     prepD=@"
-        <h3>D) Frango + ovos</h3>
-        <ol><li>1 almoço frango · 1 almoço omelete · jantares.</li></ol>
+        <h3>D) Cozinhar: frango + ovos</h3>
+        <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete</a></p>
 "@
     pots=@(
       @("Seg almoço","Abóbora recheada","1-2 cs arroz"),
@@ -350,16 +352,16 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Acém 720 g</h3>
-        <ol><li>Clássica · almôndegas (2) · carne+abobrinha. <a href="receitas.html#porco">Porco em cubos</a>.</li></ol>
+        <h3>B) Cozinhar: acém moído (720 g)</h3>
+        <p class="footer-note">Clássica · almôndegas · refogado · <a href="receitas.html#classica">Clássica</a> · <a href="receitas.html#almondegas">Almôndegas</a></p>
 "@
     prepC=@"
-        <h3>C) Porco 540 g</h3>
-        <ol><li>Shoyu · carne+pimentão · carne+chuchu. <a href="receitas.html#shoyu">Shoyu</a>.</li></ol>
+        <h3>C) Cozinhar: porco em cubos (540 g)</h3>
+        <p class="footer-note">Shoyu · pimentão · chuchu · <a href="receitas.html#porco">Porco</a> · <a href="receitas.html#shoyu">Shoyu</a></p>
 "@
     prepD=@"
-        <h3>D) Frango + ovos</h3>
-        <ol><li>Almoço frango · almoço omelete.</li></ol>
+        <h3>D) Cozinhar: frango + ovos</h3>
+        <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete</a></p>
 "@
     pots=@(
       @("Seg almoço","Clássica (acém) + brócolis","2 cs arroz + 2 cs feijão"),
@@ -409,16 +411,16 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Panela 200 g + quiabo</h3>
-        <ol><li>1 marmita. <a href="receitas.html#panela">Panela</a>.</li></ol>
+        <h3>B) Cozinhar: panela (200 g) + quiabo</h3>
+        <p class="footer-note"><a href="receitas.html#panela">Panela</a> · <a href="receitas.html#quiabo">Quiabo</a></p>
 "@
     prepC=@"
-        <h3>C) 4 recheados (patinho) + porco shoyu + clássica (acém)</h3>
-        <ol><li><a href="receitas.html#recheados">Recheados</a>.</li></ol>
+        <h3>C) Cozinhar: 4 recheados (patinho) + porco + clássica (acém)</h3>
+        <p class="footer-note"><a href="receitas.html#recheados">Recheados</a> · <a href="receitas.html#porco">Porco</a> · <a href="receitas.html#classica">Clássica</a></p>
 "@
     prepD=@"
-        <h3>D) Frango + ovos</h3>
-        <ol><li>Almoços econômicos.</li></ol>
+        <h3>D) Cozinhar: frango + ovos</h3>
+        <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete</a></p>
 "@
     pots=@(
       @("Seg almoço","Abobrinha recheada","2 cs arroz"),
@@ -466,16 +468,16 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Panela 200 g (só jantar)</h3>
-        <ol><li><a href="receitas.html#panela">Panela</a>.</li></ol>
+        <h3>B) Cozinhar: panela (200 g, só jantar)</h3>
+        <p class="footer-note"><a href="receitas.html#panela">Receita</a></p>
 "@
     prepC=@"
-        <h3>C) Recheados + almôndegas (acém) + porco</h3>
-        <ol><li>Abóbora e chuchu (patinho). Almôndegas acém. Shoyu e refogado de porco.</li></ol>
+        <h3>C) Cozinhar: recheados + almôndegas (acém) + porco</h3>
+        <p class="footer-note">Abóbora · chuchu · <a href="receitas.html#recheados">Recheados</a> · <a href="receitas.html#almondegas">Almôndegas</a> · <a href="receitas.html#porco">Porco</a></p>
 "@
     prepD=@"
-        <h3>D) Frango + ovos</h3>
-        <ol><li>Almoços econômicos.</li></ol>
+        <h3>D) Cozinhar: frango + ovos</h3>
+        <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete</a></p>
 "@
     pots=@(
       @("Seg almoço","Abóbora recheada","1-2 cs arroz"),
@@ -524,16 +526,16 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Panela 200 g + quiabo</h3>
-        <ol><li>1 almoço. <a href="receitas.html#panela">Panela</a>.</li></ol>
+        <h3>B) Cozinhar: panela (200 g) + quiabo</h3>
+        <p class="footer-note"><a href="receitas.html#panela">Panela</a> · <a href="receitas.html#quiabo">Quiabo</a></p>
 "@
     prepC=@"
-        <h3>C) Recheados (patinho) + porco shoyu + acém</h3>
-        <ol><li>Pimentão, berinjela, tomate. porco em cubos shoyu. Almôndegas/clássica de acém.</li></ol>
+        <h3>C) Cozinhar: recheados (patinho) + porco + acém</h3>
+        <p class="footer-note">Pimentão · berinjela · tomate · <a href="receitas.html#recheados">Recheados</a> · <a href="receitas.html#porco">Porco</a> · <a href="receitas.html#almondegas">Almôndegas</a></p>
 "@
     prepD=@"
-        <h3>D) Frango + ovos</h3>
-        <ol><li>Almoços econômicos.</li></ol>
+        <h3>D) Cozinhar: frango + ovos</h3>
+        <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete</a></p>
 "@
     pots=@(
       @("Seg almoço","Panela + quiabo","2 cs arroz"),
@@ -579,16 +581,16 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Panela 400 g</h3>
-        <ol><li><a href="receitas.html#panela">Panela</a>.</li></ol>
+        <h3>B) Cozinhar: panela (400 g)</h3>
+        <p class="footer-note"><a href="receitas.html#panela">Receita</a></p>
 "@
     prepC=@"
-        <h3>C) Recheados (patinho) + porco em cubos refogado</h3>
-        <ol><li><a href="receitas.html#recheados">Recheados</a> · <a href="receitas.html#classica">Clássica</a> com porco.</li></ol>
+        <h3>C) Cozinhar: recheados (patinho) + porco em cubos</h3>
+        <p class="footer-note"><a href="receitas.html#recheados">Recheados</a> · <a href="receitas.html#porco">Porco</a></p>
 "@
     prepD=@"
-        <h3>D) Frango + ovos</h3>
-        <ol><li>Almoços econômicos + jantar frango.</li></ol>
+        <h3>D) Cozinhar: frango + ovos</h3>
+        <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete</a></p>
 "@
     pots=@(
       @("Seg almoço","Panela + quiabo","2 cs arroz"),

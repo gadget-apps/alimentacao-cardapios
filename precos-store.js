@@ -13,6 +13,30 @@
    * Preços aproximados varejo região Araraquara (CEAGESP atacado × ~2 + IEA carnes).
    * Approximate retail prices for Araraquara region.
    */
+  /**
+   * Despensa / gerais: ficam na lista de compras, mas sem valor na estimativa.
+   * Pantry staples: stay on the shopping list, excluded from cost estimates.
+   */
+  var PANTRY_KEYS = {
+    arroz: 1,
+    feijao: 1,
+    cebola: 1,
+    alho: 1,
+    azeite: 1,
+    limao: 1,
+    shoyu: 1,
+    molho_tomate: 1,
+    temperos: 1,
+    aveia: 1,
+    sal: 1,
+    orégano: 1,
+    oregano: 1,
+    cominho: 1,
+    colorau: 1,
+    paprika: 1,
+    paprica: 1
+  };
+
   var DEFAULTS_AQA = {
     patinho: { name: "Patinho moído", unitPrice: 56.0, unit: "kg" },
     acem: { name: "Acém / músculo", unitPrice: 43.0, unit: "kg" },
@@ -28,17 +52,9 @@
     pimentao: { name: "Pimentão", unitPrice: 11.0, unit: "kg" },
     chuchu: { name: "Chuchu", unitPrice: 5.0, unit: "un" },
     tomate: { name: "Tomate", unitPrice: 8.0, unit: "kg" },
-    cebola: { name: "Cebola", unitPrice: 7.0, unit: "kg" },
-    alho: { name: "Alho", unitPrice: 28.0, unit: "kg" },
     pepino: { name: "Pepino", unitPrice: 8.0, unit: "kg" },
     abobora: { name: "Abóbora / cabocha", unitPrice: 6.5, unit: "kg" },
-    mussarela: { name: "Mussarela", unitPrice: 45.0, unit: "kg" },
-    arroz: { name: "Arroz integral", unitPrice: 8.0, unit: "kg" },
-    feijao: { name: "Feijão", unitPrice: 9.0, unit: "kg" },
-    azeite: { name: "Azeite", unitPrice: 42.0, unit: "un" },
-    limao: { name: "Limão", unitPrice: 10.0, unit: "kg" },
-    shoyu: { name: "Molho shoyu", unitPrice: 12.0, unit: "un" },
-    molho_tomate: { name: "Molho de tomate", unitPrice: 6.5, unit: "un" }
+    mussarela: { name: "Mussarela", unitPrice: 45.0, unit: "kg" }
   };
 
   var ALIASES = {
@@ -56,18 +72,42 @@
     pimentao: ["pimentao", "pimentão"],
     chuchu: ["chuchu"],
     tomate: ["tomate"],
-    cebola: ["cebola"],
-    alho: ["alho"],
     pepino: ["pepino"],
     abobora: ["abobora", "abóbora", "cabocha", "moranga"],
     mussarela: ["mussarela", "muzarela", "queijo mussarela", "queijo"],
     arroz: ["arroz", "arroz integral"],
     feijao: ["feijao", "feijão"],
+    cebola: ["cebola"],
+    alho: ["alho"],
     azeite: ["azeite"],
     limao: ["limao", "limão"],
     shoyu: ["shoyu", "molho shoyu", "agridoce"],
-    molho_tomate: ["molho de tomate", "molho tomate", "pelado", "extrato", "lata"]
+    molho_tomate: ["molho de tomate", "molho tomate", "pelado", "extrato"],
+    temperos: ["temperos", "tempero"],
+    aveia: ["aveia"]
   };
+
+  function isPantryKey(key) {
+    return !!(key && PANTRY_KEYS[key]);
+  }
+
+  function isPantryLabel(label) {
+    var key = canonicalKey(label);
+    if (isPantryKey(key)) return true;
+    var f = fold(label);
+    // Linha só de despensa (ex. "Arroz · Feijão · Temperos").
+    // Pantry-only shopping line (e.g. rice · beans · seasonings).
+    if (/arroz|feijao|tempero|cebola|alho|azeite|limao|shoyu|aveia|molho/.test(f)) {
+      if (
+        !/patinho|acem|musculo|porco|pernil|lombo|frango|ovo|quiabo|brocolis|vagem|couve|abobrinha|berinjela|pimentao|chuchu|tomate|pepino|abobora|mussarela|queijo/.test(
+          f
+        )
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   function fold(s) {
     return String(s || "")
@@ -159,6 +199,18 @@
     return changed;
   }
 
+  function stripPantrySeeds(cat) {
+    var changed = false;
+    for (var key in PANTRY_KEYS) {
+      if (!PANTRY_KEYS.hasOwnProperty(key)) continue;
+      if (cat[key] && cat[key].source === "seed-aqa") {
+        delete cat[key];
+        changed = true;
+      }
+    }
+    return changed;
+  }
+
   function loadCatalog() {
     var cat = {};
     try {
@@ -167,9 +219,11 @@
     } catch (e) {
       cat = {};
     }
+    var changed = stripPantrySeeds(cat);
     // Sempre completa chaves faltantes com seed Araraquara (não sobrescreve NF/manual).
     // Always fill missing keys with Araraquara seed (never overwrite NF/manual).
-    if (seedAraraquara(cat)) {
+    if (seedAraraquara(cat)) changed = true;
+    if (changed) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(cat));
         localStorage.setItem(SEEDED_FLAG, "1");
@@ -199,6 +253,9 @@
   function estimateLine(label, cat) {
     cat = cat || loadCatalog();
     var key = canonicalKey(label);
+    if (isPantryLabel(label) || isPantryKey(key)) {
+      return { key: key, matched: false, estimate: null, detail: null, pantry: true };
+    }
     var entry = cat[key];
     if (!entry) return { key: key, matched: false, estimate: null, detail: null };
     var q = parseQtyFromLabel(label);
@@ -305,12 +362,15 @@
     canonicalKey: canonicalKey,
     upsertPrice: upsertPrice,
     estimateLine: estimateLine,
+    isPantryLabel: isPantryLabel,
+    isPantryKey: isPantryKey,
     parseNFeXml: parseNFeXml,
     parseNFeText: parseNFeText,
     importItems: importItems,
     parseQtyFromLabel: parseQtyFromLabel,
     formatBRL: formatBRL,
     DEFAULTS_AQA: DEFAULTS_AQA,
+    PANTRY_KEYS: PANTRY_KEYS,
     STORAGE_KEY: STORAGE_KEY,
     ALIASES: ALIASES
   };

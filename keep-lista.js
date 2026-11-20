@@ -64,7 +64,11 @@
         priceEl.className = "shop-price";
         label.appendChild(priceEl);
       }
-      if (est.matched && est.estimate != null) {
+      if (est.pantry) {
+        priceEl.textContent = "";
+        priceEl.title = "Despensa — fora da estimativa";
+        priceEl.className = "shop-price";
+      } else if (est.matched && est.estimate != null) {
         priceEl.textContent = P.formatBRL(est.estimate);
         priceEl.title = est.detail || "";
         priceEl.className = "shop-price shop-price-ok";
@@ -93,7 +97,7 @@
       P.formatBRL(total) +
       ' <span class="footer-note">(' +
       matched +
-      " itens com preço · <a href=\"precos.html\">atualizar após a compra</a>)</span>";
+      " itens · sem arroz/feijão/temperos · <a href=\"precos.html\">atualizar após a compra</a>)</span>";
   }
 
   function updateProgress(root) {

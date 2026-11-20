@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preços da NF</title>
+  <link rel="stylesheet" href="estilo.css?v=7" />
+</head>
+<body>
+  <main class="wrap">
+        <nav class="nav">
+      <a href="index.html">Início</a>
+      <a href="semana-1.html">Semana 1</a>
+      <a href="semana-2.html">Semana 2</a>
+      <a href="semana-3.html">Semana 3</a>
+      <a href="semana-4.html">Semana 4</a>
+      <a href="semana-5.html">Semana 5</a>
+      <a href="semana-6.html">Semana 6</a>
+      <a href="semana-7.html">Semana 7</a>
+      <a href="semana-8.html">Semana 8</a>
+      <a href="semana-9.html">Semana 9</a>
+      <a href="semana-10.html">Semana 10</a>
+      <a href="receitas-favoritas.html">Favoritas</a>
+      <a href="legumes-recheados.html">Recheados</a>
+    </nav>
+
+    <section class="hero">
+      <h1>Preços da compra</h1>
+      <p>Depois do mercado: cole a NF (texto ou XML). Os preços ficam neste aparelho e entram na estimativa de todas as semanas.</p>
+      <div class="chips">
+        <span class="chip">NF texto / XML</span>
+        <span class="chip">Salvo no celular</span>
+        <span class="chip">Estima as listas</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>1) Colar a nota fiscal</h2>
+      <p class="footer-note">Melhor opção: XML da NF-e/NFC-e. Alternativa: copiar o texto do cupom (app do mercado / consulta SEFAZ) e colar abaixo. PDF escaneado não lê sozinho.</p>
+      <label class="shop-item" style="margin-bottom:0.75rem;cursor:pointer">
+        <span>Arquivo XML da NF</span>
+        <input id="xml-file" type="file" accept=".xml,text/xml,application/xml" style="margin-left:auto" />
+      </label>
+      <textarea id="nf-text" rows="8" placeholder="Cole aqui o texto da NF ou o conteúdo do XML…" style="width:100%;box-sizing:border-box;padding:0.75rem;border:1px solid var(--line);border-radius:12px;font:inherit"></textarea>
+      <div class="shop-actions" style="margin-top:0.75rem">
+        <button type="button" class="btn-keep" id="btn-import">Ler e gravar preços</button>
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-clear-paste">Limpar campo</button>
+      </div>
+      <p id="import-msg" class="footer-note" hidden></p>
+    </section>
+
+    <section class="card">
+      <h2>2) Ou digitar um preço</h2>
+      <div class="shop-grid">
+        <div>
+          <label>Produto<br /><input id="manual-name" type="text" placeholder="Ex: quiabo" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px" /></label>
+        </div>
+        <div>
+          <label>Preço<br /><input id="manual-price" type="text" placeholder="Ex: 12,90" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px" /></label>
+        </div>
+        <div>
+          <label>Unidade<br />
+            <select id="manual-unit" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px">
+              <option value="kg">por kg</option>
+              <option value="un">por unidade</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="shop-actions">
+        <button type="button" class="btn-keep" id="btn-manual">Salvar preço</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3) Catálogo gravado</h2>
+      <p class="footer-note">Ex.: quiabo a R$ 12,90/kg → na lista “Quiabo — 500 g” estima R$ 6,45 em qualquer semana.</p>
+      <div id="catalog-table"></div>
+      <div class="shop-actions">
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-wipe">Apagar todos os preços</button>
+      </div>
+    </section>
+  </main>
+  <script src="precos-store.js?v=1"></script>
+  <script>
+    (function () {
+      var P = window.AlimentacaoPrecos;
+      var msg = document.getElementById("import-msg");
+
+      function showMsg(t) {
+        msg.hidden = false;
+        msg.textContent = t;
+      }
+
+      function renderCatalog() {
+        var cat = P.loadCatalog();
+        var keys = Object.keys(cat).sort();
+        var box = document.getElementById("catalog-table");
+        if (!keys.length) {
+          box.innerHTML = '<p class="footer-note">Nenhum preço ainda.</p>';
+          return;
+        }
+        var html = '<table class="table"><thead><tr><th>Produto</th><th>Preço</th><th>Atualizado</th><th></th></tr></thead><tbody>';
+        keys.forEach(function (k) {
+          var e = cat[k];
+          var when = e.updatedAt ? e.updatedAt.slice(0, 10) : "—";
+          html +=
+            "<tr><td><strong>" +
+            (e.name || k) +
+            "</strong><br><span class='footer-note'>" +
+            k +
+            '</span></td><td>R$ ' +
+            e.unitPrice.toFixed(2).replace(".", ",") +
+            " / " +
+            e.unit +
+            "</td><td>" +
+            when +
+            '</td><td><button type="button" class="btn-keep btn-keep-secondary" data-del="' +
+            k +
+            '" style="padding:0.35rem 0.7rem;font-size:0.85rem">Apagar</button></td></tr>';
+        });
+        html += "</tbody></table>";
+        box.innerHTML = html;
+        box.querySelectorAll("[data-del]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var c = P.loadCatalog();
+            delete c[btn.getAttribute("data-del")];
+            P.saveCatalog(c);
+            renderCatalog();
+          });
+        });
+      }
+
+      function doImport(text) {
+        var items = [];
+        if (text.indexOf("<prod") >= 0 || text.indexOf("<PROD") >= 0 || text.indexOf("nfeProc") >= 0 || text.indexOf("NFe") >= 0) {
+          items = P.parseNFeXml(text);
+        }
+        if (!items.length) items = P.parseNFeText(text);
+        if (!items.length) {
+          showMsg("Não achei itens. Cole o XML da NF ou um texto com linhas tipo: QUIABO 0,500 KG X 12,90 6,45");
+          return;
+        }
+        var res = P.importItems(items);
+        showMsg("Gravei " + res.imported.length + " preço(s). Abra qualquer semana — a estimativa aparece na lista.");
+        renderCatalog();
+      }
+
+      document.getElementById("btn-import").addEventListener("click", function () {
+        doImport(document.getElementById("nf-text").value || "");
+      });
+      document.getElementById("btn-clear-paste").addEventListener("click", function () {
+        document.getElementById("nf-text").value = "";
+        msg.hidden = true;
+      });
+      document.getElementById("xml-file").addEventListener("change", function (ev) {
+        var f = ev.target.files && ev.target.files[0];
+        if (!f) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+          document.getElementById("nf-text").value = String(reader.result || "");
+          doImport(String(reader.result || ""));
+        };
+        reader.readAsText(f);
+      });
+      document.getElementById("btn-manual").addEventListener("click", function () {
+        var name = document.getElementById("manual-name").value.trim();
+        var price = document.getElementById("manual-price").value.trim().replace(".", "").replace(",", ".");
+        var unit = document.getElementById("manual-unit").value;
+        var n = parseFloat(price);
+        if (!name || !isFinite(n)) {
+          showMsg("Preencha produto e preço.");
+          return;
+        }
+        var cat = P.loadCatalog();
+        P.upsertPrice(cat, name, n, unit, { source: "manual" });
+        P.saveCatalog(cat);
+        showMsg("Preço salvo: " + name);
+        document.getElementById("manual-name").value = "";
+        document.getElementById("manual-price").value = "";
+        renderCatalog();
+      });
+      document.getElementById("btn-wipe").addEventListener("click", function () {
+        if (!confirm("Apagar todos os preços salvos neste aparelho?")) return;
+        localStorage.removeItem(P.STORAGE_KEY);
+        renderCatalog();
+        showMsg("Catálogo limpo.");
+      });
+
+      renderCatalog();
+    })();
+  </script>
+</body>
+</html>

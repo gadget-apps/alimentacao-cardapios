@@ -136,11 +136,7 @@
     });
     var el = root.querySelector("[data-shop-progress]");
     if (el) {
-      el.textContent =
-        done +
-        " de " +
-        boxes.length +
-        " itens · marcas salvas neste aparelho/navegador";
+      el.textContent = done + " de " + boxes.length + " itens";
     }
   }
 

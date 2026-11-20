@@ -15,12 +15,12 @@ function Get-NavHtml([int]$active) {
 }
 
 function Test-SkipShopItem([string]$t) {
-  # Fora da lista: arroz, feijão, temperos, molho, shoyu, aveia, azeite, limão.
-  # Excluded from list: rice, beans, seasonings, sauce, soy, oats, oil, lemon.
+  # Fora da lista semanal: só estoque seco (despensa). Frescos ficam na semana.
+  # Weekly list excludes dry pantry only. Fresh ingredients stay on the week.
   $f = $t.ToLowerInvariant()
   if ($f -match '^(arroz|feij)') { return $true }
-  if ($f -match '^(temperos?|molho|shoyu|aveia|azeite|lim[aã]o)(\s|$|·)') { return $true }
-  if ($f -match '^(temperos?|molho|shoyu|aveia|azeite|lim[aã]o)\s*$') { return $true }
+  if ($f -match '^(temperos?|shoyu|aveia|azeite|\bsal\b|colorau|cominho|p[aá]prica|or[eé]gano|louro|pimenta)(\s|$|·)') { return $true }
+  if ($f -match '^(temperos?|shoyu|aveia|azeite)\s*$') { return $true }
   return $false
 }
 
@@ -143,10 +143,10 @@ $(Pots $w.pots)
 $daysHtml
     </section>
   </main>
-  <script src="precos-store.js?v=5"></script>
+  <script src="precos-store.js?v=7"></script>
   <script src="keep-lista.js?v=10"></script>
   <script src="tema.js?v=1"></script>
-  <script src="nav-drawer.js?v=2"></script>
+  <script src="nav-drawer.js?v=3"></script>
 </body>
 </html>
 "@
@@ -178,8 +178,11 @@ $weeks = @(
       "Tomate - 2",
       "Pepino - 1",
       "Mussarela - 60 g",
+      "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça"
+      "Alho - 1 cabeça",
+      "Limão - 2 un",
+      "Cheiro-verde - 1 maço"
     )
     prepA=$arroz
     prepB=@"
@@ -235,8 +238,11 @@ $weeks = @(
       "Couve - 1 maço",
       "Abobrinha - 1",
       "Mussarela - 90 g",
+      "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça"
+      "Alho - 1 cabeça",
+      "Limão - 2 un",
+      "Cheiro-verde - 1 maço"
     )
     prepA=$arroz
     prepB=@"
@@ -293,8 +299,11 @@ $weeks = @(
       "Vagem - 200 g",
       "Couve - 1 maço",
       "Mussarela - 60 g",
+      "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça"
+      "Alho - 1 cabeça",
+      "Limão - 2 un",
+      "Cheiro-verde - 1 maço"
     )
     prepA=$arroz
     prepB=@"
@@ -348,7 +357,9 @@ $weeks = @(
       "Vagem - 400 g",
       "Couve - 1 maço",
       "Cebola - 1",
-      "Alho - 1 cabeça"
+      "Alho - 1 cabeça",
+      "Limão - 2 un",
+      "Cheiro-verde - 1 maço"
     )
     prepA=$arroz
     prepB=@"
@@ -406,8 +417,11 @@ $weeks = @(
       "Vagem - 400 g",
       "Pepino - 1",
       "Mussarela - 120 g",
+      "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça"
+      "Alho - 1 cabeça",
+      "Limão - 2 un",
+      "Cheiro-verde - 1 maço"
     )
     prepA=$arroz
     prepB=@"
@@ -463,8 +477,11 @@ $weeks = @(
       "Vagem - 400 g",
       "Couve - 1 maço",
       "Mussarela - 60 g",
+      "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça"
+      "Alho - 1 cabeça",
+      "Limão - 2 un",
+      "Cheiro-verde - 1 maço"
     )
     prepA=$arroz
     prepB=@"
@@ -521,8 +538,11 @@ $weeks = @(
       "Brócolis - 400 g",
       "Vagem - 400 g",
       "Mussarela - 90 g",
+      "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça"
+      "Alho - 1 cabeça",
+      "Limão - 2 un",
+      "Cheiro-verde - 1 maço"
     )
     prepA=$arroz
     prepB=@"
@@ -576,8 +596,11 @@ $weeks = @(
       "Brócolis - 400 g",
       "Vagem - 200 g",
       "Mussarela - 60 g",
+      "Molho de tomate - 1 lata",
       "Cebola - 1",
-      "Alho - 1 cabeça"
+      "Alho - 1 cabeça",
+      "Limão - 2 un",
+      "Cheiro-verde - 1 maço"
     )
     prepA=$arroz
     prepB=@"

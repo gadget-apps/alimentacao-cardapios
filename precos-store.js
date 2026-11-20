@@ -17,24 +17,24 @@
    * Despensa / gerais: ficam na lista de compras, mas sem valor na estimativa.
    * Pantry staples: stay on the shopping list, excluded from cost estimates.
    */
+  /**
+   * Só estoque seco / frasco — não frescos das receitas (cebola, alho, limão…).
+   * Dry pantry only — not fresh recipe ingredients (onion, garlic, lemon…).
+   */
   var PANTRY_KEYS = {
     arroz: 1,
     feijao: 1,
-    cebola: 1,
-    alho: 1,
     azeite: 1,
-    limao: 1,
     shoyu: 1,
-    molho_tomate: 1,
     temperos: 1,
     aveia: 1,
     sal: 1,
-    orégano: 1,
     oregano: 1,
     cominho: 1,
     colorau: 1,
-    paprika: 1,
-    paprica: 1
+    paprica: 1,
+    louro: 1,
+    pimenta: 1
   };
 
   var DEFAULTS_AQA = {
@@ -54,20 +54,22 @@
     tomate: { name: "Tomate", unitPrice: 8.0, unit: "kg" },
     pepino: { name: "Pepino", unitPrice: 8.0, unit: "kg" },
     abobora: { name: "Abóbora / cabocha", unitPrice: 6.5, unit: "kg" },
-    mussarela: { name: "Mussarela", unitPrice: 45.0, unit: "kg" }
+    mussarela: { name: "Mussarela", unitPrice: 45.0, unit: "kg" },
+    cebola: { name: "Cebola", unitPrice: 7.0, unit: "kg" },
+    alho: { name: "Alho", unitPrice: 28.0, unit: "kg" },
+    limao: { name: "Limão", unitPrice: 10.0, unit: "kg" },
+    molho_tomate: { name: "Molho de tomate / pelado", unitPrice: 6.5, unit: "un" },
+    cheiro_verde: { name: "Cheiro-verde (maço)", unitPrice: 3.0, unit: "un" }
   };
 
   /**
-   * Despensa comum a todas as receitas — compra inicial (fora da lista semanal).
-   * Shared pantry for all recipes — first purchase (not on weekly lists).
-   * Estimativas ≈ varejo Araraquara.
+   * Despensa = estoque seco/frasco (1ª compra). Frescos das receitas vão na lista da semana.
+   * Pantry = dry/jar stock (first buy). Fresh recipe ingredients go on the week list.
    */
   var FIRST_BUY = [
     { name: "Arroz integral", qty: "1 kg", estimate: 8.0, note: "lote semanal ~300 g" },
     { name: "Feijão", qty: "1 kg", estimate: 9.0, note: "lote semanal ~250–350 g" },
     { name: "Azeite", qty: "500 ml", estimate: 28.0, note: "todas as receitas" },
-    { name: "Cebola", qty: "1 kg", estimate: 7.0, note: "base de refogados" },
-    { name: "Alho", qty: "200 g", estimate: 6.0, note: "base de refogados" },
     { name: "Sal", qty: "1 kg", estimate: 3.0, note: "despensa" },
     { name: "Colorau", qty: "1 pote", estimate: 4.0, note: "panela, moída, porco" },
     { name: "Cominho", qty: "1 pote", estimate: 5.0, note: "panela, moída, recheados" },
@@ -75,12 +77,8 @@
     { name: "Orégano", qty: "1 pote", estimate: 4.0, note: "panela, molho, recheados" },
     { name: "Pimenta-do-reino", qty: "1 pote", estimate: 5.0, note: "temperos" },
     { name: "Louro", qty: "1 pacote", estimate: 3.0, note: "panela e feijão" },
-    { name: "Limão", qty: "500 g", estimate: 5.0, note: "frango, quiabo, finalize" },
     { name: "Shoyu / agridoce", qty: "1 frasco", estimate: 12.0, note: "porco shoyu" },
-    { name: "Molho de tomate / pelado", qty: "1 lata (400 g)", estimate: 6.5, note: "recheados" },
-    { name: "Aveia em flocos", qty: "200 g", estimate: 6.0, note: "almôndegas (opcional)" },
-    { name: "Mussarela", qty: "200 g", estimate: 9.0, note: "recheados — repor nas semanas" },
-    { name: "Cheiro-verde", qty: "1 maço", estimate: 3.0, note: "finalize (repor)" }
+    { name: "Aveia em flocos", qty: "200 g", estimate: 6.0, note: "almôndegas (opcional)" }
   ];
 
   var ALIASES = {
@@ -110,7 +108,14 @@
     shoyu: ["shoyu", "molho shoyu", "agridoce"],
     molho_tomate: ["molho de tomate", "molho tomate", "pelado", "extrato"],
     temperos: ["temperos", "tempero"],
-    aveia: ["aveia"]
+    aveia: ["aveia"],
+    cheiro_verde: ["cheiro-verde", "cheiro verde", "salsa", "coentro"],
+    louro: ["louro"],
+    colorau: ["colorau"],
+    cominho: ["cominho"],
+    paprica: ["paprica", "páprica"],
+    oregano: ["oregano", "orégano"],
+    sal: ["sal"]
   };
 
   function isPantryKey(key) {
@@ -123,9 +128,9 @@
     var f = fold(label);
     // Linha só de despensa (ex. "Arroz · Feijão · Temperos").
     // Pantry-only shopping line (e.g. rice · beans · seasonings).
-    if (/arroz|feijao|tempero|cebola|alho|azeite|limao|shoyu|aveia|molho/.test(f)) {
+    if (/arroz|feijao|tempero|azeite|shoyu|aveia|\bsal\b|colorau|cominho|paprica|oregano|louro|pimenta/.test(f)) {
       if (
-        !/patinho|acem|musculo|porco|pernil|lombo|frango|ovo|quiabo|brocolis|vagem|couve|abobrinha|berinjela|pimentao|chuchu|tomate|pepino|abobora|mussarela|queijo/.test(
+        !/patinho|acem|musculo|porco|pernil|lombo|frango|ovo|quiabo|brocolis|vagem|couve|abobrinha|berinjela|pimentao|chuchu|tomate|pepino|abobora|mussarela|queijo|cebola|alho|limao|molho|cheiro/.test(
           f
         )
       ) {

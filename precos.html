@@ -131,36 +131,6 @@
         msg.hidden = false;
         msg.textContent = t;
       }
-      function renderFirstBuy() {
-        var list = P.FIRST_BUY || [];
-        var box = document.getElementById("first-buy-table");
-        var totEl = document.getElementById("first-buy-total");
-        if (!box) return;
-        var total = 0;
-        var html =
-          '<table class="table"><thead><tr><th>Item</th><th>Quanto comprar</th><th>Estimativa</th><th>Uso</th></tr></thead><tbody>';
-        list.forEach(function (it) {
-          total += it.estimate || 0;
-          html +=
-            "<tr><td><strong>" +
-            it.name +
-            "</strong></td><td>" +
-            it.qty +
-            "</td><td>" +
-            P.formatBRL(it.estimate) +
-            "</td><td>" +
-            (it.note || "") +
-            "</td></tr>";
-        });
-        html += "</tbody></table>";
-        box.innerHTML = html;
-        if (totEl) {
-          totEl.innerHTML =
-            "<strong>Total estimado da despensa:</strong> " +
-            P.formatBRL(total) +
-            ' <span class="footer-note">(só a 1ª compra · depois só reposição)</span>';
-        }
-      }
       function renderCatalog() {
         var cat = P.loadCatalog();
         var keys = Object.keys(cat).sort();
@@ -278,10 +248,11 @@
         renderCatalog();
         showMsg("Catálogo limpo e seed Araraquara recarregado.");
       });
-      renderFirstBuy();
       renderCatalog();
     })();
   </script>
+  <script src="despensa-lista.js?v=1"></script>
+  <script src="keep-lista.js?v=9"></script>
   <script src="nav-drawer.js?v=2"></script>
 </body>
 </html>

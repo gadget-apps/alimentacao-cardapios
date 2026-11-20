@@ -43,6 +43,12 @@
   function paintEstimates(root) {
     var P = window.AlimentacaoPrecos;
     if (!P) return;
+    // Despensa: preços já vêm no HTML (FIRST_BUY).
+    // Pantry checklist: prices already rendered from FIRST_BUY.
+    if (root.getAttribute("data-despensa") === "1") {
+      updateProgress(root);
+      return;
+    }
     var cat = P.loadCatalog();
     var total = 0;
     var matched = 0;
@@ -158,7 +164,9 @@
       var rs = t.closest ? t.closest("[data-keep-reset]") : null;
 
       if (dl) {
-        var lines = ["Compras — Semana " + semana, ""];
+        var title =
+          semana === "despensa" ? "Despensa — 1ª compra" : "Compras — Semana " + semana;
+        var lines = [title, ""];
         var list = root.querySelectorAll("label.shop-item");
         for (var j = 0; j < list.length; j++) {
           var inp = list[j].querySelector("input");
@@ -173,13 +181,21 @@
           lines.push("");
           lines.push(plainText(tot));
         }
-        downloadTxt("compras-semana-" + semana + "-keep.txt", lines.join("\r\n"));
+        var fname =
+          semana === "despensa"
+            ? "despensa-primeira-compra-keep.txt"
+            : "compras-semana-" + semana + "-keep.txt";
+        downloadTxt(fname, lines.join("\r\n"));
         var hint = document.getElementById("keep-hint");
         if (hint) hint.hidden = false;
       }
 
       if (rs) {
-        if (!confirm("Limpar todas as marcas desta semana?")) return;
+        var resetMsg =
+          semana === "despensa"
+            ? "Limpar todas as marcas da despensa?"
+            : "Limpar todas as marcas desta semana?";
+        if (!confirm(resetMsg)) return;
         localStorage.removeItem(storageKey(semana));
         for (var k = 0; k < boxes.length; k++) {
           boxes[k].checked = false;

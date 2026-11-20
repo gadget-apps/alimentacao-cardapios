@@ -35,34 +35,8 @@
     </section>
   </main>
   <script src="precos-store.js?v=6"></script>
-  <script>
-    (function () {
-      var P = window.AlimentacaoPrecos;
-      if (!P || !P.FIRST_BUY) return;
-      var box = document.getElementById("first-buy-home");
-      var totEl = document.getElementById("first-buy-home-total");
-      var total = 0;
-      var html =
-        '<table class="table"><thead><tr><th>Item</th><th>Quanto</th><th>Estimativa</th></tr></thead><tbody>';
-      P.FIRST_BUY.forEach(function (it) {
-        total += it.estimate || 0;
-        html +=
-          "<tr><td><strong>" +
-          it.name +
-          "</strong></td><td>" +
-          it.qty +
-          "</td><td>" +
-          P.formatBRL(it.estimate) +
-          "</td></tr>";
-      });
-      html += "</tbody></table>";
-      box.innerHTML = html;
-      totEl.innerHTML =
-        "<strong>Total estimado:</strong> " +
-        P.formatBRL(total) +
-        ' <span class="footer-note">(1ª compra)</span>';
-    })();
-  </script>
+  <script src="despensa-lista.js?v=1"></script>
+  <script src="keep-lista.js?v=9"></script>
   <script src="nav-drawer.js?v=2"></script>
 </body>
 </html>

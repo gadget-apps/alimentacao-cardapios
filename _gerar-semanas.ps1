@@ -14,9 +14,34 @@ function Get-NavHtml([int]$active) {
   return '    <nav class="nav" hidden></nav>'
 }
 
+function Test-SkipShopItem([string]$t) {
+  # Fora da lista: arroz, feijão, temperos, molho, shoyu, aveia, azeite, limão.
+  # Excluded from list: rice, beans, seasonings, sauce, soy, oats, oil, lemon.
+  $f = $t.ToLowerInvariant()
+  if ($f -match '^(arroz|feij)') { return $true }
+  if ($f -match '^(temperos?|molho|shoyu|aveia|azeite|lim[aã]o)(\s|$|·)') { return $true }
+  if ($f -match '^(temperos?|molho|shoyu|aveia|azeite|lim[aã]o)\s*$') { return $true }
+  return $false
+}
+
+function Expand-ShopItems($items) {
+  # Um checkbox por item (quebra em " · ").
+  # One checkbox per item (split on " · ").
+  $out = New-Object System.Collections.Generic.List[string]
+  foreach ($raw in $items) {
+    foreach ($part in ($raw -split '\s*·\s*')) {
+      $t = $part.Trim()
+      if (-not $t) { continue }
+      if (Test-SkipShopItem $t) { continue }
+      $out.Add($t)
+    }
+  }
+  return ,$out.ToArray()
+}
+
 function Shop($items) {
-  $i = 0
-  ($items | ForEach-Object {
+  $expanded = Expand-ShopItems $items
+  ($expanded | ForEach-Object {
     $id = "i$script:i"; $script:i++
     "          <li><label class=`"shop-item`"><input type=`"checkbox`" data-id=`"$id`" /><span>$_</span></label></li>"
   }) -join "`n"
@@ -141,16 +166,20 @@ $weeks = @(
     potNote="Receitas: <a href=`"receitas.html#s1`">semana 1</a>."
     shop=@(
       "Acém/músculo (panela) - 400 g",
-      "Patinho moído - 320 g (só 2 recheados × ~160 g)",
-      "Pernil ou lombo (porco) em cubos - 180 g (refogado)",
-      "Peito de frango - 380 g (1 almoço + 1 jantar)",
-      "Ovos - 8 un (1 almoço omelete 4 + 1 jantar omelete 4)",
+      "Patinho moído - 320 g (2 recheados)",
+      "Pernil ou lombo (porco) em cubos - 180 g",
+      "Peito de frango - 380 g",
+      "Ovos - 8 un",
       "Quiabo - 200 g",
-      "Pimentão - 1 · Abobrinha - 2",
-      "Brócolis - 400 g · Vagem - 200 g · Tomate/pepino",
-      "Mussarela - 60 g · Tomate p/ molho · Shoyu",
-      "Arroz integral - 300 g · Feijão - 250 g",
-      "Cebola · alho · temperos · azeite · limão"
+      "Pimentão - 1",
+      "Abobrinha - 2",
+      "Brócolis - 400 g",
+      "Vagem - 200 g",
+      "Tomate - 2",
+      "Pepino - 1",
+      "Mussarela - 60 g",
+      "Cebola - 1",
+      "Alho - 1 cabeça"
     )
     prepA=$arroz
     prepB=@"
@@ -193,15 +222,21 @@ $weeks = @(
     chips=@("Recheados","Porco shoyu","Acém almôndegas","Frango/ovo almoço"); prepTime="1h45"
     potNote="<a href=`"receitas.html#s2`">Receitas semana 2</a>."
     shop=@(
-      "Patinho moído - 480 g (3 recheados × ~160 g)",
+      "Patinho moído - 480 g (3 recheados)",
       "Acém/músculo moído - 360 g (almôndegas × 2)",
-      "Pernil ou lombo (porco) em cubos - 180 g (shoyu)",
-      "Peito de frango - 200 g (1 almoço)",
-      "Ovos - 1 dúzia (omelete almoço 4 + jantar 4 + liga almôndegas)",
-      "Berinjela - 1 · Tomate firme - 3 · Chuchu - 1",
-      "Brócolis - 400 g · Vagem - 400 g · Couve - 1 maço · Abobrinha - 1",
-      "Mussarela - 90 g · Molho · Shoyu · Aveia",
-      "Arroz - 300 g · Feijão - 300 g · Cebola · alho · temperos"
+      "Pernil ou lombo (porco) em cubos - 180 g",
+      "Peito de frango - 200 g",
+      "Ovos - 1 dúzia",
+      "Berinjela - 1",
+      "Tomate firme - 3",
+      "Chuchu - 1",
+      "Brócolis - 400 g",
+      "Vagem - 400 g",
+      "Couve - 1 maço",
+      "Abobrinha - 1",
+      "Mussarela - 90 g",
+      "Cebola - 1",
+      "Alho - 1 cabeça"
     )
     prepA=$arroz
     prepB=@"
@@ -246,14 +281,20 @@ $weeks = @(
     shop=@(
       "Acém/músculo (panela) - 400 g",
       "Patinho - 320 g (2 recheados)",
-      "Pernil ou lombo (porco) em cubos - 360 g (quiabo + shoyu)",
+      "Pernil ou lombo (porco) em cubos - 360 g",
       "Acém moído - 180 g (clássica)",
       "Peito de frango - 200 g",
       "Ovos - 8 un",
-      "Abóbora - 1 fatia · Pimentão - 1 · Quiabo - 200 g · Berinjela - 1",
-      "Brócolis - 200 g · Vagem - 200 g · Couve - 1 maço",
-      "Mussarela - 60 g · Molho · Shoyu",
-      "Arroz - 300 g · Feijão - 250 g · Temperos"
+      "Abóbora - 1 fatia",
+      "Pimentão - 1",
+      "Quiabo - 200 g",
+      "Berinjela - 1",
+      "Brócolis - 200 g",
+      "Vagem - 200 g",
+      "Couve - 1 maço",
+      "Mussarela - 60 g",
+      "Cebola - 1",
+      "Alho - 1 cabeça"
     )
     prepA=$arroz
     prepB=@"
@@ -296,14 +337,18 @@ $weeks = @(
     chips=@("Acém","Porco","Frango almoço","Ovo almoço"); prepTime="1h30"
     potNote="Semana sem recheado de patinho. <a href=`"receitas.html#s4`">Receitas</a>."
     shop=@(
-      "Acém/músculo moído - 720 g (clássica + almôndegas×2 + 1 refogado)",
-      "Pernil ou lombo (porco) em cubos - 540 g (shoyu + pimentão + chuchu)",
+      "Acém/músculo moído - 720 g",
+      "Pernil ou lombo (porco) em cubos - 540 g",
       "Peito de frango - 200 g",
       "Ovos - 1 dúzia",
-      "Pimentão - 2 · Abobrinha - 1 · Chuchu - 1",
-      "Brócolis - 400 g · Vagem - 400 g · Couve - 1 maço",
-      "Shoyu · Temperos · Aveia",
-      "Arroz - 300 g · Feijão - 350 g"
+      "Pimentão - 2",
+      "Abobrinha - 1",
+      "Chuchu - 1",
+      "Brócolis - 400 g",
+      "Vagem - 400 g",
+      "Couve - 1 maço",
+      "Cebola - 1",
+      "Alho - 1 cabeça"
     )
     prepA=$arroz
     prepB=@"
@@ -347,16 +392,22 @@ $weeks = @(
     potNote="<a href=`"receitas.html#s5`">Receitas semana 5</a>."
     shop=@(
       "Acém/músculo (panela) - 200 g",
-      "Patinho - 640 g (4 recheados × 160 g)",
-      "Pernil ou lombo (porco) em cubos - 180 g (shoyu)",
+      "Patinho - 640 g (4 recheados)",
+      "Pernil ou lombo (porco) em cubos - 180 g",
       "Acém moído - 180 g (clássica)",
       "Peito de frango - 200 g",
       "Ovos - 8 un",
       "Quiabo - 200 g",
-      "Abobrinha - 2 · Pimentão - 1 · Berinjela - 1 · Tomate firme - 2",
-      "Brócolis - 200 g · Vagem - 400 g · Pepino",
-      "Mussarela - 120 g · Molho · Shoyu",
-      "Arroz - 300 g · Feijão - 250 g"
+      "Abobrinha - 2",
+      "Pimentão - 1",
+      "Berinjela - 1",
+      "Tomate firme - 2",
+      "Brócolis - 200 g",
+      "Vagem - 400 g",
+      "Pepino - 1",
+      "Mussarela - 120 g",
+      "Cebola - 1",
+      "Alho - 1 cabeça"
     )
     prepA=$arroz
     prepB=@"
@@ -402,13 +453,18 @@ $weeks = @(
       "Acém/músculo (panela jantar) - 200 g",
       "Patinho - 320 g (2 recheados)",
       "Acém moído - 360 g (almôndegas × 2)",
-      "Pernil ou lombo (porco) em cubos - 360 g (shoyu + pimentão)",
+      "Pernil ou lombo (porco) em cubos - 360 g",
       "Peito de frango - 200 g",
       "Ovos - 1 dúzia",
-      "Abóbora - 1 fatia · Chuchu - 1 · Pimentão - 1",
-      "Brócolis - 400 g · Vagem - 400 g · Couve - 1 maço",
-      "Mussarela - 60 g · Molho · Shoyu · Aveia",
-      "Arroz - 300 g · Feijão - 300 g"
+      "Abóbora - 1 fatia",
+      "Chuchu - 1",
+      "Pimentão - 1",
+      "Brócolis - 400 g",
+      "Vagem - 400 g",
+      "Couve - 1 maço",
+      "Mussarela - 60 g",
+      "Cebola - 1",
+      "Alho - 1 cabeça"
     )
     prepA=$arroz
     prepB=@"
@@ -453,14 +509,20 @@ $weeks = @(
     shop=@(
       "Acém/músculo (panela) - 200 g",
       "Patinho - 480 g (3 recheados)",
-      "Pernil ou lombo (porco) em cubos - 180 g (shoyu)",
+      "Pernil ou lombo (porco) em cubos - 180 g",
       "Acém moído - 360 g (almôndegas + clássica)",
       "Peito de frango - 200 g",
       "Ovos - 8 un",
-      "Quiabo - 200 g · Pimentão - 1 · Berinjela - 1 · Tomate firme - 2 · Abobrinha - 1",
-      "Brócolis - 400 g · Vagem - 400 g",
-      "Mussarela - 90 g · Molho · Shoyu · Aveia",
-      "Arroz - 300 g · Feijão - 250 g"
+      "Quiabo - 200 g",
+      "Pimentão - 1",
+      "Berinjela - 1",
+      "Tomate firme - 2",
+      "Abobrinha - 1",
+      "Brócolis - 400 g",
+      "Vagem - 400 g",
+      "Mussarela - 90 g",
+      "Cebola - 1",
+      "Alho - 1 cabeça"
     )
     prepA=$arroz
     prepB=@"
@@ -505,13 +567,17 @@ $weeks = @(
     shop=@(
       "Acém/músculo (panela) - 400 g",
       "Patinho - 320 g (2 recheados)",
-      "Pernil ou lombo (porco) em cubos - 180 g (refogado)",
-      "Peito de frango - 380 g (1 almoço + 1 jantar)",
+      "Pernil ou lombo (porco) em cubos - 180 g",
+      "Peito de frango - 380 g",
       "Ovos - 8 un",
-      "Quiabo - 200 g · Pimentão - 1 · Abobrinha - 2",
-      "Brócolis - 400 g · Vagem - 200 g",
-      "Mussarela - 60 g · Molho · Shoyu",
-      "Arroz - 300 g · Feijão - 250 g · Temperos"
+      "Quiabo - 200 g",
+      "Pimentão - 1",
+      "Abobrinha - 2",
+      "Brócolis - 400 g",
+      "Vagem - 200 g",
+      "Mussarela - 60 g",
+      "Cebola - 1",
+      "Alho - 1 cabeça"
     )
     prepA=$arroz
     prepB=@"

@@ -17,7 +17,9 @@
         it.qty +
         (it.note ? " · " + it.note : "");
       return (
-        '<li><label class="shop-item"><input type="checkbox" data-id="d' +
+        '<li><label class="shop-item" data-estimate="' +
+        (it.estimate || 0) +
+        '"><input type="checkbox" data-id="d' +
         i +
         '" /><span data-item-name="1">' +
         label +
@@ -32,9 +34,9 @@
       '<ul class="shop-check">' +
       lis +
       "</ul>" +
-      '<p class="shop-total" data-shop-total="1"><strong>Total estimado:</strong> ' +
-      P.formatBRL(total) +
-      ' <span class="footer-note">(1ª compra · marque o que já comprou)</span></p>' +
+      '<p class="shop-total" data-shop-total="1"><strong>Total a comprar (marcados):</strong> ' +
+      P.formatBRL(0) +
+      ' <span class="footer-note">(0 itens · marque o que precisa comprar)</span></p>' +
       '<div class="shop-actions">' +
       '<button type="button" class="btn-keep" data-keep-download data-semana="despensa">Baixar lista (Google Keep)</button>' +
       '<button type="button" class="btn-keep btn-keep-secondary" data-keep-reset data-semana="despensa">Limpar marcas</button>' +

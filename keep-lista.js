@@ -1,6 +1,6 @@
 /**
- * Checklist de compras + estimativa de preços (AlimentacaoPrecos).
- * Shopping checklist + price estimates.
+ * Checklist de compras + total só dos itens marcados.
+ * Shopping checklist + total sums only checked items.
  */
 (function () {
   function storageKey(semana) {
@@ -40,53 +40,37 @@
     }, 500);
   }
 
-  function paintEstimates(root) {
+  function parsePriceText(s) {
+    if (!s) return null;
+    var m = String(s).replace(/\s/g, "").match(/R\$\s*([\d.]+),(\d{2})/);
+    if (!m) return null;
+    var n = parseFloat(m[1].replace(/\./g, "") + "." + m[2]);
+    return isFinite(n) ? n : null;
+  }
+
+  /**
+   * Soma só os checkboxes marcados (o que vai comprar).
+   * Sums only checked boxes (what you will buy).
+   */
+  function updateTotal(root) {
     var P = window.AlimentacaoPrecos;
     if (!P) return;
-    // Despensa: preços já vêm no HTML (FIRST_BUY).
-    // Pantry checklist: prices already rendered from FIRST_BUY.
-    if (root.getAttribute("data-despensa") === "1") {
-      updateProgress(root);
-      return;
-    }
-    var cat = P.loadCatalog();
-    var total = 0;
-    var matched = 0;
     var labels = root.querySelectorAll("label.shop-item");
+    var total = 0;
+    var marked = 0;
     for (var i = 0; i < labels.length; i++) {
       var label = labels[i];
-      var span = label.querySelector("span:not(.shop-price)");
-      if (!span) continue;
-      var text = plainText(span).replace(/\s*≈.*$/, "").replace(/\s*R\$.*$/, "");
-      // restore clean text in first span if we nested before
-      var nameSpan = label.querySelector("[data-item-name]") || span;
-      if (!nameSpan.getAttribute("data-item-name")) {
-        nameSpan.setAttribute("data-item-name", "1");
+      var inp = label.querySelector('input[type="checkbox"]');
+      if (!inp || !inp.checked) continue;
+      var raw = label.getAttribute("data-estimate");
+      var val = raw != null && raw !== "" ? parseFloat(raw) : null;
+      if (val == null || !isFinite(val)) {
+        var priceEl = label.querySelector(".shop-price");
+        val = parsePriceText(priceEl ? plainText(priceEl) : "");
       }
-      var est = P.estimateLine(text, cat);
-      var priceEl = label.querySelector(".shop-price");
-      if (!priceEl) {
-        priceEl = document.createElement("span");
-        priceEl.className = "shop-price";
-        label.appendChild(priceEl);
-      }
-      if (est.pantry) {
-        priceEl.textContent = "";
-        priceEl.title = "Despensa — fora da estimativa";
-        priceEl.className = "shop-price";
-      } else if (est.matched && est.estimate != null) {
-        priceEl.textContent = P.formatBRL(est.estimate);
-        priceEl.title = est.detail || "";
-        priceEl.className = "shop-price shop-price-ok";
-        total += est.estimate;
-        matched++;
-      } else if (est.matched && est.detail) {
-        priceEl.textContent = est.detail;
-        priceEl.className = "shop-price shop-price-ref";
-      } else {
-        priceEl.textContent = "—";
-        priceEl.className = "shop-price";
-        priceEl.title = "Sem preço no catálogo";
+      if (val != null && isFinite(val) && val > 0) {
+        total += val;
+        marked++;
       }
     }
     var sum = root.querySelector("[data-shop-total]");
@@ -99,11 +83,73 @@
       else root.appendChild(sum);
     }
     sum.innerHTML =
-      "<strong>Estimativa da lista:</strong> " +
+      "<strong>Total a comprar (marcados):</strong> " +
       P.formatBRL(total) +
       ' <span class="footer-note">(' +
-      matched +
-      " itens · sem arroz/feijão/temperos · <a href=\"precos.html\">atualizar após a compra</a>)</span>";
+      marked +
+      " item" +
+      (marked === 1 ? "" : "s") +
+      " · marque o que precisa comprar)</span>";
+  }
+
+  function paintEstimates(root) {
+    var P = window.AlimentacaoPrecos;
+    if (!P) return;
+
+    // Despensa: preços já no HTML — só garante data-estimate.
+    // Pantry: prices already in HTML — ensure data-estimate.
+    if (root.getAttribute("data-despensa") === "1") {
+      var dLabels = root.querySelectorAll("label.shop-item");
+      for (var d = 0; d < dLabels.length; d++) {
+        var dl = dLabels[d];
+        if (dl.getAttribute("data-estimate")) continue;
+        var pe = dl.querySelector(".shop-price");
+        var pv = parsePriceText(pe ? plainText(pe) : "");
+        if (pv != null) dl.setAttribute("data-estimate", String(pv));
+      }
+      updateProgress(root);
+      updateTotal(root);
+      return;
+    }
+
+    var cat = P.loadCatalog();
+    var labels = root.querySelectorAll("label.shop-item");
+    for (var i = 0; i < labels.length; i++) {
+      var label = labels[i];
+      var span = label.querySelector("span:not(.shop-price)");
+      if (!span) continue;
+      var text = plainText(span).replace(/\s*≈.*$/, "").replace(/\s*R\$.*$/, "");
+      var nameSpan = label.querySelector("[data-item-name]") || span;
+      if (!nameSpan.getAttribute("data-item-name")) {
+        nameSpan.setAttribute("data-item-name", "1");
+      }
+      var est = P.estimateLine(text, cat);
+      var priceEl = label.querySelector(".shop-price");
+      if (!priceEl) {
+        priceEl = document.createElement("span");
+        priceEl.className = "shop-price";
+        label.appendChild(priceEl);
+      }
+      label.removeAttribute("data-estimate");
+      if (est.pantry) {
+        priceEl.textContent = "";
+        priceEl.title = "Despensa — fora da estimativa";
+        priceEl.className = "shop-price";
+      } else if (est.matched && est.estimate != null) {
+        priceEl.textContent = P.formatBRL(est.estimate);
+        priceEl.title = est.detail || "";
+        priceEl.className = "shop-price shop-price-ok";
+        label.setAttribute("data-estimate", String(est.estimate));
+      } else if (est.matched && est.detail) {
+        priceEl.textContent = est.detail;
+        priceEl.className = "shop-price shop-price-ref";
+      } else {
+        priceEl.textContent = "—";
+        priceEl.className = "shop-price";
+        priceEl.title = "Sem preço no catálogo";
+      }
+    }
+    updateTotal(root);
   }
 
   function updateProgress(root) {
@@ -113,7 +159,7 @@
       if (boxes[i].checked) done++;
     }
     var el = root.querySelector("[data-shop-progress]");
-    if (el) el.textContent = done + " de " + boxes.length + " itens";
+    if (el) el.textContent = done + " de " + boxes.length + " marcados para comprar";
   }
 
   function init() {
@@ -136,13 +182,17 @@
           var s = loadState(semana);
           if (input.checked) {
             s[id] = true;
-            if (li) li.className = (li.className.replace(/\bdone\b/g, "") + " done").replace(/\s+/g, " ").trim();
+            if (li)
+              li.className = (li.className.replace(/\bdone\b/g, "") + " done")
+                .replace(/\s+/g, " ")
+                .trim();
           } else {
             delete s[id];
             if (li) li.className = li.className.replace(/\bdone\b/g, "").replace(/\s+/g, " ").trim();
           }
           saveState(semana, s);
           updateProgress(root);
+          updateTotal(root);
         });
       })(boxes[i]);
     }
@@ -155,8 +205,9 @@
       if (actions) root.insertBefore(progress, actions);
       else root.appendChild(progress);
     }
-    updateProgress(root);
     paintEstimates(root);
+    updateProgress(root);
+    updateTotal(root);
 
     root.addEventListener("click", function (ev) {
       var t = ev.target;
@@ -203,6 +254,7 @@
           if (li2) li2.className = li2.className.replace(/\bdone\b/g, "").trim();
         }
         updateProgress(root);
+        updateTotal(root);
       }
     });
   }

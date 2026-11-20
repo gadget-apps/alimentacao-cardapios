@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Semana 2 — passo a passo</title>
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <main class="wrap">
+    <nav class="nav">
+      <a href="index.html">Início</a>
+      <a href="semana-1.html">Semana 1</a>
+      <a class="active" href="semana-2.html">Semana 2</a>
+      <a href="semana-3.html">Semana 3</a>
+      <a href="semana-4.html">Semana 4</a>
+    </nav>
+
+    <section class="hero">
+      <h1>Semana 2</h1>
+      <p>Mesma lógica da Semana 1: <strong>1) comprar · 2) ver o cardápio · 3) fazer o dia</strong>. Café todo dia: pãozinho + queijo + tomate + 2 ovos. Jantar só Ter–Qui.</p>
+      <div class="chips">
+        <span class="chip">1) Compras</span>
+        <span class="chip">2) Cardápio</span>
+        <span class="chip">3) Receitas do dia</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="passo">
+        <div class="passo-num">1</div>
+        <div class="passo-body">
+          <h3>Compras da semana</h3>
+          <p>Compre tudo isto de uma vez.</p>
+        </div>
+      </div>
+      <div id="lista-compras"><div class="shop-grid">
+        <div>
+          <h3>Proteínas</h3>
+          <ul>
+            <li>Patinho moído — <strong>~1,7–1,8 kg</strong> (porções 200–220 g)</li>
+            <li>Frango — <strong>~220 g</strong> (jantar quinta)</li>
+            <li>Ovos — <strong>2 dúzias</strong> (2/dia no café + jantares + liga almôndegas)</li>
+            <li>Queijo — <strong>400–500 g</strong> (café + se passar fome)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Legumes</h3>
+          <ul>
+            <li>Berinjela — 1 média (terça almoço)</li>
+            <li>Tomate — 2–3 grandes (quarta almoço recheado) + salada</li>
+            <li>Abobrinha — 3–4 (quarta jantar barco + terça jantar + domingo almoço)</li>
+            <li>Chuchu — 1 médio-grande (quinta almoço)</li>
+            <li>Pimentão — 1 médio (segunda almoço)</li>
+            <li>Brócolis — 400 g</li>
+            <li>Vagem — ~200 g (sábado almoço)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Base</h3>
+          <ul>
+            <li>Arroz integral 500 g · Feijão 500 g</li>
+            <li>Pãozinho 7 · Tomate · Cebola · Alho</li>
+            <li>Molho pronto · temperos</li>
+          </ul>
+        </div>
+      </div>
+    <button type="button" class="btn-keep" data-keep-download data-semana="2">Baixar lista (Google Keep)</button>
+      <div id="keep-hint" class="keep-hint" hidden>
+        <strong>No Keep:</strong> abra o arquivo, copie tudo, cole numa nota nova e toque no icone de checklist.
+      </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="passo">
+        <div class="passo-num">2</div>
+        <div class="passo-body">
+          <h3>Cardápio da semana (visão rápida)</h3>
+          <p>No domingo você pode preparar os recheados juntos no forno. De segunda a domingo, abra o dia e siga a receita.</p>
+        </div>
+      </div>
+      <table class="table">
+  <thead><tr><th>Dia</th><th>Almoço (200–220 g)</th><th>Jantar</th></tr></thead>
+  <tbody>
+    <tr><td>Seg</td><td>Pimentão recheado</td><td>—</td></tr>
+    <tr><td>Ter</td><td>Berinjela recheada</td><td>4 ovos + abobrinha</td></tr>
+    <tr><td>Qua</td><td>Tomate recheado</td><td>Abobrinha barco</td></tr>
+    <tr><td>Qui</td><td>Chuchu recheado</td><td>Frango + brócolis</td></tr>
+    <tr><td>Sex</td><td>Almôndegas + brócolis</td><td>—</td></tr>
+    <tr><td>Sáb</td><td>Carne shoyu + vagem</td><td>—</td></tr>
+    <tr><td>Dom</td><td>Carne + abobrinha</td><td>—</td></tr>
+  </tbody>
+</table>
+    </section>
+
+    <section class="card">
+      <div class="passo">
+        <div class="passo-num">3</div>
+        <div class="passo-body">
+          <h3>Receitas — dia a dia</h3>
+          <p>Quantidade + ingredientes + passo a passo no mesmo bloco do dia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEGUNDA -->
+    <section class="card">
+      <h2>Segunda — só almoço</h2>
+      <article class="meal">
+        <span class="label">Almoço</span>
+        <strong>Pimentão recheado com patinho</strong>
+        <ul>
+          <li>1 pimentão recheado com 200–220 g patinho</li>
+          <li>Salada: tomate e pepino</li>
+          <li>2 colheres de arroz + 2 de feijão</li>
+        </ul>
+      </article>
+      <p class="footer-note">Noite: sem jantar.  </p>
+      <article class="recipe">
+        <h3>Como fazer (pimentão recheado)</h3>
+        <p class="meta">Tempo: 45 min · <a href="legumes-recheados.html">Guia de recheados</a> · Recheio seco</p>
+        <p class="ing"><strong>Ingredientes:</strong> 1 pimentão médio · 200–220 g patinho · ½ cebola · 2 dentes de alho · 1 tomate · orégano · páprica · cominho · azeite · sal · tomate e pepino para salada</p>
+        <ol>
+          <li>Tire a tampa e as sementes do pimentão. Escalde em água fervente por 3 minutos e escorra de cabeça para baixo.</li>
+          <li>Refogue cebola e alho; junte a carne e os temperos. Mexa até ficar bem seco, adicione o tomate picado e cozinhe por mais 3 minutos.</li>
+          <li>Recheie o pimentão com a carne. Coloque numa assadeira com um fio de água no fundo e asse a 180 °C por 25–30 minutos.</li>
+          <li>Salada: corte o tomate e pepino em cubos e tempere a gosto.</li>
+          <li>Monte a marmita: pimentão recheado + 2 cs arroz + 2 cs feijão + salada ao lado.</li>
+        </ol>
+        <p class="meta"><a href="carne-moida.html">receita 10</a> · <a href="receitas-favoritas.html">favoritas</a></p>
+      </article>
+    </section>
+
+    <!-- TERÇA -->
+    <section class="card">
+      <h2>Terça — almoço + jantar</h2>
+      <div class="grid">
+        <article class="meal">
+          <span class="label">Almoço</span>
+          <strong>Berinjela recheada</strong>
+          <ul>
+            <li>½ berinjela média recheada com 200–220 g patinho</li>
+            <li>2 colheres de arroz <em>(sem feijão)</em></li>
+          </ul>
+        </article>
+        <article class="meal">
+          <span class="label">Jantar</span>
+          <strong>Ovos mexidos + abobrinha</strong>
+          <ul>
+            <li>4 ovos</li>
+            <li>Abobrinha refogada</li>
+            <li><strong>Sem arroz · sem feijão</strong></li>
+          </ul>
+        </article>
+      </div>
+      <article class="recipe">
+        <h3>Almoço — berinjela recheada</h3>
+        <p class="meta">Tempo: 50 min · <a href="legumes-recheados.html">Guia de recheados</a> · Molho leve no fundo</p>
+        <p class="ing"><strong>Ingredientes:</strong> 1 berinjela média · 200–220 g patinho moído seco · ½ cebola · 1 alho · 2 tomates picados · orégano · páprica · azeite · sal · pimenta · cheiro-verde</p>
+        <ol>
+          <li>Corte a berinjela ao meio no comprimento. Escave o miolo deixando 1 cm de parede. Salpique sal nas metades e no miolo picado por 10 min. Enxágue e seque.</li>
+          <li>Refogue o miolo picado com cebola, alho, tomate picado e misture com a carne moída já seca e temperada.</li>
+          <li>Preencha a berinjela com a carne. Coloque em assadeira com um leve molho de tomate rústico no fundo e asse a 180 °C por 30–35 min.</li>
+          <li>Sirva com 2 cs de arroz integral (como tem molho na assadeira, sem feijão).</li>
+        </ol>
+      </article>
+      <article class="recipe">
+        <h3>Jantar — ovos mexidos + abobrinha (sem carbo)</h3>
+        <p class="meta">Tempo: 15 min · Recuperação leve</p>
+        <p class="ing"><strong>Ingredientes:</strong> 4 ovos · 1 abobrinha · 1 dente de alho · azeite · sal · páprica · cheiro-verde</p>
+        <ol>
+          <li>Refogue abobrinha em cubos com alho, sal e páprica 6–8 min.</li>
+          <li>Bata os ovos; faça omelete ou mexidos em fogo baixo.</li>
+          <li>Sirva junto — <strong>sem arroz e sem feijão</strong>.</li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- QUARTA -->
+    <section class="card">
+      <h2>Quarta — almoço + jantar</h2>
+      <div class="grid">
+        <article class="meal">
+          <span class="label">Almoço</span>
+          <strong>Tomate recheado</strong>
+          <ul>
+            <li>2–3 tomates grandes recheados com 200–220 g patinho</li>
+            <li>2 colheres de arroz <em>(sem feijão)</em></li>
+          </ul>
+        </article>
+        <article class="meal">
+          <span class="label">Jantar</span>
+          <strong>Abobrinha barco recheada</strong>
+          <ul>
+            <li>1 abobrinha média com 180–200 g patinho</li>
+            <li>Salada fresca sem folhas</li>
+            <li><strong>Sem arroz · sem feijão</strong></li>
+          </ul>
+        </article>
+      </div>
+      <article class="recipe">
+        <h3>Almoço — tomate recheado</h3>
+        <p class="meta">Tempo: 35 min · <a href="legumes-recheados.html">Guia de recheados</a> · Tomate solta caldo</p>
+        <p class="ing"><strong>Ingredientes:</strong> 2–3 tomates grandes e firmes · 200–220 g patinho moído seco · ½ cebola · 1 alho · orégano · páprica · sal · pimenta · cheiro-verde</p>
+        <ol>
+          <li>Corte a tampa dos tomates; retire a polpa e as sementes com uma colher. Pique a polpa e cozinhe por 2–3 min com o recheio de carne seca até secar de novo.</li>
+          <li>Recheie os tomates com a carne. Coloque-os em fôrma justa (eles amolecem no forno).</li>
+          <li>Asse a 180 °C por 20–25 min. Se quiser, coloque uma fatia fina de queijo nos últimos 5 min.</li>
+          <li>Pote: tomates recheados + 2 cs arroz integral (sem feijão, devido ao caldo do tomate).</li>
+        </ol>
+      </article>
+      <article class="recipe">
+        <h3>Jantar — abobrinha barco recheada (sem carbo)</h3>
+        <p class="meta">Tempo: 40 min · <a href="legumes-recheados.html">Guia de recheados</a> · Recheio sem arroz</p>
+        <p class="ing"><strong>Ingredientes:</strong> 1 abobrinha média-grande · 180–200 g patinho moído seco · ½ cebola · 1 alho · azeite · sal · orégano · limão · salada de tomate e pepino</p>
+        <ol>
+          <li>Corte a abobrinha ao meio no comprimento. Retire o miolo com uma colher (deixe 0,5 cm de parede), pique e refogue-o por 2 min com cebola e alho; misture no recheio de patinho seco.</li>
+          <li>Salgue a abobrinha, recheie e asse em forma untada com um fio de água a 180 °C por 25–30 min até a casca amaciar.</li>
+          <li>Finalize com orégano e suco de limão. Sirva acompanhado de salada de tomate e pepino picados — <strong>sem arroz e sem feijão</strong>.</li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- QUINTA -->
+    <section class="card">
+      <h2>Quinta — almoço + jantar</h2>
+      <div class="grid">
+        <article class="meal">
+          <span class="label">Almoço</span>
+          <strong>Chuchu recheado</strong>
+          <ul>
+            <li>1 chuchu médio-grande recheado com 200–220 g patinho</li>
+            <li>2 colheres de arroz + 2 de feijão</li>
+          </ul>
+        </article>
+        <article class="meal">
+          <span class="label">Jantar</span>
+          <strong>Frango grelhado + brócolis</strong>
+          <ul>
+            <li>180–200 g frango</li>
+            <li>Brócolis</li>
+            <li><strong>Sem arroz · sem feijão</strong></li>
+          </ul>
+        </article>
+      </div>
+      <article class="recipe">
+        <h3>Almoço — chuchu recheado</h3>
+        <p class="meta">Tempo: 45 min · <a href="legumes-recheados.html">Guia de recheados</a> · Al dente</p>
+        <p class="ing"><strong>Ingredientes:</strong> 1 chuchu médio-grande · 200–220 g patinho moído seco · ½ cebola · 1 alho · ½ tomate · páprica · azeite · sal · limão · cheiro-verde</p>
+        <ol>
+          <li>Descasque o chuchu, corte ao meio no comprimento e remova o miolo duro.</li>
+          <li>Cozinhe as metades em água fervente com sal por 8–10 min até ficar al dente (firme, sem desmanchar). Escorra bem.</li>
+          <li>Refogue a cebola, alho, carne moída, tomate e temperos até ficar um recheio bem seco.</li>
+          <li>Preencha os chuchus com a carne, coloque em assadeira e leve ao forno a 180 °C por 15–20 min para gratinar. Finalize com limão. Sirva com 2 cs arroz + 2 cs feijão.</li>
+        </ol>
+      </article>
+      <article class="recipe">
+        <h3>Jantar — frango + brócolis (sem carbo)</h3>
+        <p class="ing"><strong>Ingredientes:</strong> 180–200 g peito de frango · 180 g brócolis · alho · azeite · páprica · sal · limão</p>
+        <ol>
+          <li>Pré-cozinhe brócolis 4 min; seque.</li>
+          <li>Grelhe o frango com páprica e sal (4–5 min cada lado).</li>
+          <li>Salteie o brócolis com alho; limão. <strong>Sem arroz/feijão</strong>.</li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- SEXTA -->
+    <section class="card">
+      <h2>Sexta — só almoço</h2>
+      <article class="meal">
+        <span class="label">Almoço</span>
+        <strong>Almôndegas assadas + brócolis</strong>
+        <ul>
+          <li>200–220 g almôndegas de patinho</li>
+          <li>Brócolis crocante</li>
+          <li>2 colheres de arroz + 2 de feijão</li>
+        </ul>
+      </article>
+      <p class="footer-note">Noite: sem jantar. Se passar fome → 2 ovos ou 2 fatias de queijo.</p>
+      <article class="recipe">
+        <h3>Como fazer (almoço)</h3>
+        <p class="meta">Tempo: 35 min · Sem molho → arroz + feijão</p>
+        <p class="ing"><strong>Ingredientes:</strong> 200–220 g patinho moído · 180 g brócolis · ¼ ovo batido · ½ colher de sopa de cebola ralada · ½ dente de alho amassado · aveia ou linhaça (opcional) · orégano · páprica · sal · pimenta · azeite · limão</p>
+        <ol>
+          <li>Cozinhe o brócolis em floretes por 4 minutos em água fervente com sal. Escorra e seque bem.</li>
+          <li>Em uma tigela, misture bem a carne, o ovo batido, a cebola ralada, o alho amassado, orégano, páprica, sal e pimenta. Se a massa estiver mole, acrescente uma pitada de aveia ou farinha de linhaça para dar liga.</li>
+          <li>Modele 3–4 bolinhas (almôndegas) grandes.</li>
+          <li>Coloque em fôrma untada e asse em forno a 200 °C por 20–25 minutos, virando na metade, até dourar (ou grelhe na frigideira antiaderente tampada com um fio de azeite por 10–12 min, virando sempre).</li>
+          <li>Na mesma frigideira, pingue um fio de azeite e salteie o brócolis por 3–4 minutos. Finalize com limão.</li>
+          <li>Monte a marmita: almôndegas + brócolis + 2 cs arroz + 2 cs feijão.</li>
+        </ol>
+        <p class="meta"><a href="carne-moida.html">receita 6</a></p>
+      </article>
+    </section>
+
+    <!-- SÁBADO -->
+    <section class="card">
+      <h2>Sábado — só almoço</h2>
+      <article class="meal">
+        <span class="label">Almoço</span>
+        <strong>Carne moída shoyu + vagem</strong>
+        <ul>
+          <li>200–220 g patinho no molho pronto</li>
+          <li>Vagem salteada</li>
+          <li>2 colheres de arroz <em>(sem feijão — tem molho)</em></li>
+        </ul>
+      </article>
+      <p class="footer-note">Noite: sem jantar.</p>
+      <article class="recipe">
+        <h3>Como fazer</h3>
+        <p class="meta">Tempo: 25 min · Com molho → só arroz</p>
+        <p class="ing"><strong>Ingredientes:</strong> 200–220 g patinho · 180 g vagem · ¼ cebola · 1 dente de alho · 1 colher de chá de azeite · 1 colher de sopa de molho shoyu/agridoce pronto · pimenta · cebolinha</p>
+        <ol>
+          <li>Corte as pontas da vagem e cozinhe por 7–8 min em água com sal. Escorra bem.</li>
+          <li>Refogue cebola e alho no azeite. Jogue a carne, quebre os torrões e mexa até secar a água (6–8 min). Evite sal, o molho shoyu já salga.</li>
+          <li>Acrescente a vagem cozida e pingue 1 colher de sopa de molho shoyu pronto.</li>
+          <li>Misture bem em fogo baixo por 1–2 minutos para incorporar o sabor. Se necessário, pingue um fio de água.</li>
+          <li>Finalize com cebolinha picada. Monte o pote: carne + vagem + 2 cs arroz.</li>
+        </ol>
+        <p class="meta"><a href="carne-moida.html">receita 2</a></p>
+      </article>
+    </section>
+
+    <!-- DOMINGO -->
+    <section class="card">
+      <h2>Domingo — só almoço</h2>
+      <article class="meal">
+        <span class="label">Almoço</span>
+        <strong>Carne moída com abobrinha</strong>
+        <ul>
+          <li>200–220 g patinho</li>
+          <li>Abobrinha ao alho e limão</li>
+          <li>2 colheres de arroz + 2 de feijão</li>
+        </ul>
+      </article>
+      <p class="footer-note">Noite: sem jantar.</p>
+      <article class="recipe">
+        <h3>Como fazer</h3>
+        <p class="meta">Tempo: 25 min · Sem molho → arroz + feijão</p>
+        <p class="ing"><strong>Ingredientes:</strong> 200–220 g patinho · 1 abobrinha · ½ cebola · 2 dentes de alho · ½ tomate · cominho · páprica · azeite · sal · limão · cheiro-verde</p>
+        <ol>
+          <li>Corte a abobrinha em cubos médios de 1,5 cm. Pique cebola, alho e tomate.</li>
+          <li>Refogue metade da cebola + 1 alho com azeite. Junte a carne, quebre, seque e tempere com cominho, páprica e sal. Reserve.</li>
+          <li>Na mesma frigideira, refogue o restante da cebola/alho; junte a abobrinha com sal e páprica. Mexa em fogo médio sem tampar por 6–8 min.</li>
+          <li>Volte a carne para a frigideira e junte o tomate por 2 minutos.</li>
+          <li>Apague o fogo, esprema o limão e junte o cheiro-verde. Monte com 2 cs arroz + 2 cs feijão.</li>
+        </ol>
+        <p class="meta"><a href="carne-moida.html">receita 3</a></p>
+      </article>
+    </section>
+
+  </main>
+  <script src="keep-lista.js"></script>
+</body>
+</html>

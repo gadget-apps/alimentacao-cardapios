@@ -1,0 +1,380 @@
+:root {
+  --bg: #f3f0ea;
+  --paper: #fffdf8;
+  --ink: #1f2a24;
+  --muted: #5c6b63;
+  --line: #d7ddd8;
+  --accent: #2f6b4f;
+  --accent-soft: #e5f0ea;
+  --warn: #8a5a2b;
+  --chip: #edf3ef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, #e8f2ec 0, transparent 40%),
+    linear-gradient(180deg, #f7f4ef, var(--bg));
+  line-height: 1.45;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.wrap {
+  width: min(980px, calc(100% - 2rem));
+  margin: 1.5rem auto 3rem;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.nav a.active,
+.nav a:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 24px rgba(31, 42, 36, 0.05);
+}
+
+.hero h1 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+}
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+}
+
+.chip {
+  background: var(--chip);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.1rem 1.2rem 1.25rem;
+  margin-bottom: 0.9rem;
+  box-shadow: 0 6px 18px rgba(31, 42, 36, 0.04);
+}
+
+.card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.meal {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.8rem 0.9rem;
+  background: #fff;
+}
+
+.meal .label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  margin-bottom: 0.45rem;
+}
+
+.meal strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 1.02rem;
+}
+
+.meal ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.meal li {
+  margin: 0.15rem 0;
+}
+
+.note {
+  color: var(--warn);
+  font-size: 0.92rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  padding: 0.55rem 0.35rem;
+  vertical-align: top;
+}
+
+.table th {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.footer-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.week-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.8rem;
+}
+
+.week-list a {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+  color: var(--ink);
+  box-shadow: 0 6px 18px rgba(31, 42, 36, 0.04);
+}
+
+.week-list a:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.week-list strong {
+  display: block;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.recipe {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.75rem;
+  background: #fff;
+}
+
+.recipe h3 {
+  margin: 0 0 0.35rem;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+
+.recipe .meta {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-bottom: 0.55rem;
+}
+
+.recipe ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--ink);
+}
+
+.recipe li {
+  margin: 0.25rem 0;
+}
+
+.recipe .ing {
+  margin: 0 0 0.55rem;
+  padding: 0.55rem 0.7rem;
+  background: var(--accent-soft);
+  border-radius: 10px;
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.85rem;
+}
+
+.shop-grid h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+  color: var(--accent);
+}
+
+.shop-grid ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.shop-grid li {
+  margin: 0.2rem 0;
+}
+
+.passo {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.85rem;
+}
+
+.passo-num {
+  flex: 0 0 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+}
+
+.passo-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.passo-body h3 {
+  margin: 0.15rem 0 0.35rem;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+
+.passo-body p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.checklist li {
+  margin: 0.35rem 0;
+  padding: 0.45rem 0.65rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+}
+
+.dia-qtd {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.88rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.btn-keep {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.1rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn-keep:hover {
+  filter: brightness(1.05);
+}
+
+.btn-keep-secondary {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  margin-left: 0.4rem;
+}
+
+.keep-hint {
+  margin-top: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  background: var(--accent-soft);
+  border-radius: 12px;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.keep-hint ol {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+}

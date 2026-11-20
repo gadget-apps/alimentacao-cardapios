@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Semana 1 — passo a passo</title>
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <main class="wrap">
+    <nav class="nav">
+      <a href="index.html">Início</a>
+      <a class="active" href="semana-1.html">Semana 1</a>
+      <a href="semana-2.html">Semana 2</a>
+      <a href="semana-3.html">Semana 3</a>
+      <a href="semana-4.html">Semana 4</a>
+    </nav>
+
+    <section class="hero">
+      <h1>Semana 1</h1>
+      <p>Siga só estes 3 passos nesta página. Café todo dia (igual): pãozinho + queijo + tomate + 2 ovos.</p>
+      <div class="chips">
+        <span class="chip">1) Comprar</span>
+        <span class="chip">2) Domingo cozinha</span>
+        <span class="chip">3) Semana esquenta</span>
+      </div>
+    </section>
+
+    <!-- PASSO 1 -->
+    <section class="card">
+      <div class="passo">
+        <div class="passo-num">1</div>
+        <div class="passo-body">
+          <h3>Compre isto (para a semana toda)</h3>
+          <p>Uma lista só. Leve no mercado.</p>
+        </div>
+      </div>
+      <div id="lista-compras"><ul class="checklist">
+        <li><strong>Patinho moído</strong> — 1,8 kg</li>
+        <li><strong>Ovos</strong> — 2 dúzias</li>
+        <li><strong>Queijo</strong> — 400–500 g · <strong>Pãozinho</strong> — 7</li>
+        <li><strong>Para rechear:</strong> 2 pimentões · 1–2 abobrinhas · 1 berinjela · 1 chuchu</li>
+        <li><strong>Acompanhamento:</strong> 400 g brócolis · 300 g vagem · 1 maço de couve</li>
+        <li><strong>Salada / base:</strong> tomate · pepino · 3 cebolas · alho · arroz integral 500 g · feijão 500 g</li>
+        <li><strong>Temperos:</strong> cominho · páprica · colorau · orégano · limão · molho shoyu/agridoce pronto · azeite · sal</li>
+      </ul>
+    <button type="button" class="btn-keep" data-keep-download data-semana="1">Baixar lista (Google Keep)</button>
+      <div id="keep-hint" class="keep-hint" hidden>
+        <strong>No Keep:</strong> abra o arquivo, copie tudo, cole numa nota nova e toque no icone de checklist.
+      </div>
+      </div>
+    </section>
+
+    <!-- PASSO 2 -->
+    <section class="card">
+      <div class="passo">
+        <div class="passo-num">2</div>
+        <div class="passo-body">
+          <h3>Domingo — cozinhe tudo (~1h40)</h3>
+          <p>Faça nesta ordem. No fim você tem todos os potes da semana prontos.</p>
+        </div>
+      </div>
+
+      <article class="recipe">
+        <h3>A) Arroz + feijão</h3>
+        <p class="meta">Lote da semana — ver também o Início</p>
+        <ol>
+          <li>Coloque o <strong>feijão na pressão</strong>.</li>
+          <li>Enquanto isso, faça o <strong>arroz integral</strong> no fogão.</li>
+        </ol>
+      </article>
+
+      <article class="recipe">
+        <h3>B) Carne moída (1,8 kg de uma vez)</h3>
+        <p class="ing"><strong>Leva:</strong> 1,8 kg patinho · 2 cebolas · alho · 2–3 tomates · cominho · páprica · colorau · orégano · sal · azeite</p>
+        <ol>
+          <li>Refogue cebola e alho. Junte a carne. Quebre os torrões e seque bem na frigideira.</li>
+          <li>Tempere. Reserve em uma tigela grande — é a mesma carne para tudo.</li>
+        </ol>
+      </article>
+
+      <article class="recipe">
+        <h3>C) Recheados no forno (bandeja única)</h3>
+        <p class="ing"><strong>Cada um leva ~200–220 g da carne acima.</strong> Pimentão (2) · abobrinha (barco) · berinjela · chuchu</p>
+        <ol>
+          <li>Prepare os legumes (tire miolo / sementes). Recheie com a carne.</li>
+          <li>Forno 180 °C, 25–35 min, tudo junto na mesma assadeira.</li>
+          <li>Um pimentão fica para o <strong>almoço de sexta</strong>; o outro (menor) para o <strong>jantar de quarta</strong>.</li>
+        </ol>
+      </article>
+
+      <article class="recipe">
+        <h3>D) Legumes de acompanhamento</h3>
+        <ol>
+          <li>Brócolis no vapor ~4 min. Vagem ~8 min. Escorra.</li>
+          <li>Couve: refogue rápida com alho ~5 min.</li>
+        </ol>
+      </article>
+
+      <article class="recipe">
+        <h3>E) Monte os potes (cole o nome do dia na tampa)</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Tampa</th>
+              <th>O que coloca</th>
+              <th>Arroz / feijão</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Seg almoço</td>
+              <td>200–220 g carne + brócolis</td>
+              <td>2 cs arroz + 2 cs feijão</td>
+            </tr>
+            <tr>
+              <td>Ter almoço</td>
+              <td>Abobrinha recheada</td>
+              <td>2 cs arroz</td>
+            </tr>
+            <tr>
+              <td>Ter jantar</td>
+              <td>180–200 g carne + couve</td>
+              <td>nada</td>
+            </tr>
+            <tr>
+              <td>Qua almoço</td>
+              <td>Berinjela recheada</td>
+              <td>2 cs arroz</td>
+            </tr>
+            <tr>
+              <td>Qua jantar</td>
+              <td>Pimentão menor recheado</td>
+              <td>nada</td>
+            </tr>
+            <tr>
+              <td>Qui almoço</td>
+              <td>200–220 g carne + vagem (+ 1 cs shoyu na hora de esquentar)</td>
+              <td>2 cs arroz</td>
+            </tr>
+            <tr>
+              <td>Sex almoço</td>
+              <td>Pimentão recheado</td>
+              <td>2 cs arroz + 2 cs feijão</td>
+            </tr>
+            <tr>
+              <td>Sáb almoço</td>
+              <td>Chuchu recheado</td>
+              <td>2 cs arroz + 2 cs feijão</td>
+            </tr>
+            <tr>
+              <td>Dom almoço</td>
+              <td>200–220 g carne + legume que sobrou</td>
+              <td>2 cs arroz + 2 cs feijão</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="footer-note">Geladeira. Pronto. Quinta à noite: omelete na hora (único fogão além do domingo).</p>
+      </article>
+    </section>
+
+    <!-- PASSO 3 -->
+    <section class="card">
+      <div class="passo">
+        <div class="passo-num">3</div>
+        <div class="passo-body">
+          <h3>Durante a semana — só esquentar</h3>
+          <p>Abra o pote do dia. Micro-ondas 3–4 min. É isso.</p>
+        </div>
+      </div>
+
+      <article class="meal">
+        <span class="label">Segunda — almoço</span>
+        <strong>Carne + brócolis</strong>
+        <span class="dia-qtd">200–220 g carne · 2 cs arroz · 2 cs feijão</span>
+        <ul>
+          <li>Noite: sem jantar</li>
+        </ul>
+      </article>
+
+      <article class="meal" style="margin-top:0.75rem">
+        <span class="label">Terça — almoço + jantar</span>
+        <strong>Almoço: abobrinha recheada</strong>
+        <span class="dia-qtd">2 cs arroz (sem feijão)</span>
+        <strong style="margin-top:0.6rem">Jantar: carne + couve</strong>
+        <span class="dia-qtd">180–200 g carne · sem arroz/feijão</span>
+      </article>
+
+      <article class="meal" style="margin-top:0.75rem">
+        <span class="label">Quarta — almoço + jantar</span>
+        <strong>Almoço: berinjela recheada</strong>
+        <span class="dia-qtd">2 cs arroz</span>
+        <strong style="margin-top:0.6rem">Jantar: pimentão recheado (o menor)</strong>
+        <span class="dia-qtd">sem arroz/feijão</span>
+      </article>
+
+      <article class="meal" style="margin-top:0.75rem">
+        <span class="label">Quinta — almoço + jantar</span>
+        <strong>Almoço: carne + vagem</strong>
+        <span class="dia-qtd">200–220 g · ao esquentar: 1 cs molho shoyu · 2 cs arroz</span>
+        <strong style="margin-top:0.6rem">Jantar: omelete (faz na hora, 10 min)</strong>
+        <span class="dia-qtd">4 ovos + tomate/pepino · sem arroz/feijão</span>
+        <ul>
+          <li>Bata 4 ovos com sal e páprica · frigideira 4–6 min · salada ao lado</li>
+        </ul>
+      </article>
+
+      <article class="meal" style="margin-top:0.75rem">
+        <span class="label">Sexta — almoço</span>
+        <strong>Pimentão recheado</strong>
+        <span class="dia-qtd">2 cs arroz + 2 cs feijão · noite sem jantar</span>
+      </article>
+
+      <article class="meal" style="margin-top:0.75rem">
+        <span class="label">Sábado — almoço</span>
+        <strong>Chuchu recheado</strong>
+        <span class="dia-qtd">2 cs arroz + 2 cs feijão · noite sem jantar</span>
+      </article>
+
+      <article class="meal" style="margin-top:0.75rem">
+        <span class="label">Domingo — almoço</span>
+        <strong>Carne + legume que sobrou</strong>
+        <span class="dia-qtd">200–220 g · 2 cs arroz + 2 cs feijão · noite sem jantar</span>
+        <ul>
+          <li>À tarde: pode já fazer o prep da <a href="semana-2.html">Semana 2</a></li>
+        </ul>
+      </article>
+    </section>
+  </main>
+  <script src="keep-lista.js"></script>
+</body>
+</html>

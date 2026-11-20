@@ -14,7 +14,7 @@
 
   function dishClass(text) {
     var t = String(text || "").toLowerCase();
-    if (/omelete/.test(t)) return "prato-omelete";
+    if (/omelete|muffin/.test(t)) return "prato-omelete";
     if (/porco|pernil|lombo/.test(t)) return "prato-porco";
     if (/frango/.test(t)) return "prato-frango";
     if (/alm[oô]ndega/.test(t)) return "prato-almondegas";

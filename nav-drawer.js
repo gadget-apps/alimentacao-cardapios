@@ -5,6 +5,7 @@
 (function () {
   var LINKS = [
     { href: "index.html", label: "Início" },
+    { href: "precos.html#despensa", label: "Despensa (1ª compra)" },
     { href: "precos.html", label: "Preços" },
     { href: "semana-1.html", label: "Semana 1" },
     { href: "semana-2.html", label: "Semana 2" },
@@ -31,8 +32,18 @@
     if (document.getElementById("app-drawer")) return;
 
     var file = currentFile();
+    var hash = location.hash || "";
     var linksHtml = LINKS.map(function (l) {
-      var active = file === l.href || (file === "" && l.href === "index.html");
+      var hrefFile = l.href.split("#")[0];
+      var hrefHash = l.href.indexOf("#") >= 0 ? "#" + l.href.split("#")[1] : "";
+      var active = false;
+      if (hrefHash) {
+        active = file === hrefFile && hash === hrefHash;
+      } else {
+        active =
+          (file === l.href || (file === "" && l.href === "index.html")) &&
+          !(file === "precos.html" && hash === "#despensa");
+      }
       return (
         '<a class="drawer-link' +
         (active ? " active" : "") +

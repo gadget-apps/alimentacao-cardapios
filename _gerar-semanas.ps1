@@ -146,7 +146,7 @@ $daysHtml
   <script src="precos-store.js?v=5"></script>
   <script src="keep-lista.js?v=8"></script>
   <script src="tema.js?v=1"></script>
-  <script src="nav-drawer.js?v=1"></script>
+  <script src="nav-drawer.js?v=2"></script>
 </body>
 </html>
 "@

@@ -57,6 +57,32 @@
     mussarela: { name: "Mussarela", unitPrice: 45.0, unit: "kg" }
   };
 
+  /**
+   * Despensa comum a todas as receitas — compra inicial (fora da lista semanal).
+   * Shared pantry for all recipes — first purchase (not on weekly lists).
+   * Estimativas ≈ varejo Araraquara.
+   */
+  var FIRST_BUY = [
+    { name: "Arroz integral", qty: "1 kg", estimate: 8.0, note: "lote semanal ~300 g" },
+    { name: "Feijão", qty: "1 kg", estimate: 9.0, note: "lote semanal ~250–350 g" },
+    { name: "Azeite", qty: "500 ml", estimate: 28.0, note: "todas as receitas" },
+    { name: "Cebola", qty: "1 kg", estimate: 7.0, note: "base de refogados" },
+    { name: "Alho", qty: "200 g", estimate: 6.0, note: "base de refogados" },
+    { name: "Sal", qty: "1 kg", estimate: 3.0, note: "despensa" },
+    { name: "Colorau", qty: "1 pote", estimate: 4.0, note: "panela, moída, porco" },
+    { name: "Cominho", qty: "1 pote", estimate: 5.0, note: "panela, moída, recheados" },
+    { name: "Páprica", qty: "1 pote", estimate: 6.0, note: "quase todos os pratos" },
+    { name: "Orégano", qty: "1 pote", estimate: 4.0, note: "panela, molho, recheados" },
+    { name: "Pimenta-do-reino", qty: "1 pote", estimate: 5.0, note: "temperos" },
+    { name: "Louro", qty: "1 pacote", estimate: 3.0, note: "panela e feijão" },
+    { name: "Limão", qty: "500 g", estimate: 5.0, note: "frango, quiabo, finalize" },
+    { name: "Shoyu / agridoce", qty: "1 frasco", estimate: 12.0, note: "porco shoyu" },
+    { name: "Molho de tomate / pelado", qty: "1 lata (400 g)", estimate: 6.5, note: "recheados" },
+    { name: "Aveia em flocos", qty: "200 g", estimate: 6.0, note: "almôndegas (opcional)" },
+    { name: "Mussarela", qty: "200 g", estimate: 9.0, note: "recheados — repor nas semanas" },
+    { name: "Cheiro-verde", qty: "1 maço", estimate: 3.0, note: "finalize (repor)" }
+  ];
+
   var ALIASES = {
     patinho: ["patinho", "patinho moido"],
     acem: ["acem", "acém", "musculo", "músculo", "paleta", "carne de panela", "panela", "acem moido", "acém moído"],
@@ -370,6 +396,7 @@
     parseQtyFromLabel: parseQtyFromLabel,
     formatBRL: formatBRL,
     DEFAULTS_AQA: DEFAULTS_AQA,
+    FIRST_BUY: FIRST_BUY,
     PANTRY_KEYS: PANTRY_KEYS,
     STORAGE_KEY: STORAGE_KEY,
     ALIASES: ALIASES

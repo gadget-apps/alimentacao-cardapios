@@ -1,13 +1,15 @@
 :root {
-  --bg: #f3f0ea;
-  --paper: #fffdf8;
-  --ink: #1f2a24;
-  --muted: #5c6b63;
-  --line: #d7ddd8;
-  --accent: #2f6b4f;
-  --accent-soft: #e5f0ea;
-  --warn: #8a5a2b;
-  --chip: #edf3ef;
+  /* Base pastel — Base pastel */
+  --bg: #f6f3f0;
+  --paper: #fffcf8;
+  --ink: #3d3a36;
+  --muted: #7a746c;
+  --line: #e4ddd4;
+  --accent: #7a9e8a;
+  --accent-soft: #e8f0eb;
+  --warn: #c4a484;
+  --chip: #eef2ef;
+  --week-tint: #e8f0eb;
 }
 
 * {
@@ -58,7 +60,7 @@ a:hover {
 .nav a:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
+  color: #2f3a34;
   text-decoration: none;
 }
 
@@ -495,4 +497,158 @@ a:hover {
   border-radius: 12px;
   color: var(--ink);
   font-size: 1rem;
+}
+
+/* ---- Semanas em pastéis distintos / Distinct pastel weeks ---- */
+body.semana-1 {
+  --accent: #a8c5b5;
+  --accent-soft: #e7f2ec;
+  --chip: #dceee4;
+  --week-tint: #e7f2ec;
+  background: linear-gradient(180deg, #eef6f1, #f6f3f0);
+}
+body.semana-2 {
+  --accent: #b7c4e0;
+  --accent-soft: #eef1f9;
+  --chip: #e2e8f5;
+  --week-tint: #eef1f9;
+  background: linear-gradient(180deg, #f0f3fa, #f6f3f0);
+}
+body.semana-3 {
+  --accent: #d4b5c8;
+  --accent-soft: #f6eef3;
+  --chip: #f0e2ea;
+  --week-tint: #f6eef3;
+  background: linear-gradient(180deg, #f8f0f4, #f6f3f0);
+}
+body.semana-4 {
+  --accent: #dcc49a;
+  --accent-soft: #f7f1e6;
+  --chip: #f0e6d4;
+  --week-tint: #f7f1e6;
+  background: linear-gradient(180deg, #f8f3e9, #f6f3f0);
+}
+body.semana-5 {
+  --accent: #9fbec4;
+  --accent-soft: #e8f3f4;
+  --chip: #d9ecee;
+  --week-tint: #e8f3f4;
+  background: linear-gradient(180deg, #eef6f7, #f6f3f0);
+}
+body.semana-6 {
+  --accent: #c9b896;
+  --accent-soft: #f5f0e6;
+  --chip: #ebe3d4;
+  --week-tint: #f5f0e6;
+  background: linear-gradient(180deg, #f6f1e8, #f6f3f0);
+}
+body.semana-7 {
+  --accent: #c4a8b0;
+  --accent-soft: #f4ecef;
+  --chip: #eadde2;
+  --week-tint: #f4ecef;
+  background: linear-gradient(180deg, #f6eef1, #f6f3f0);
+}
+body.semana-8 {
+  --accent: #a8b89a;
+  --accent-soft: #eef3ea;
+  --chip: #e0e9d9;
+  --week-tint: #eef3ea;
+  background: linear-gradient(180deg, #f1f5ed, #f6f3f0);
+}
+
+body.semana-1 .hero,
+body.semana-2 .hero,
+body.semana-3 .hero,
+body.semana-4 .hero,
+body.semana-5 .hero,
+body.semana-6 .hero,
+body.semana-7 .hero,
+body.semana-8 .hero {
+  background: linear-gradient(135deg, var(--paper), var(--week-tint));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+
+/* Cards da home por semana / Home week cards */
+.week-list a.w1 { background: #e7f2ec; border-color: #c5ddd0; }
+.week-list a.w2 { background: #eef1f9; border-color: #d0d8ec; }
+.week-list a.w3 { background: #f6eef3; border-color: #e4d0db; }
+.week-list a.w4 { background: #f7f1e6; border-color: #e8d9b8; }
+.week-list a.w5 { background: #e8f3f4; border-color: #c5dce0; }
+.week-list a.w6 { background: #f5f0e6; border-color: #e0d4b8; }
+.week-list a.w7 { background: #f4ecef; border-color: #e0ced5; }
+.week-list a.w8 { background: #eef3ea; border-color: #d0dcc4; }
+.week-list a.w1 strong { color: #5f8a72; }
+.week-list a.w2 strong { color: #6b7aa8; }
+.week-list a.w3 strong { color: #9a6f88; }
+.week-list a.w4 strong { color: #9a7d4e; }
+.week-list a.w5 strong { color: #5f8a90; }
+.week-list a.w6 strong { color: #8a7548; }
+.week-list a.w7 strong { color: #8a6570; }
+.week-list a.w8 strong { color: #6a8058; }
+
+/* Pratos (marmitas) em pastéis / Dish pastels */
+.meal.prato-panela {
+  background: #f3ebe3;
+  border-color: #e0d0c0;
+}
+.meal.prato-panela .label { background: #e8d9c8; color: #7a5e45; }
+
+.meal.prato-quiabo {
+  background: #eaf3e4;
+  border-color: #cfe0c2;
+}
+.meal.prato-quiabo .label { background: #d8e8cc; color: #5a7550; }
+
+.meal.prato-recheado {
+  background: #f7eef2;
+  border-color: #e5d0da;
+}
+.meal.prato-recheado .label { background: #eddde5; color: #8a5f72; }
+
+.meal.prato-shoyu {
+  background: #f7f0e4;
+  border-color: #e6d7b8;
+}
+.meal.prato-shoyu .label { background: #efe2c8; color: #8a7040; }
+
+.meal.prato-classica {
+  background: #efeceb;
+  border-color: #ddd5d0;
+}
+.meal.prato-classica .label { background: #e4dcd6; color: #6e5e55; }
+
+.meal.prato-almondegas {
+  background: #f4ebe6;
+  border-color: #e2d0c4;
+}
+.meal.prato-almondegas .label { background: #ead9ce; color: #7a5848; }
+
+.meal.prato-frango {
+  background: #f8f0e8;
+  border-color: #ead9c4;
+}
+.meal.prato-frango .label { background: #f0e0cc; color: #8a6a45; }
+
+.meal.prato-omelete {
+  background: #f8f5e6;
+  border-color: #ebe3c0;
+}
+.meal.prato-omelete .label { background: #f0eac8; color: #8a7a40; }
+
+.meal.prato-moida {
+  background: #eee8e4;
+  border-color: #dcd2ca;
+}
+.meal.prato-moida .label { background: #e2d8d0; color: #6a584e; }
+
+.chip.prato-panela { background: #e8d9c8; color: #7a5e45; }
+.chip.prato-quiabo { background: #d8e8cc; color: #5a7550; }
+.chip.prato-recheado { background: #eddde5; color: #8a5f72; }
+.chip.prato-shoyu { background: #efe2c8; color: #8a7040; }
+.chip.prato-classica { background: #e4dcd6; color: #6e5e55; }
+.chip.prato-almondegas { background: #ead9ce; color: #7a5848; }
+
+.passo-num {
+  color: #2f3a34;
 }

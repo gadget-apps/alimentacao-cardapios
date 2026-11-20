@@ -16,6 +16,7 @@
   var DEFAULTS_AQA = {
     patinho: { name: "Patinho moído", unitPrice: 56.0, unit: "kg" },
     acem: { name: "Acém / músculo", unitPrice: 43.0, unit: "kg" },
+    porco: { name: "Pernil / lombo (porco)", unitPrice: 28.0, unit: "kg" },
     frango: { name: "Peito de frango", unitPrice: 23.0, unit: "kg" },
     ovo: { name: "Ovo", unitPrice: 1.0, unit: "un" },
     quiabo: { name: "Quiabo", unitPrice: 26.0, unit: "kg" },
@@ -41,8 +42,9 @@
   };
 
   var ALIASES = {
-    patinho: ["patinho", "patinho moido", "carne moida", "moído", "moido"],
-    acem: ["acem", "acém", "musculo", "músculo", "paleta", "carne de panela", "panela"],
+    patinho: ["patinho", "patinho moido"],
+    acem: ["acem", "acém", "musculo", "músculo", "paleta", "carne de panela", "panela", "acem moido", "acém moído"],
+    porco: ["porco", "pernil", "lombo", "lombo suino", "lombo suíno"],
     frango: ["frango", "peito de frango", "peito"],
     ovo: ["ovo", "ovos", "duzia", "dúzia"],
     quiabo: ["quiabo"],

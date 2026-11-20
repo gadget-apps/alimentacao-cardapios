@@ -768,3 +768,10 @@ body.semana-8 .hero {
 .passo-num {
   color: #2f3a34;
 }
+
+.meal.prato-porco {
+  background: #f6efe8;
+  border-color: #e5d4c4;
+}
+.meal.prato-porco .label { background: #ead9ca; color: #7a5a45; }
+.chip.prato-porco { background: #ead9ca; color: #7a5a45; }

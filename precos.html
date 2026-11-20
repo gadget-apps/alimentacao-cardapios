@@ -1,3 +1,249 @@
-<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1" /> <title>Preços — Cardápio Márcio Mazzei</title> <link rel="stylesheet" href="estilo.css?v=12" /> </head> <body> <main class="wrap"> <nav class="nav"> <a href="index.html">Início</a> <a class="active" href="precos.html">Preços</a> <a href="semana-1.html">Semana 1</a>       <a href="receitas.html">Receitas</a>
-    </nav> <section class="hero"> <h1>Preços</h1> <p>Valores iniciais ≈ varejo Araraquara (proteína, legumes, queijo — sem arroz/feijão/temperos). Depois da compra: cole a NF (XML/texto) ou digite — atualiza as estimativas das semanas neste aparelho.</p> <div class="chips"> <span class="chip">Seed Araraquara</span> <span class="chip">NF XML / texto</span> <span class="chip">Listas das semanas</span> </div> </section> <section class="card"> <h2>1) Colar a nota fiscal</h2> <p class="footer-note">XML da NFC-e (QR do cupom / SEFAZ) ou texto da nota. Foto do cupom: mande no chat que eu atualizo. PDF escaneado sozinho não lê.</p> <label class="shop-item" style="margin-bottom:0.75rem;cursor:pointer"> <span data-item-name="1">Arquivo XML da NF</span> <input id="xml-file" type="file" accept=".xml,text/xml,application/xml" style="margin-left:auto" /> </label> <textarea id="nf-text" rows="8" placeholder="Cole aqui o texto da NF ou o conteúdo do XML…" style="width:100%;box-sizing:border-box;padding:0.75rem;border:1px solid var(--line);border-radius:12px;font:inherit"></textarea> <div class="shop-actions" style="margin-top:0.75rem"> <button type="button" class="btn-keep" id="btn-import">Ler e gravar preços</button> <button type="button" class="btn-keep btn-keep-secondary" id="btn-clear-paste">Limpar campo</button> </div> <p id="import-msg" class="footer-note" hidden></p> </section> <section class="card"> <h2>2) Ou digitar um preço</h2> <div class="shop-grid"> <div> <label>Produto<br /><input id="manual-name" type="text" placeholder="Ex: quiabo" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px" /></label> </div> <div> <label>Preço<br /><input id="manual-price" type="text" placeholder="Ex: 12,90" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px" /></label> </div> <div> <label>Unidade<br /> <select id="manual-unit" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px"> <option value="kg">por kg</option> <option value="un">por unidade</option> </select> </label> </div> </div> <div class="shop-actions"> <button type="button" class="btn-keep" id="btn-manual">Salvar preço</button> </div> </section> <section class="card"> <h2>3) Catálogo neste aparelho</h2> <p class="footer-note">Itens com origem <em>seed-aqa</em> são estimativa Araraquara. NF/manual sobrescreve. Ex.: quiabo R$ 26/kg → “Quiabo — 200 g” ≈ R$ 5,20 na lista da semana.</p> <div id="catalog-table"></div> <div class="shop-actions"> <button type="button" class="btn-keep btn-keep-secondary" id="btn-reseed">Recarregar estimativas Araraquara (só vazios)</button> <button type="button" class="btn-keep btn-keep-secondary" id="btn-wipe">Apagar todos os preços</button> </div> </section> </main> <script src="precos-store.js?v=5"></script> <script> (function () { var P = window.AlimentacaoPrecos; var msg = document.getElementById("import-msg"); function showMsg(t) { msg.hidden = false; msg.textContent = t; } function renderCatalog() { var cat = P.loadCatalog(); var keys = Object.keys(cat).sort(); var box = document.getElementById("catalog-table"); if (!keys.length) { box.innerHTML = '<p class="footer-note">Nenhum preço ainda.</p>'; return; } var html = '<table class="table"><thead><tr><th>Produto</th><th>Preço</th><th>Origem</th><th></th></tr></thead><tbody>'; keys.forEach(function (k) { var e = cat[k]; html += "<tr><td><strong>" + (e.name || k) + "</strong></td><td>R$ " + e.unitPrice.toFixed(2).replace(".", ",") + " / " + e.unit + "</td><td>" + (e.source || "—") + '</td><td><button type="button" class="btn-keep btn-keep-secondary" data-del="' + k + '" style="padding:0.35rem 0.7rem;font-size:0.85rem">Apagar</button></td></tr>'; }); html += "</tbody></table>"; box.innerHTML = html; box.querySelectorAll("[data-del]").forEach(function (btn) { btn.addEventListener("click", function () { var c = P.loadCatalog(); delete c[btn.getAttribute("data-del")]; P.saveCatalog(c); renderCatalog(); }); }); } function doImport(text) { var items = []; if (text.indexOf("<prod") >= 0 || text.indexOf("<PROD") >= 0 || text.indexOf("nfeProc") >= 0 || text.indexOf("NFe") >= 0) { items = P.parseNFeXml(text); } if (!items.length) items = P.parseNFeText(text); if (!items.length) { showMsg("Não achei itens. Cole o XML da NF ou linhas tipo: QUIABO 0,500 KG X 12,90 6,45"); return; } var res = P.importItems(items); showMsg("Gravei " + res.imported.length + " preço(s). Abra qualquer semana — a estimativa atualiza na lista."); renderCatalog(); } document.getElementById("btn-import").addEventListener("click", function () { doImport(document.getElementById("nf-text").value || ""); }); document.getElementById("btn-clear-paste").addEventListener("click", function () { document.getElementById("nf-text").value = ""; msg.hidden = true; }); document.getElementById("xml-file").addEventListener("change", function (ev) { var f = ev.target.files && ev.target.files[0]; if (!f) return; var reader = new FileReader(); reader.onload = function () { document.getElementById("nf-text").value = String(reader.result || ""); doImport(String(reader.result || "")); }; reader.readAsText(f); }); document.getElementById("btn-manual").addEventListener("click", function () { var name = document.getElementById("manual-name").value.trim(); var price = document.getElementById("manual-price").value.trim().replace(".", "").replace(",", "."); var unit = document.getElementById("manual-unit").value; var n = parseFloat(price); if (!name || !isFinite(n)) { showMsg("Preencha produto e preço."); return; } var cat = P.loadCatalog(); P.upsertPrice(cat, name, n, unit, { source: "manual" }); P.saveCatalog(cat); showMsg("Preço salvo: " + name); document.getElementById("manual-name").value = ""; document.getElementById("manual-price").value = ""; renderCatalog(); }); document.getElementById("btn-reseed").addEventListener("click", function () { localStorage.removeItem("alimentacao-precos-seeded-aqa-v1"); P.loadCatalog(); showMsg("Estimativas Araraquara aplicadas nos itens que estavam vazios."); renderCatalog(); }); document.getElementById("btn-wipe").addEventListener("click", function () { if (!confirm("Apagar todos os preços salvos neste aparelho?")) return; localStorage.removeItem(P.STORAGE_KEY); localStorage.removeItem("alimentacao-precos-seeded-aqa-v1"); P.loadCatalog(); renderCatalog(); showMsg("Catálogo limpo e seed Araraquara recarregado."); }); renderCatalog(); })(); </script>   <script src="nav-drawer.js?v=1"></script>
-</body> </html> 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preços — Cardápio Márcio Mazzei</title>
+  <link rel="stylesheet" href="estilo.css?v=13" />
+  <style>
+    .nf-file {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card, #fff);
+    }
+    .nf-file strong { flex: 1 1 auto; }
+    .nf-file input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+    }
+    .nf-file-btn {
+      display: inline-block;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      background: var(--ink, #1f3d36);
+      color: #fff;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .nf-file-name {
+      flex: 1 1 100%;
+      font-size: 0.9rem;
+      color: var(--muted, #5c6b66);
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <nav class="nav" hidden></nav>
+
+    <section class="hero">
+      <h1>Preços</h1>
+      <p>Valores iniciais ≈ varejo Araraquara (proteína, legumes, queijo — sem arroz/feijão/temperos). Depois da compra: XML ou texto da NF — atualiza as estimativas das semanas neste aparelho.</p>
+      <div class="chips">
+        <span class="chip">Seed Araraquara</span>
+        <span class="chip">NF XML / texto</span>
+        <span class="chip">Listas das semanas</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>1) Nota fiscal</h2>
+      <p class="footer-note">Use o XML da NFC-e (QR do cupom / SEFAZ) ou cole o texto da nota. PDF escaneado sozinho não lê.</p>
+
+      <div class="nf-file">
+        <strong>Arquivo XML da NF</strong>
+        <label class="nf-file-btn" for="xml-file">Escolher arquivo XML</label>
+        <input id="xml-file" type="file" accept=".xml,text/xml,application/xml" />
+        <span class="nf-file-name" id="xml-file-name">Nenhum arquivo escolhido</span>
+      </div>
+
+      <textarea id="nf-text" rows="8" placeholder="Ou cole aqui o texto da NF / conteúdo do XML…" style="width:100%;box-sizing:border-box;padding:0.75rem;border:1px solid var(--line);border-radius:12px;font:inherit"></textarea>
+
+      <div class="shop-actions" style="margin-top:0.75rem">
+        <button type="button" class="btn-keep" id="btn-import">Ler e gravar preços</button>
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-clear-paste">Limpar campo</button>
+      </div>
+      <p id="import-msg" class="footer-note" hidden></p>
+    </section>
+
+    <section class="card">
+      <h2>2) Ou digitar um preço</h2>
+      <div class="shop-grid">
+        <div>
+          <label>Produto<br />
+            <input id="manual-name" type="text" placeholder="Ex: quiabo" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px" />
+          </label>
+        </div>
+        <div>
+          <label>Preço<br />
+            <input id="manual-price" type="text" placeholder="Ex: 12,90" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px" />
+          </label>
+        </div>
+        <div>
+          <label>Unidade<br />
+            <select id="manual-unit" style="width:100%;padding:0.55rem;border:1px solid var(--line);border-radius:10px">
+              <option value="kg">por kg</option>
+              <option value="un">por unidade</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="shop-actions">
+        <button type="button" class="btn-keep" id="btn-manual">Salvar preço</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3) Catálogo neste aparelho</h2>
+      <p class="footer-note">Itens <em>seed-aqa</em> são estimativa Araraquara. NF/manual sobrescreve.</p>
+      <div id="catalog-table"></div>
+      <div class="shop-actions">
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-reseed">Recarregar estimativas Araraquara (só vazios)</button>
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-wipe">Apagar todos os preços</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="precos-store.js?v=5"></script>
+  <script>
+    (function () {
+      var P = window.AlimentacaoPrecos;
+      var msg = document.getElementById("import-msg");
+      function showMsg(t) {
+        msg.hidden = false;
+        msg.textContent = t;
+      }
+      function renderCatalog() {
+        var cat = P.loadCatalog();
+        var keys = Object.keys(cat).sort();
+        var box = document.getElementById("catalog-table");
+        if (!keys.length) {
+          box.innerHTML = '<p class="footer-note">Nenhum preço ainda.</p>';
+          return;
+        }
+        var html =
+          '<table class="table"><thead><tr><th>Produto</th><th>Preço</th><th>Origem</th><th></th></tr></thead><tbody>';
+        keys.forEach(function (k) {
+          var e = cat[k];
+          html +=
+            "<tr><td><strong>" +
+            (e.name || k) +
+            "</strong></td><td>R$ " +
+            e.unitPrice.toFixed(2).replace(".", ",") +
+            " / " +
+            e.unit +
+            "</td><td>" +
+            (e.source || "—") +
+            '</td><td><button type="button" class="btn-keep btn-keep-secondary" data-del="' +
+            k +
+            '" style="padding:0.35rem 0.7rem;font-size:0.85rem">Apagar</button></td></tr>';
+        });
+        html += "</tbody></table>";
+        box.innerHTML = html;
+        box.querySelectorAll("[data-del]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var c = P.loadCatalog();
+            delete c[btn.getAttribute("data-del")];
+            P.saveCatalog(c);
+            renderCatalog();
+          });
+        });
+      }
+      function doImport(text) {
+        var items = [];
+        if (
+          text.indexOf("<prod") >= 0 ||
+          text.indexOf("<PROD") >= 0 ||
+          text.indexOf("nfeProc") >= 0 ||
+          text.indexOf("NFe") >= 0
+        ) {
+          items = P.parseNFeXml(text);
+        }
+        if (!items.length) items = P.parseNFeText(text);
+        if (!items.length) {
+          showMsg(
+            "Não achei itens. Cole o XML da NF ou linhas tipo: QUIABO 0,500 KG X 12,90 6,45"
+          );
+          return;
+        }
+        var res = P.importItems(items);
+        showMsg(
+          "Gravei " +
+            res.imported.length +
+            " preço(s). Abra qualquer semana — a estimativa atualiza na lista."
+        );
+        renderCatalog();
+      }
+      document.getElementById("btn-import").addEventListener("click", function () {
+        doImport(document.getElementById("nf-text").value || "");
+      });
+      document.getElementById("btn-clear-paste").addEventListener("click", function () {
+        document.getElementById("nf-text").value = "";
+        document.getElementById("xml-file").value = "";
+        document.getElementById("xml-file-name").textContent = "Nenhum arquivo escolhido";
+        msg.hidden = true;
+      });
+      document.getElementById("xml-file").addEventListener("change", function (ev) {
+        var f = ev.target.files && ev.target.files[0];
+        if (!f) return;
+        document.getElementById("xml-file-name").textContent = f.name;
+        var reader = new FileReader();
+        reader.onload = function () {
+          var text = String(reader.result || "");
+          document.getElementById("nf-text").value = text;
+          doImport(text);
+        };
+        reader.readAsText(f);
+      });
+      document.getElementById("btn-manual").addEventListener("click", function () {
+        var name = document.getElementById("manual-name").value.trim();
+        var price = document
+          .getElementById("manual-price")
+          .value.trim()
+          .replace(".", "")
+          .replace(",", ".");
+        var unit = document.getElementById("manual-unit").value;
+        var n = parseFloat(price);
+        if (!name || !isFinite(n)) {
+          showMsg("Preencha produto e preço.");
+          return;
+        }
+        var cat = P.loadCatalog();
+        P.upsertPrice(cat, name, n, unit, { source: "manual" });
+        P.saveCatalog(cat);
+        showMsg("Preço salvo: " + name);
+        document.getElementById("manual-name").value = "";
+        document.getElementById("manual-price").value = "";
+        renderCatalog();
+      });
+      document.getElementById("btn-reseed").addEventListener("click", function () {
+        localStorage.removeItem("alimentacao-precos-seeded-aqa-v1");
+        P.loadCatalog();
+        showMsg("Estimativas Araraquara aplicadas nos itens que estavam vazios.");
+        renderCatalog();
+      });
+      document.getElementById("btn-wipe").addEventListener("click", function () {
+        if (!confirm("Apagar todos os preços salvos neste aparelho?")) return;
+        localStorage.removeItem(P.STORAGE_KEY);
+        localStorage.removeItem("alimentacao-precos-seeded-aqa-v1");
+        P.loadCatalog();
+        renderCatalog();
+        showMsg("Catálogo limpo e seed Araraquara recarregado.");
+      });
+      renderCatalog();
+    })();
+  </script>
+  <script src="nav-drawer.js?v=1"></script>
+</body>
+</html>

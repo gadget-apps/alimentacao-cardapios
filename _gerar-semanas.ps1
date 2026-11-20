@@ -154,8 +154,7 @@ $daysHtml
 
 $arroz = @"
         <h3>A) Arroz + feijão</h3>
-        <p class="ing">Arroz: 1⅓ xícara cru · Feijão: 1 xícara cru (só dias sem molho)</p>
-        <ol><li>Feijão na pressão · arroz integral. Na marmita: 2 cs.</li></ol>
+        <ol><li>Lote da semana: <a href="receitas.html#arroz">Receitas → Arroz e feijão</a>.</li></ol>
 "@
 
 $weeks = @(

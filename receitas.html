@@ -4,27 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Receitas — Cardápio Márcio Mazzei</title>
-  <link rel="stylesheet" href="estilo.css?v=12" />
+  <link rel="stylesheet" href="estilo.css?v=16" />
 </head>
 <body>
   <main class="wrap">
-    <nav class="nav">
-      <a href="index.html">Início</a>
-      <a href="precos.html">Preços</a>
-      <a href="semana-1.html">Semana 1</a>
-      <a href="semana-2.html">Semana 2</a>
-      <a href="semana-3.html">Semana 3</a>
-      <a href="semana-4.html">Semana 4</a>
-      <a href="semana-5.html">Semana 5</a>
-      <a href="semana-6.html">Semana 6</a>
-      <a href="semana-7.html">Semana 7</a>
-      <a href="semana-8.html">Semana 8</a>
-      <a class="active" href="receitas.html">Receitas</a>
-    </nav>
+    <nav class="nav" hidden></nav>
 
     <section class="hero">
       <h1>Receitas</h1>
-      <p>Todos os pratos · por semana · passo a passo</p>
+      <p>Todos os pratos · por semana · passo a passo (1 ação por item)</p>
     </section>
 
     <section class="card">
@@ -69,7 +57,7 @@
       <p class="footer-note"><a href="semana-3.html">Abrir semana 3</a></p>
       <ul>
         <li><a href="#panela">Carne de panela</a> · <a href="#recheados">Abóbora / pimentão recheados</a> (patinho)</li>
-        <li><a href="#porco">Porco</a> + <a href="#quiabo">quiabo</a> · <a href="#porco">Porco shoyu</a></li>
+        <li><a href="#porco">Porco</a> + <a href="#quiabo">quiabo</a> · <a href="#shoyu">Porco shoyu</a></li>
         <li><a href="#classica">Clássica</a> (acém) · <a href="#frango">Frango</a> · <a href="#muffins">Muffins de ovo</a></li>
       </ul>
     </section>
@@ -79,7 +67,7 @@
       <p class="footer-note"><a href="semana-4.html">Abrir semana 4</a> · sem patinho</p>
       <ul>
         <li><a href="#classica">Clássica</a> · <a href="#almondegas">Almôndegas</a> (acém)</li>
-        <li><a href="#porco">Porco shoyu</a> · <a href="#refogados">Porco + abobrinha / pimentão / chuchu</a></li>
+        <li><a href="#shoyu">Porco shoyu</a> · <a href="#refogados">Porco + abobrinha / pimentão / chuchu</a></li>
         <li><a href="#frango">Frango</a> · <a href="#muffins">Muffins de ovo</a></li>
       </ul>
     </section>
@@ -90,7 +78,7 @@
       <ul>
         <li><a href="#recheados">Abobrinha · pimentão · berinjela · tomate recheados</a> (patinho)</li>
         <li><a href="#panela">Carne de panela</a> + <a href="#quiabo">quiabo</a></li>
-        <li><a href="#porco">Porco shoyu</a> · <a href="#classica">Clássica</a> (acém)</li>
+        <li><a href="#shoyu">Porco shoyu</a> · <a href="#classica">Clássica</a> (acém)</li>
         <li><a href="#frango">Frango</a> · <a href="#muffins">Muffins de ovo</a></li>
       </ul>
     </section>
@@ -111,7 +99,7 @@
       <ul>
         <li><a href="#panela">Carne de panela</a> + <a href="#quiabo">quiabo</a></li>
         <li><a href="#recheados">Pimentão · berinjela · tomate recheados</a> (patinho)</li>
-        <li><a href="#porco">Porco shoyu</a> · <a href="#almondegas">Almôndegas</a> / <a href="#classica">clássica</a> (acém)</li>
+        <li><a href="#shoyu">Porco shoyu</a> · <a href="#almondegas">Almôndegas</a> / <a href="#classica">clássica</a> (acém)</li>
         <li><a href="#frango">Frango</a> · <a href="#muffins">Muffins de ovo</a></li>
       </ul>
     </section>
@@ -126,7 +114,7 @@
       </ul>
     </section>
 
-<!-- ===== PASSO A PASSO ===== -->
+<!-- ===== PASSO A PASSO (1 ação por item) ===== -->
 
     <section class="card" id="panela">
       <h2>Carne de panela</h2>
@@ -138,14 +126,44 @@
       <article class="recipe">
         <h3>Como fazer</h3>
         <ol>
-          <li><strong>Prepare a carne:</strong> lave rápido, seque com papel toalha e corte em cubos de bocado (nem miúdo demais).</li>
-          <li><strong>Tempere:</strong> amasse o alho com sal. Misture na carne com colorau, cominho, páprica e pimenta. Descanse 10 min enquanto corta cebola e tomate.</li>
-          <li><strong>Sele:</strong> panela em fogo médio-alto com azeite. Carne sem amontoar. Doure 2–3 min de cada lado. Se soltar água, espere evaporar. Reserve num prato.</li>
-          <li><strong>Base:</strong> na mesma panela, cebola até murchar; tomate, orégano e louro. Mexa 2 min.</li>
-          <li><strong>Volte a carne:</strong> cubra com água quente quase cobrindo os pedaços.</li>
-          <li><strong>Cozinhe lento:</strong> tampe, fogo baixo 50–60 min, mexendo de vez em quando. Garfo deve entrar fácil. Se secar, acrescente um pouco de água.</li>
-          <li><strong>Finalize:</strong> prove o sal. Se o caldo estiver ralo, 5 min sem tampa. Cheiro-verde por cima.</li>
-          <li><strong>Pote:</strong> ~180–200 g carne + caldo + guarnição + 2 cs arroz no almoço (total 400–550 g); jantar sem arroz (350–450 g). Geladeira 3–4 dias ou congele.</li>
+          <li>Lave a carne rápido em água corrente.</li>
+          <li>Seque a carne com papel toalha.</li>
+          <li>Corte a carne em cubos de bocado (nem miúdo demais).</li>
+          <li>Amasse o alho com uma pitada de sal.</li>
+          <li>Coloque a carne numa tigela.</li>
+          <li>Adicione o alho amassado à carne.</li>
+          <li>Adicione colorau, cominho, páprica e pimenta.</li>
+          <li>Misture bem até cobrir todos os pedaços.</li>
+          <li>Deixe descansar 10 min.</li>
+          <li>Enquanto descansa, pique a cebola.</li>
+          <li>Corte os tomates em cubos.</li>
+          <li>Aqueça a panela em fogo médio-alto.</li>
+          <li>Pingue o azeite na panela.</li>
+          <li>Coloque a carne sem amontoar (faça em fornadas se precisar).</li>
+          <li>Doure 2–3 min de um lado.</li>
+          <li>Vire os pedaços.</li>
+          <li>Doure 2–3 min do outro lado.</li>
+          <li>Se soltar água, espere evaporar antes de continuar.</li>
+          <li>Reserve a carne num prato.</li>
+          <li>Na mesma panela, junte a cebola.</li>
+          <li>Refogue a cebola até murchar.</li>
+          <li>Junte o tomate.</li>
+          <li>Adicione orégano e a folha de louro.</li>
+          <li>Mexa 2 min.</li>
+          <li>Volte a carne para a panela.</li>
+          <li>Cubra com água quente quase cobrindo os pedaços.</li>
+          <li>Tampe a panela.</li>
+          <li>Baixe o fogo para baixo.</li>
+          <li>Cozinhe 50–60 min.</li>
+          <li>Mexa de vez em quando.</li>
+          <li>Se secar, acrescente um pouco de água.</li>
+          <li>Teste com o garfo: deve entrar fácil.</li>
+          <li>Prove o sal e ajuste se precisar.</li>
+          <li>Se o caldo estiver ralo, cozinhe 5 min sem tampa.</li>
+          <li>Finalize com cheiro-verde por cima.</li>
+          <li><strong>Pote almoço:</strong> ~180–200 g carne + caldo + guarnição + 2 cs arroz (total 400–550 g).</li>
+          <li><strong>Pote jantar:</strong> ~180–200 g carne + caldo + guarnição, sem arroz (350–450 g).</li>
+          <li>Guarde na geladeira 3–4 dias ou congele.</li>
         </ol>
       </article>
     </section>
@@ -160,13 +178,30 @@
       <article class="recipe">
         <h3>Como fazer</h3>
         <ol>
-          <li><strong>Lave e seque:</strong> lave o quiabo <strong>inteiro</strong>. Seque muito bem. Quiabo molhado = mais baba.</li>
-          <li><strong>Corte:</strong> tire as pontas e fatie em rodelas. <strong>Não lave depois de cortar.</strong></li>
-          <li><strong>Toste seco:</strong> frigideira sem óleo, fogo médio, 5–6 min mexendo até tostar. Esse passo corta a baba.</li>
-          <li><strong>Refogue:</strong> pingue azeite, cebola e alho 1 min.</li>
-          <li><strong>Tomate e tempero:</strong> tomate, páprica, orégano, sal e pimenta ~5 min até amolecer.</li>
-          <li><strong>Finalize:</strong> apague o fogo, limão/vinagre e cheiro-verde.</li>
-          <li><strong>Pote:</strong> guarnição ao lado da proteína; almoço 400–550 g · jantar 350–450 g.</li>
+          <li>Lave o quiabo <strong>inteiro</strong> (ainda sem cortar).</li>
+          <li>Seque o quiabo muito bem com papel toalha ou pano limpo.</li>
+          <li>Tire as pontas de cada quiabo.</li>
+          <li>Fatie em rodelas.</li>
+          <li><strong>Não lave</strong> depois de cortar (água = mais baba).</li>
+          <li>Pique a cebola.</li>
+          <li>Pique o alho.</li>
+          <li>Corte o tomate em cubos.</li>
+          <li>Aqueça a frigideira sem óleo em fogo médio.</li>
+          <li>Coloque o quiabo na frigideira seca.</li>
+          <li>Toste 5–6 min mexendo até tostar (corta a baba).</li>
+          <li>Pingue o azeite na frigideira.</li>
+          <li>Junte a cebola.</li>
+          <li>Junte o alho.</li>
+          <li>Refogue 1 min.</li>
+          <li>Junte o tomate.</li>
+          <li>Adicione páprica.</li>
+          <li>Adicione orégano.</li>
+          <li>Adicione sal e pimenta.</li>
+          <li>Cozinhe ~5 min até o tomate amolecer.</li>
+          <li>Apague o fogo.</li>
+          <li>Pingue limão ou vinagre.</li>
+          <li>Finalize com cheiro-verde.</li>
+          <li><strong>Pote:</strong> use como guarnição ao lado da proteína (almoço 400–550 g · jantar 350–450 g).</li>
         </ol>
         <p class="meta">Prefira quiabos menores e firmes — os grandes e velhos ficam fibrosos.</p>
       </article>
@@ -182,13 +217,33 @@
       <article class="recipe">
         <h3>Como fazer</h3>
         <ol>
-          <li>Pique cebola e alho. Corte o tomate em cubos (pode tirar sementes se quiser menos água).</li>
-          <li>Frigideira larga, fogo médio-alto, azeite. Cebola 2–3 min até translúcida; alho 30 s (não queime).</li>
-          <li>Jogue a carne de uma vez. Quebre todos os torrões com a colher.</li>
-          <li>Cozinhe até a água secar e a carne começar a dourar (6–10 min). Não acrescente água.</li>
-          <li>Tempere com cominho, páprica, colorau, orégano, sal e pimenta. Escorra gordura se sobrar.</li>
-          <li>Tomate 2–3 min até quase secar. Finalize com cheiro-verde.</li>
-          <li><strong>Pote:</strong> ~180–200 g + guarnição · almoço com 2 cs arroz (+ feijão se couber) · jantar sem arroz.</li>
+          <li>Pique a cebola.</li>
+          <li>Pique o alho.</li>
+          <li>Corte o tomate em cubos.</li>
+          <li>Opcional: tire as sementes do tomate se quiser menos água.</li>
+          <li>Aqueça a frigideira larga em fogo médio-alto.</li>
+          <li>Pingue o azeite.</li>
+          <li>Junte a cebola.</li>
+          <li>Refogue 2–3 min até ficar translúcida.</li>
+          <li>Junte o alho.</li>
+          <li>Refogue 30 s (não deixe queimar).</li>
+          <li>Jogue a carne de uma vez.</li>
+          <li>Quebre todos os torrões com a colher.</li>
+          <li>Cozinhe 6–10 min até a água secar.</li>
+          <li>Continue até a carne começar a dourar.</li>
+          <li>Não acrescente água.</li>
+          <li>Adicione cominho.</li>
+          <li>Adicione páprica.</li>
+          <li>Adicione colorau.</li>
+          <li>Adicione orégano.</li>
+          <li>Adicione sal e pimenta.</li>
+          <li>Misture os temperos na carne.</li>
+          <li>Escorra a gordura se sobrar.</li>
+          <li>Junte o tomate.</li>
+          <li>Cozinhe 2–3 min até quase secar.</li>
+          <li>Finalize com cheiro-verde.</li>
+          <li><strong>Pote almoço:</strong> ~180–200 g + guarnição + 2 cs arroz (+ feijão se couber).</li>
+          <li><strong>Pote jantar:</strong> ~180–200 g + guarnição, sem arroz.</li>
         </ol>
         <p class="meta">Lote domingo: faça 380–950 g de uma vez e porcione (~190 g por pote).</p>
       </article>
@@ -204,12 +259,36 @@
       <article class="recipe">
         <h3>Como fazer</h3>
         <ol>
-          <li><strong>Legume:</strong> brócolis em floretes — pré-cozinhe 4 min em água; vagem sem pontas — 7–8 min. Escorra.</li>
-          <li>Refogue cebola 2 min no azeite; alho 20 s.</li>
-          <li><strong>Porco:</strong> sele os cubos até dourar e amaciar (~12–15 min), ou <strong>acém:</strong> quebre e seque 6–8 min. Sal leve ou zero — o molho já salga.</li>
-          <li>Junte o legume escorrido. Pingue <strong>1 cs</strong> de shoyu. Fogo baixo 1–2 min (não ferva forte).</li>
-          <li>Se ficar salgado, pingue um fio de água. Finalize com cebolinha.</li>
-          <li><strong>Pote:</strong> proteína + legume + <strong>2 cs arroz</strong> (sem feijão).</li>
+          <li>Lave o legume (brócolis ou vagem).</li>
+          <li><strong>Se for brócolis:</strong> corte em floretes.</li>
+          <li><strong>Se for vagem:</strong> tire as pontas.</li>
+          <li>Ferva água numa panela.</li>
+          <li><strong>Brócolis:</strong> cozinhe 4 min na água fervente.</li>
+          <li><strong>Vagem:</strong> cozinhe 7–8 min na água fervente.</li>
+          <li>Escorra o legume e reserve.</li>
+          <li>Pique a cebola.</li>
+          <li>Pique o alho.</li>
+          <li>Aqueça a frigideira em fogo médio.</li>
+          <li>Pingue o azeite.</li>
+          <li>Junte a cebola.</li>
+          <li>Refogue a cebola 2 min.</li>
+          <li>Junte o alho.</li>
+          <li>Refogue o alho 20 s (não queime).</li>
+          <li><strong>Se for porco:</strong> coloque os cubos na frigideira.</li>
+          <li><strong>Porco:</strong> sele até dourar e amaciar (~12–15 min), virando os lados.</li>
+          <li><strong>Se for acém moído:</strong> junte a carne e quebre os torrões.</li>
+          <li><strong>Acém:</strong> cozinhe 6–8 min até secar.</li>
+          <li>Use sal leve ou zero — o shoyu já salga.</li>
+          <li>Adicione pimenta a gosto.</li>
+          <li>Junte o legume escorrido.</li>
+          <li>Pingue <strong>1 cs</strong> de shoyu.</li>
+          <li>Baixe o fogo.</li>
+          <li>Misture 1–2 min (não deixe ferver forte).</li>
+          <li>Prove: se estiver salgado, pingue um fio de água.</li>
+          <li>Pique a cebolinha.</li>
+          <li>Finalize com a cebolinha por cima.</li>
+          <li><strong>Pote almoço:</strong> proteína + legume + <strong>2 cs arroz</strong> (sem feijão).</li>
+          <li><strong>Pote jantar:</strong> proteína + legume, sem arroz/feijão.</li>
         </ol>
       </article>
     </section>
@@ -224,12 +303,33 @@
       <article class="recipe">
         <h3>Como fazer</h3>
         <ol>
-          <li>Na tigela: carne, ovo, cebola, alho, temperos e cheiro-verde. Se estiver mole, acrescente a aveia.</li>
+          <li>Rale a cebola.</li>
+          <li>Amasse o alho.</li>
+          <li>Pique o cheiro-verde.</li>
+          <li>Coloque a carne numa tigela.</li>
+          <li>Adicione o ovo.</li>
+          <li>Adicione a cebola ralada.</li>
+          <li>Adicione o alho amassado.</li>
+          <li>Adicione orégano.</li>
+          <li>Adicione páprica.</li>
+          <li>Adicione sal e pimenta.</li>
+          <li>Adicione o cheiro-verde.</li>
           <li>Amasse com a mão 1–2 min até ficar homogênea.</li>
-          <li>Unte a forma (ou forre com papel). Modele bolinhas ~40–50 g (tamanho de noz grande).</li>
-          <li>Forno <strong>200 °C</strong> por 20–25 min, virando na metade. Corte uma: não pode estar rosa no centro.</li>
-          <li><strong>Sem forno:</strong> sele na frigideira antiaderente com 1 cs azeite, fogo médio, tampando 8–10 min e virando.</li>
-          <li><strong>Pote:</strong> 3–4 unidades (~180–200 g) + guarnição · almoço com arroz/feijão · jantar sem.</li>
+          <li>Se a massa estiver mole, acrescente 1 cs de aveia.</li>
+          <li>Amasse de novo até firmar.</li>
+          <li>Unte a forma com azeite (ou forre com papel).</li>
+          <li>Modele bolinhas de ~40–50 g (tamanho de noz grande).</li>
+          <li>Distribua as bolinhas na forma sem grudar uma na outra.</li>
+          <li>Preaqueça o forno a <strong>200 °C</strong>.</li>
+          <li>Asse 10–12 min.</li>
+          <li>Vire as almôndegas.</li>
+          <li>Asse mais 10–13 min.</li>
+          <li>Corte uma ao meio: o centro não pode estar rosa.</li>
+          <li><strong>Sem forno:</strong> aqueça frigideira antiaderente com 1 cs de azeite.</li>
+          <li><strong>Sem forno:</strong> sele as bolinhas em fogo médio.</li>
+          <li><strong>Sem forno:</strong> tampe e cozinhe 8–10 min, virando no meio.</li>
+          <li><strong>Pote:</strong> 3–4 unidades (~180–200 g) + guarnição.</li>
+          <li><strong>Almoço:</strong> acrescente arroz/feijão. <strong>Jantar:</strong> sem arroz/feijão.</li>
         </ol>
       </article>
     </section>
@@ -240,58 +340,113 @@
       <article class="recipe">
         <h3>Regra geral</h3>
         <ol>
-          <li>Faça a proteína primeiro (sele/seque) e reserve.</li>
+          <li>Faça a proteína primeiro (sele/seque).</li>
+          <li>Reserve a proteína num prato.</li>
           <li>No mesmo óleo, refogue o legume até o ponto.</li>
-          <li>Volte a proteína, misture 2–3 min, finalize.</li>
-          <li><strong>Com molho de tomate</strong> → só 2 cs arroz. <strong>Sem molho</strong> → arroz + feijão.</li>
+          <li>Volte a proteína para a frigideira.</li>
+          <li>Misture 2–3 min.</li>
+          <li>Finalize com limão/cheiro-verde conforme a variação.</li>
+          <li><strong>Com molho de tomate</strong> → só 2 cs arroz no almoço.</li>
+          <li><strong>Sem molho</strong> → arroz + feijão no almoço.</li>
+          <li><strong>Jantar:</strong> sem arroz/feijão.</li>
         </ol>
       </article>
       <article class="recipe">
         <h3>Pimentão e cebola</h3>
-        <p class="ing">180 g proteína · 1 pimentão em tiras · 1 cebola em meia-lua · 2 alhos · ½ tomate · cominho · páprica · azeite · limão · cheiro-verde</p>
+        <p class="ing">190 g proteína · 1 pimentão em tiras · 1 cebola em meia-lua · 2 alhos · ½ tomate · cominho · páprica · azeite · limão · cheiro-verde</p>
         <ol>
-          <li>Proteína pronta e reservada.</li>
-          <li>Cebola 3 min até dourar; pimentão 5–6 min (macio com crocância).</li>
-          <li>Volte a proteína + tomate 2–3 min. Limão e cheiro-verde.</li>
+          <li>Prepare a proteína (porco ou clássica) e reserve.</li>
+          <li>Corte a cebola em meia-lua.</li>
+          <li>Corte o pimentão em tiras.</li>
+          <li>Pique o alho.</li>
+          <li>Corte o tomate em cubos.</li>
+          <li>Na mesma frigideira, junte a cebola.</li>
+          <li>Refogue a cebola 3 min até dourar.</li>
+          <li>Junte o pimentão.</li>
+          <li>Refogue 5–6 min (macio com crocância).</li>
+          <li>Volte a proteína.</li>
+          <li>Junte o tomate.</li>
+          <li>Misture 2–3 min.</li>
+          <li>Adicione cominho e páprica se ainda não temperou.</li>
+          <li>Pingue limão.</li>
+          <li>Finalize com cheiro-verde.</li>
         </ol>
       </article>
       <article class="recipe">
         <h3>Abobrinha</h3>
-        <p class="ing">180 g proteína · 1 abobrinha em cubos · ½ cebola · 2 alhos · ½ tomate · temperos · limão</p>
+        <p class="ing">190 g proteína · 1 abobrinha em cubos · ½ cebola · 2 alhos · ½ tomate · temperos · limão</p>
         <ol>
-          <li>Proteína pronta. Reserve.</li>
-          <li>Abobrinha sem tampar 6–8 min até maciar, mas firme (não vira papa).</li>
-          <li>Volte a proteína + tomate 2 min. Limão e cheiro-verde.</li>
+          <li>Prepare a proteína e reserve.</li>
+          <li>Pique a cebola e o alho.</li>
+          <li>Corte a abobrinha em cubos.</li>
+          <li>Corte o tomate em cubos.</li>
+          <li>Refogue a abobrinha sem tampar 6–8 min.</li>
+          <li>Pare quando estiver macia, mas firme (não vira papa).</li>
+          <li>Volte a proteína.</li>
+          <li>Junte o tomate.</li>
+          <li>Misture 2 min.</li>
+          <li>Pingue limão.</li>
+          <li>Finalize com cheiro-verde.</li>
         </ol>
       </article>
       <article class="recipe">
         <h3>Chuchu</h3>
-        <p class="ing">180 g proteína · 1 chuchu · ½ cebola · 2 alhos · 1 tomate · orégano · páprica</p>
+        <p class="ing">190 g proteína · 1 chuchu · ½ cebola · 2 alhos · 1 tomate · orégano · páprica</p>
         <ol>
-          <li>Descasque, tire miolo duro, cubos. Cozinhe 10–12 min em água com sal. Escorra bem.</li>
-          <li>Proteína pronta. Reserve.</li>
-          <li>Tomate + orégano 2 min; junte o chuchu (amasse alguns cubos). Volte a proteína 3 min.</li>
-          <li>Pote: só arroz (tem molho de tomate).</li>
+          <li>Descasque o chuchu.</li>
+          <li>Tire o miolo duro.</li>
+          <li>Corte em cubos.</li>
+          <li>Ferva água com sal.</li>
+          <li>Cozinhe o chuchu 10–12 min.</li>
+          <li>Escorra bem.</li>
+          <li>Prepare a proteína e reserve.</li>
+          <li>Pique cebola e alho; corte o tomate.</li>
+          <li>Refogue o tomate com orégano 2 min.</li>
+          <li>Junte o chuchu escorrido.</li>
+          <li>Amasse alguns cubos de chuchu na panela.</li>
+          <li>Volte a proteína.</li>
+          <li>Misture 3 min.</li>
+          <li><strong>Pote almoço:</strong> só 2 cs arroz (tem molho de tomate).</li>
         </ol>
       </article>
       <article class="recipe">
         <h3>Couve com alho</h3>
-        <p class="ing">180 g proteína · 4–5 folhas de couve · ½ cebola · 3 alhos · cominho · vinagre · azeite</p>
+        <p class="ing">190 g proteína · 4–5 folhas de couve · ½ cebola · 3 alhos · cominho · vinagre · azeite</p>
         <ol>
-          <li>Couve em tiras finas. 2 alhos em lâminas.</li>
-          <li>Proteína pronta. Reserve.</li>
-          <li>Doure as lâminas de alho (não pretas). Reserve metade crocante.</li>
-          <li>Couve 4–5 min até murchar, ainda verde. Vinagre. Volte a proteína + alho crocante.</li>
+          <li>Lave as folhas de couve.</li>
+          <li>Corte a couve em tiras finas.</li>
+          <li>Corte 2 dentes de alho em lâminas.</li>
+          <li>Pique o alho restante e a cebola.</li>
+          <li>Prepare a proteína e reserve.</li>
+          <li>Aqueça um fio de azeite.</li>
+          <li>Doure as lâminas de alho (não deixe pretas).</li>
+          <li>Reserve metade do alho crocante num pratinho.</li>
+          <li>Junte a couve na frigideira.</li>
+          <li>Refogue 4–5 min até murchar, ainda verde.</li>
+          <li>Pingue vinagre.</li>
+          <li>Volte a proteína.</li>
+          <li>Misture 1–2 min.</li>
+          <li>Finalize com o alho crocante reservado.</li>
         </ol>
       </article>
       <article class="recipe">
         <h3>Berinjela ao molho</h3>
-        <p class="ing">180 g proteína · ½ berinjela · 2 tomates · ½ cebola · 2 alhos · orégano · páprica</p>
+        <p class="ing">190 g proteína · ½ berinjela · 2 tomates · ½ cebola · 2 alhos · orégano · páprica</p>
         <ol>
-          <li>Cubos de berinjela: salgue 5 min, enxágue e seque (tira amargor).</li>
-          <li>Proteína pronta. Reserve.</li>
-          <li>Doure a berinjela 6–7 min. Tomates + orégano tampados 5 min até virar molho.</li>
-          <li>Volte a proteína 2 min. Pote: só arroz (tem molho).</li>
+          <li>Corte a berinjela em cubos.</li>
+          <li>Salgue os cubos.</li>
+          <li>Deixe 5 min (tira amargor).</li>
+          <li>Enxágue a berinjela.</li>
+          <li>Seque bem com papel toalha.</li>
+          <li>Prepare a proteína e reserve.</li>
+          <li>Pique cebola e alho; corte os tomates.</li>
+          <li>Doure a berinjela 6–7 min.</li>
+          <li>Junte os tomates.</li>
+          <li>Adicione orégano e páprica.</li>
+          <li>Tampe e cozinhe 5 min até virar molho.</li>
+          <li>Volte a proteína.</li>
+          <li>Misture 2 min.</li>
+          <li><strong>Pote almoço:</strong> só 2 cs arroz (tem molho).</li>
         </ol>
       </article>
     </section>
@@ -305,10 +460,26 @@
         <p class="meta">Tempo: ~25 min · ~160 g recheio por legume · Guarde 3 dias na geladeira</p>
         <p class="ing"><strong>Para 2 recheios (~320 g):</strong> 320 g patinho moído · ½ cebola · 2 alhos · 1 tomate · 1 colher de chá de azeite · cominho · páprica · colorau · orégano · sal · pimenta · cheiro-verde</p>
         <ol>
-          <li>Azeite, cebola 2–3 min; alho 20–30 s.</li>
-          <li>Patinho: quebre torrões. Fogo médio-alto até secar e começar a dourar (8–10 min).</li>
-          <li>Tempere. Tomate 4–5 min até quase sumir o líquido — massa <strong>úmida, mas firme</strong> (molenga deixa o legume aguado).</li>
-          <li>Cheiro-verde. Espere esfriar um pouco antes de rechear.</li>
+          <li>Pique a cebola.</li>
+          <li>Pique o alho.</li>
+          <li>Corte o tomate em cubos.</li>
+          <li>Aqueça a frigideira com azeite.</li>
+          <li>Junte a cebola.</li>
+          <li>Refogue 2–3 min.</li>
+          <li>Junte o alho.</li>
+          <li>Refogue 20–30 s.</li>
+          <li>Junte o patinho.</li>
+          <li>Quebre todos os torrões.</li>
+          <li>Cozinhe em fogo médio-alto 8–10 min.</li>
+          <li>Espere a água secar.</li>
+          <li>Espere a carne começar a dourar.</li>
+          <li>Adicione cominho, páprica, colorau e orégano.</li>
+          <li>Adicione sal e pimenta.</li>
+          <li>Junte o tomate.</li>
+          <li>Cozinhe 4–5 min até quase sumir o líquido.</li>
+          <li>Pare quando a massa estiver <strong>úmida, mas firme</strong>.</li>
+          <li>Finalize com cheiro-verde.</li>
+          <li>Espere esfriar um pouco antes de rechear.</li>
         </ol>
       </article>
 
@@ -317,27 +488,53 @@
         <p class="meta">Tempo: 15–20 min · Para 3–4 legumes</p>
         <p class="ing">4 tomates maduros <em>ou</em> 1 lata (400 g) pelado · ½ cebola · 2 alhos · 1 colher de chá de azeite · orégano · ½ colher de chá de açúcar (opcional) · sal · pimenta</p>
         <ol>
-          <li>Cebola 2 min; alho 20 s.</li>
-          <li>Tomate, orégano, sal, pimenta (e açúcar se estiver ácido).</li>
-          <li>Fogo médio 12–15 min amassando, até engrossar um pouco.</li>
-          <li><strong>Montagem:</strong> 3–4 cs no fundo da assadeira + 1–2 cs por cima de cada recheio, antes do queijo.</li>
+          <li>Pique a cebola.</li>
+          <li>Pique o alho.</li>
+          <li>Se for tomate fresco, corte em cubos.</li>
+          <li>Aqueça a panela com azeite.</li>
+          <li>Refogue a cebola 2 min.</li>
+          <li>Junte o alho.</li>
+          <li>Refogue 20 s.</li>
+          <li>Junte o tomate (fresco ou lata).</li>
+          <li>Adicione orégano.</li>
+          <li>Adicione sal e pimenta.</li>
+          <li>Se estiver ácido, acrescente ½ colher de chá de açúcar.</li>
+          <li>Cozinhe em fogo médio 12–15 min.</li>
+          <li>Amasse os pedaços enquanto cozinha.</li>
+          <li>Pare quando engrossar um pouco.</li>
+          <li><strong>Montagem:</strong> coloque 3–4 cs de molho no fundo da assadeira.</li>
+          <li><strong>Montagem:</strong> coloque 1–2 cs de molho por cima de cada recheio, antes do queijo.</li>
         </ol>
       </article>
 
       <article class="recipe">
         <h3>3) Queijo</h3>
-        <p class="ing">20–30 g mussarela por legume · só nos <strong>últimos 5–8 min</strong> do forno</p>
+        <ol>
+          <li>Separe 20–30 g de mussarela por legume.</li>
+          <li>Coloque o queijo só nos <strong>últimos 5–8 min</strong> do forno.</li>
+        </ol>
       </article>
 
       <article class="recipe">
         <h3>Pimentão recheado</h3>
         <p class="meta">~50 min · 1 pimentão = 1 refeição · 180 °C</p>
         <ol>
-          <li>Corte a tampa. Tire sementes e veios. Ajuste a base para ficar em pé (sem furar).</li>
-          <li>Escalde 3 min em água fervente. Escorra de cabeça para baixo 2 min.</li>
-          <li>Molho no fundo da assadeira. Recheie apertando de leve. 1–2 cs molho por cima.</li>
-          <li>25–30 min. Queijo 5–8 min.</li>
-          <li><strong>Sem forno:</strong> panela alta tampada, fio de água no fundo, fogo baixo 20–25 min.</li>
+          <li>Preaqueça o forno a 180 °C.</li>
+          <li>Corte a tampa do pimentão.</li>
+          <li>Tire sementes e veios.</li>
+          <li>Ajuste a base para ficar em pé (sem furar).</li>
+          <li>Ferva água numa panela.</li>
+          <li>Escalde o pimentão 3 min na água fervente.</li>
+          <li>Escorra de cabeça para baixo 2 min.</li>
+          <li>Coloque molho no fundo da assadeira.</li>
+          <li>Recheie o pimentão apertando de leve.</li>
+          <li>Cubra com 1–2 cs de molho.</li>
+          <li>Asse 25–30 min.</li>
+          <li>Coloque o queijo por cima.</li>
+          <li>Asse mais 5–8 min.</li>
+          <li><strong>Sem forno:</strong> use panela alta tampada.</li>
+          <li><strong>Sem forno:</strong> pingue um fio de água no fundo.</li>
+          <li><strong>Sem forno:</strong> cozinhe em fogo baixo 20–25 min.</li>
         </ol>
       </article>
 
@@ -345,10 +542,21 @@
         <h3>Abobrinha barco</h3>
         <p class="meta">~45 min · 180 °C</p>
         <ol>
-          <li>Corte no comprimento. Retire miolo com colher (parede ~0,5 cm).</li>
-          <li>Pique o miolo, refogue 2–3 min com 1 alho; misture no recheio.</li>
-          <li>Salgue os barcos. Molho na assadeira. Recheie + 1 cs molho.</li>
-          <li>22–25 min até a casca amaciar. Queijo + orégano 5–8 min. Gotas de limão.</li>
+          <li>Preaqueça o forno a 180 °C.</li>
+          <li>Corte a abobrinha no comprimento.</li>
+          <li>Retire o miolo com uma colher.</li>
+          <li>Deixe parede de ~0,5 cm.</li>
+          <li>Pique o miolo retirado.</li>
+          <li>Refogue o miolo 2–3 min com 1 alho.</li>
+          <li>Misture esse miolo no recheio de patinho.</li>
+          <li>Salgue os barcos por dentro.</li>
+          <li>Coloque molho no fundo da assadeira.</li>
+          <li>Recheie os barcos.</li>
+          <li>Cubra com 1 cs de molho.</li>
+          <li>Asse 22–25 min até a casca amaciar.</li>
+          <li>Coloque queijo e orégano.</li>
+          <li>Asse mais 5–8 min.</li>
+          <li>Pingue gotas de limão na hora de servir.</li>
         </ol>
       </article>
 
@@ -356,10 +564,20 @@
         <h3>Berinjela recheada</h3>
         <p class="meta">~55 min · 180 °C · gosta de molho generoso</p>
         <ol>
-          <li>Corte no comprimento. Escave (parede ~1 cm).</li>
-          <li>Salgue polpa e miolo 10 min. Enxágue e seque bem.</li>
-          <li>Miolo refogado no recheio. Camada boa de molho no fundo.</li>
-          <li>Recheie, regue molho. 30–35 min. Queijo 5–8 min.</li>
+          <li>Preaqueça o forno a 180 °C.</li>
+          <li>Corte a berinjela no comprimento.</li>
+          <li>Escave o miolo (parede ~1 cm).</li>
+          <li>Salgue a polpa e o miolo.</li>
+          <li>Deixe 10 min.</li>
+          <li>Enxágue.</li>
+          <li>Seque bem.</li>
+          <li>Refogue o miolo e misture no recheio.</li>
+          <li>Coloque uma camada boa de molho no fundo da assadeira.</li>
+          <li>Recheie as metades.</li>
+          <li>Regue com mais molho.</li>
+          <li>Asse 30–35 min.</li>
+          <li>Coloque o queijo.</li>
+          <li>Asse mais 5–8 min.</li>
         </ol>
       </article>
 
@@ -367,10 +585,19 @@
         <h3>Tomate recheado</h3>
         <p class="meta">~40 min · tomates grandes e firmes · 180 °C</p>
         <ol>
-          <li>Corte a tampa. Tire polpa e sementes (reserve a polpa).</li>
-          <li>Pique a polpa e cozinhe 2–3 min no recheio até secar de novo.</li>
-          <li>Forma justa com molho no fundo. Recheie + 1 cs molho.</li>
-          <li>18–20 min. Queijo 5 min.</li>
+          <li>Preaqueça o forno a 180 °C.</li>
+          <li>Corte a tampa do tomate.</li>
+          <li>Tire polpa e sementes.</li>
+          <li>Reserve a polpa.</li>
+          <li>Pique a polpa.</li>
+          <li>Cozinhe a polpa 2–3 min no recheio até secar de novo.</li>
+          <li>Escolha uma forma justa.</li>
+          <li>Coloque molho no fundo.</li>
+          <li>Recheie os tomates.</li>
+          <li>Cubra com 1 cs de molho.</li>
+          <li>Asse 18–20 min.</li>
+          <li>Coloque o queijo.</li>
+          <li>Asse mais 5 min.</li>
         </ol>
       </article>
 
@@ -378,10 +605,22 @@
         <h3>Chuchu recheado</h3>
         <p class="meta">~50 min · 180 °C</p>
         <ol>
-          <li>Descasque, corte ao meio, tire miolo duro.</li>
-          <li>Cozinhe as metades 8–10 min em água com sal (garfo entra, sem desmanchar). Escorra bem.</li>
-          <li>Escave mais se precisar. Molho no fundo, recheie, regue molho.</li>
-          <li>15 min. Queijo + páprica 5–8 min. Limão na hora de servir.</li>
+          <li>Preaqueça o forno a 180 °C.</li>
+          <li>Descasque o chuchu.</li>
+          <li>Corte ao meio.</li>
+          <li>Tire o miolo duro.</li>
+          <li>Ferva água com sal.</li>
+          <li>Cozinhe as metades 8–10 min.</li>
+          <li>Pare quando o garfo entrar, sem desmanchar.</li>
+          <li>Escorra bem.</li>
+          <li>Escave mais se precisar de espaço para o recheio.</li>
+          <li>Coloque molho no fundo da assadeira.</li>
+          <li>Recheie.</li>
+          <li>Regue com molho.</li>
+          <li>Asse 15 min.</li>
+          <li>Coloque queijo e páprica.</li>
+          <li>Asse mais 5–8 min.</li>
+          <li>Pingue limão na hora de servir.</li>
         </ol>
       </article>
 
@@ -389,10 +628,18 @@
         <h3>Abóbora / moranga (fatia)</h3>
         <p class="meta">~60 min · 180 °C · mais calórica — no almoço no máx. 1 cs arroz</p>
         <ol>
-          <li>Asse a fatia grossa 25–30 min até amaciar (pode ir com casca).</li>
-          <li>Retire um pouco do centro; misture 2–3 cs no recheio se quiser.</li>
-          <li>Recheie, regue molho, 12–15 min. Queijo 5–8 min.</li>
-          <li>Almoço: no máx. 1 cs arroz · zero feijão. Jantar: só a fatia.</li>
+          <li>Preaqueça o forno a 180 °C.</li>
+          <li>Corte uma fatia grossa de abóbora/moranga.</li>
+          <li>Asse a fatia 25–30 min até amaciar (pode ir com casca).</li>
+          <li>Retire um pouco do centro com colher.</li>
+          <li>Opcional: misture 2–3 cs desse miolo no recheio.</li>
+          <li>Recheie a fatia.</li>
+          <li>Regue com molho.</li>
+          <li>Asse 12–15 min.</li>
+          <li>Coloque o queijo.</li>
+          <li>Asse mais 5–8 min.</li>
+          <li><strong>Almoço:</strong> no máximo 1 cs de arroz · zero feijão.</li>
+          <li><strong>Jantar:</strong> só a fatia recheada.</li>
         </ol>
       </article>
     </section>
@@ -402,33 +649,60 @@
       <p class="footer-note"><strong>Sem moída</strong> · ~180–200 g cru por pote · Tempo: 25–35 min · Mais barato que patinho</p>
       <article class="recipe">
         <h3>O que comprar (1 pote)</h3>
-        <p class="ing"><strong>180 g</strong> pernil ou lombo em cubos pequenos · <strong>½</strong> cebola · <strong>2</strong> dentes de alho · <strong>1</strong> colher de chá de azeite · colorau · cominho · páprica · orégano · sal · pimenta · água ou caldo · opcional: <strong>1</strong> cs shoyu · legume da semana</p>
+        <p class="ing"><strong>180–200 g</strong> pernil ou lombo em cubos pequenos · <strong>½</strong> cebola · <strong>2</strong> dentes de alho · <strong>1</strong> colher de chá de azeite · colorau · cominho · páprica · orégano · sal · pimenta · água ou caldo · opcional: <strong>1</strong> cs shoyu · legume da semana</p>
       </article>
       <article class="recipe">
         <h3>Como fazer — refogado</h3>
         <ol>
-          <li>Cubos pequenos e secos (papel toalha). Tempere com alho, sal, colorau, cominho e páprica. 10 min.</li>
-          <li>Fogo médio-alto, azeite: sele sem amontoar até dourar todos os lados (5–8 min).</li>
-          <li>Baixe o fogo. Cebola até murchar; orégano. Pingue um pouco de água/caldo, tampe.</li>
-          <li>Cozinhe 15–20 min até amaciar, mexendo. Se secar, acrescente água aos poucos.</li>
-          <li>Prove o sal. Sirva com vagem, brócolis ou couve refogada.</li>
-          <li><strong>Pote:</strong> ~180–200 g porco + guarnição · almoço com 2 cs arroz (+ feijão se não tiver molho) · jantar sem arroz.</li>
+          <li>Corte o porco em cubos pequenos (se ainda não vier cortado).</li>
+          <li>Seque os cubos com papel toalha.</li>
+          <li>Amasse o alho com sal.</li>
+          <li>Tempere os cubos com o alho.</li>
+          <li>Adicione colorau.</li>
+          <li>Adicione cominho.</li>
+          <li>Adicione páprica.</li>
+          <li>Misture bem.</li>
+          <li>Deixe 10 min.</li>
+          <li>Pique a cebola.</li>
+          <li>Aqueça a frigideira em fogo médio-alto.</li>
+          <li>Pingue o azeite.</li>
+          <li>Coloque os cubos sem amontoar.</li>
+          <li>Sele até dourar todos os lados (5–8 min).</li>
+          <li>Baixe o fogo.</li>
+          <li>Junte a cebola.</li>
+          <li>Refogue até a cebola murchar.</li>
+          <li>Adicione orégano.</li>
+          <li>Pingue um pouco de água ou caldo.</li>
+          <li>Tampe a frigideira.</li>
+          <li>Cozinhe 15–20 min até amaciar.</li>
+          <li>Mexa de vez em quando.</li>
+          <li>Se secar, acrescente água aos poucos.</li>
+          <li>Prove o sal e ajuste.</li>
+          <li>Sirva com vagem, brócolis ou couve refogada.</li>
+          <li><strong>Pote almoço:</strong> ~180–200 g porco + guarnição + 2 cs arroz (+ feijão se não tiver molho).</li>
+          <li><strong>Pote jantar:</strong> ~180–200 g porco + guarnição, sem arroz.</li>
         </ol>
       </article>
       <article class="recipe">
         <h3>Variação shoyu</h3>
         <ol>
-          <li>Siga até o porco estar dourado e quase macio.</li>
-          <li>Junte o legume pré-cozido. Pingue <strong>1 cs</strong> shoyu. 1–2 min em fogo baixo.</li>
-          <li>Pote: só 2 cs arroz (sem feijão).</li>
+          <li>Siga o refogado até o porco estar dourado e quase macio.</li>
+          <li>Pré-cozinhe o legume (brócolis 4 min ou vagem 7–8 min).</li>
+          <li>Escorra o legume.</li>
+          <li>Junte o legume ao porco.</li>
+          <li>Pingue <strong>1 cs</strong> de shoyu.</li>
+          <li>Misture 1–2 min em fogo baixo.</li>
+          <li><strong>Pote almoço:</strong> só 2 cs arroz (sem feijão).</li>
         </ol>
       </article>
       <article class="recipe">
         <h3>Com quiabo</h3>
         <ol>
-          <li>Faça o <a href="#quiabo">quiabo sem baba</a> à parte (ou na mesma panela depois de reservar o porco).</li>
-          <li>Misture o porco refogado com o quiabo no fim. Limão/vinagre.</li>
-          <li>Pote: arroz + feijão.</li>
+          <li>Faça o <a href="#quiabo">quiabo sem baba</a> à parte.</li>
+          <li>Ou: reserve o porco e faça o quiabo na mesma panela.</li>
+          <li>Misture o porco refogado com o quiabo no fim.</li>
+          <li>Pingue limão ou vinagre.</li>
+          <li><strong>Pote almoço:</strong> arroz + feijão.</li>
         </ol>
       </article>
     </section>
@@ -443,14 +717,35 @@
       <article class="recipe">
         <h3>Como fazer</h3>
         <ol>
-          <li>Seque o peito. Se estiver grosso, abra no meio (bife) para cozinhar igual.</li>
-          <li>Tempere: alho amassado, sal, páprica, suco de limão e azeite. 10–15 min (pode ir direto se tiver pressa).</li>
-          <li>Frigideira quente (médio-alto). Grelhe <strong>4–5 min por lado</strong> sem ficar virando. Corte o centro: sem rosa.</li>
-          <li>Descanse 2 min fora do fogo. Corte em tiras se preferir.</li>
-          <li><strong>Guarnição:</strong> brócolis 4 min em água ou vagem 7–8 min; escorra e salteie 1 min com alho se quiser.</li>
-          <li><strong>Almoço:</strong> frango + guarnição + 2 cs arroz. <strong>Jantar:</strong> sem arroz/feijão (300–400 g).</li>
+          <li>Seque o peito com papel toalha.</li>
+          <li>Se estiver grosso, abra no meio (bife) para cozinhar igual.</li>
+          <li>Amasse o alho.</li>
+          <li>Tempere o peito com o alho.</li>
+          <li>Adicione sal.</li>
+          <li>Adicione páprica.</li>
+          <li>Esprema suco de limão por cima.</li>
+          <li>Pingue o azeite.</li>
+          <li>Misture para cobrir os dois lados.</li>
+          <li>Deixe 10–15 min (pode ir direto se tiver pressa).</li>
+          <li>Aqueça a frigideira em fogo médio-alto.</li>
+          <li>Coloque o peito na frigideira quente.</li>
+          <li>Grelhe <strong>4–5 min</strong> sem virar.</li>
+          <li>Vire o peito.</li>
+          <li>Grelhe mais <strong>4–5 min</strong>.</li>
+          <li>Corte o centro: não pode estar rosa.</li>
+          <li>Retire do fogo.</li>
+          <li>Descanse 2 min.</li>
+          <li>Opcional: corte em tiras.</li>
+          <li><strong>Guarnição — brócolis:</strong> corte em floretes.</li>
+          <li><strong>Guarnição — brócolis:</strong> cozinhe 4 min em água.</li>
+          <li><strong>Guarnição — vagem:</strong> tire as pontas.</li>
+          <li><strong>Guarnição — vagem:</strong> cozinhe 7–8 min em água.</li>
+          <li>Escorra o legume.</li>
+          <li>Opcional: salteie o legume 1 min com alho.</li>
+          <li><strong>Almoço:</strong> frango + guarnição + 2 cs arroz.</li>
+          <li><strong>Jantar:</strong> frango + guarnição, sem arroz/feijão (350–450 g).</li>
         </ol>
-        <p class="meta">Lote: tempere 380 g de uma vez (almoço + jantar da semana) e grelhe em duas fornadas na frigideira.</p>
+        <p class="meta">Lote: tempere 380–570 g de uma vez e grelhe em fornadas na frigideira.</p>
       </article>
     </section>
 
@@ -464,14 +759,28 @@
       <article class="recipe">
         <h3>Como fazer</h3>
         <ol>
-          <li>Forno a <strong>180 °C</strong>. Unte 6 forminhas de muffin (ou use silicone / forminha de papel).</li>
-          <li>Bata os 12 ovos com sal e páprica até misturar bem.</li>
-          <li>Se quiser, distribua cubinhos de tomate/abobrinha ou cheiro-verde no fundo das forminhas.</li>
-          <li>Despeje o ovo batido até ~¾ de cada forminha (≈ 2 ovos por muffin).</li>
-          <li>Asse <strong>18–22 min</strong> até firmar (centro sem líquido). Espete com faca: deve sair limpa.</li>
-          <li>Espere 5 min. Desenforme. <strong>1 pote</strong> = 2 muffins (~4 ovos) + legume/salada ao lado.</li>
-          <li><strong>Congelar:</strong> esfrie, embrulhe individual ou no pote. Até ~1 mês. Esquente no micro-ondas ~1–2 min (potência média).</li>
-          <li><strong>Almoço:</strong> 2 muffins + legume (+ 2 cs arroz). <strong>Jantar:</strong> 2 muffins + legume, sem arroz/feijão.</li>
+          <li>Preaqueça o forno a <strong>180 °C</strong>.</li>
+          <li>Unte 6 forminhas de muffin (ou use silicone / forminha de papel).</li>
+          <li>Quebre os 12 ovos numa tigela.</li>
+          <li>Adicione sal.</li>
+          <li>Adicione páprica.</li>
+          <li>Bata até misturar bem.</li>
+          <li>Opcional: pique tomate, abobrinha ou cheiro-verde em cubinhos.</li>
+          <li>Opcional: distribua os cubinhos no fundo das forminhas.</li>
+          <li>Despeje o ovo batido até ~¾ de cada forminha.</li>
+          <li>Cada muffin leva ≈ 2 ovos.</li>
+          <li>Asse <strong>18–22 min</strong>.</li>
+          <li>Espete com faca no centro: deve sair limpa (sem líquido).</li>
+          <li>Retire do forno.</li>
+          <li>Espere 5 min.</li>
+          <li>Desenforme.</li>
+          <li><strong>1 pote</strong> = 2 muffins (~4 ovos) + legume/salada ao lado.</li>
+          <li><strong>Congelar:</strong> espere esfriar por completo.</li>
+          <li><strong>Congelar:</strong> embrulhe individual ou coloque no pote.</li>
+          <li><strong>Congelar:</strong> dure até ~1 mês.</li>
+          <li><strong>Esquentar:</strong> micro-ondas ~1–2 min em potência média.</li>
+          <li><strong>Almoço:</strong> 2 muffins + legume + 2 cs arroz.</li>
+          <li><strong>Jantar:</strong> 2 muffins + legume, sem arroz/feijão.</li>
         </ol>
         <p class="meta">Sem forminha: asse num refratário baixo untado 20–25 min e corte em 6 quadrados (mesmo rendimento).</p>
       </article>
@@ -486,12 +795,24 @@
         <p class="meta">Tempo: 35–40 min · Rende o lote da semana</p>
         <p class="ing"><strong>Lote:</strong> 1⅓ xícara de arroz integral · água (siga a proporção da embalagem; em geral ~2,5 a 3 xícaras) · <strong>1</strong> dente de alho · <strong>1</strong> colher de chá de azeite · sal</p>
         <ol>
-          <li>Opcional: lave o arroz em água corrente até sair menos nuvem. Escorra bem.</li>
-          <li>Panela, azeite em fogo médio: refogue o alho picado 30 s (não queime).</li>
-          <li>Junte o arroz e mexa 1 min para “selar”.</li>
-          <li>Água + sal. Ferva. Tampe, fogo baixo 30–35 min sem ficar abrindo.</li>
-          <li>Apague e deixe 5 min tampado. Solte com garfo.</li>
-          <li><strong>Na marmita:</strong> só 2 cs. Guarde o resto na geladeira até 4–5 dias.</li>
+          <li>Opcional: lave o arroz em água corrente até sair menos nuvem.</li>
+          <li>Escorra bem o arroz.</li>
+          <li>Pique o alho.</li>
+          <li>Aqueça a panela com azeite em fogo médio.</li>
+          <li>Refogue o alho 30 s (não queime).</li>
+          <li>Junte o arroz.</li>
+          <li>Mexa 1 min para “selar”.</li>
+          <li>Adicione a água.</li>
+          <li>Adicione o sal.</li>
+          <li>Espere ferver.</li>
+          <li>Tampe a panela.</li>
+          <li>Baixe o fogo.</li>
+          <li>Cozinhe 30–35 min sem ficar abrindo.</li>
+          <li>Apague o fogo.</li>
+          <li>Deixe 5 min tampado.</li>
+          <li>Solte o arroz com um garfo.</li>
+          <li><strong>Na marmita:</strong> só 2 cs.</li>
+          <li>Guarde o resto na geladeira até 4–5 dias.</li>
         </ol>
       </article>
 
@@ -500,15 +821,30 @@
         <p class="meta">Tempo ativo: ~40 min (+ atalho de 1 h de molho rápido)</p>
         <p class="ing"><strong>Lote:</strong> 1 xícara de feijão · água · <strong>1</strong> cebola · <strong>2</strong> dentes de alho · louro · azeite · sal</p>
         <ol>
-          <li><strong>Atalho (sem molho de véspera):</strong> ferva o feijão 2–3 min, desligue, tampe 1 h, escorra.</li>
-          <li>Panela de pressão: feijão + água nova cobrindo ~3 dedos + louro. Feche.</li>
-          <li>Após pegar pressão, ~25 min. Espere a pressão sair. Prove: deve estar macio.</li>
-          <li>À parte: refogue cebola e alho no azeite. Junte ao feijão. Sal a gosto. Ferva 5 min para pegar gosto.</li>
-          <li><strong>Na marmita:</strong> 2 cs <strong>somente</strong> se o prato não tiver molho (shoyu, tomate, recheado com molho → sem feijão).</li>
+          <li><strong>Atalho (sem molho de véspera):</strong> coloque o feijão numa panela com água.</li>
+          <li>Ferva 2–3 min.</li>
+          <li>Desligue o fogo.</li>
+          <li>Tampe e deixe 1 h.</li>
+          <li>Escorra.</li>
+          <li>Coloque o feijão na panela de pressão.</li>
+          <li>Cubra com água nova (~3 dedos acima).</li>
+          <li>Adicione a folha de louro.</li>
+          <li>Feche a panela de pressão.</li>
+          <li>Espere pegar pressão.</li>
+          <li>Conte ~25 min de pressão.</li>
+          <li>Desligue e espere a pressão sair por completo.</li>
+          <li>Abra e prove: deve estar macio.</li>
+          <li>À parte: pique cebola e alho.</li>
+          <li>Refogue cebola e alho no azeite.</li>
+          <li>Junte o refogado ao feijão.</li>
+          <li>Adicione sal a gosto.</li>
+          <li>Ferva 5 min para pegar gosto.</li>
+          <li><strong>Na marmita:</strong> 2 cs <strong>somente</strong> se o prato não tiver molho.</li>
+          <li>Shoyu, tomate ou recheado com molho → sem feijão.</li>
         </ol>
       </article>
     </section>
-    </main>
+  </main>
   <script src="tema.js?v=1"></script>
   <script src="nav-drawer.js?v=3"></script>
 </body>

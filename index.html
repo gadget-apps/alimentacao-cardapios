@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cardápio Márcio Mazzei</title>
-  <link rel="stylesheet" href="estilo.css?v=15" />
+  <link rel="stylesheet" href="estilo.css?v=16" />
 </head>
 <body>
   <main class="wrap">
@@ -23,12 +23,14 @@
       <p class="footer-note">14 potes/semana (almoço + jantar todos os dias). Academia: almoço no teto ou +2 cs feijão. Mussarela/pão/manteiga do café: compra pessoal fora da lista da semana (ovos do café já entram na lista).</p>
     </section>
 
-    <!-- Ordem = drawer (sem Início): Preços → Semanas → Receitas -->
-    <!-- Same order as drawer (skip Home): Prices → Weeks → Recipes -->
+    <!-- Ordem drawer: Preços → Semanas → Receitas (Receitas em bloco próprio após as semanas). -->
+    <!-- Drawer order: Prices → Weeks → Recipes (Recipes in its own block right after weeks). -->
     <section class="card">
       <h2>Atalhos</h2>
       <div class="week-list">
         <a href="precos.html" class="nav-precos"><strong>Preços</strong>NF Araraquara · despensa · checklist</a>
+      </div>
+      <div class="week-list" style="margin-top:0.8rem">
         <a href="semana-1.html" class="w1"><strong>Semana 1</strong>14 potes · panela · porco · frango/muffin</a>
         <a href="semana-2.html" class="w2"><strong>Semana 2</strong>14 potes · recheados · acém · porco shoyu</a>
         <a href="semana-3.html" class="w3"><strong>Semana 3</strong>14 potes · panela · recheados · clássica</a>
@@ -37,6 +39,8 @@
         <a href="semana-6.html" class="w6"><strong>Semana 6</strong>14 potes · abóbora · almôndegas · porco</a>
         <a href="semana-7.html" class="w7"><strong>Semana 7</strong>14 potes · panela · recheados · almôndegas</a>
         <a href="semana-8.html" class="w8"><strong>Semana 8</strong>14 potes · panela · porco · fecha ciclo</a>
+      </div>
+      <div class="week-list" style="margin-top:0.8rem">
         <a href="receitas.html" class="nav-receitas"><strong>Receitas</strong>Passo a passo · arroz · muffins · carnes</a>
       </div>
     </section>

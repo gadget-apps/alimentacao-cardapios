@@ -686,7 +686,11 @@ body.semana-8 .hero {
 }
 
 /* Cards da home — atalhos do drawer / Home shortcut cards (drawer order) */
-.week-list a.nav-precos { background: #e8f0fa; border-color: #b8cce8; }
+.week-list a.nav-precos {
+  background: #e8f0fa;
+  border-color: #b8cce8;
+  grid-column: 1 / -1;
+}
 .week-list a.nav-precos strong { color: #3d6aa8; }
 .week-list a.w1 { background: #e7f2ec; border-color: #c5ddd0; }
 .week-list a.w2 { background: #eef1f9; border-color: #d0d8ec; }
@@ -696,7 +700,12 @@ body.semana-8 .hero {
 .week-list a.w6 { background: #f5f0e6; border-color: #e0d4b8; }
 .week-list a.w7 { background: #f4ecef; border-color: #e0ced5; }
 .week-list a.w8 { background: #eef3ea; border-color: #d0dcc4; }
-.week-list a.nav-receitas { background: #f8ebe4; border-color: #e5c4b0; }
+.week-list a.nav-receitas {
+  background: #f8ebe4;
+  border-color: #e5c4b0;
+  /* Faixa inteira logo após as semanas / Full-width strip right after weeks */
+  grid-column: 1 / -1;
+}
 .week-list a.nav-receitas strong { color: #b05a38; }
 .week-list a.w1 strong { color: #5f8a72; }
 .week-list a.w2 strong { color: #6b7aa8; }

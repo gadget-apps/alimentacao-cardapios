@@ -506,24 +506,56 @@ body.drawer-open {
   padding-left: 1.2rem;
 }
 
-/* Selecionar todas (acima da lista) / Select all (above the list) */
-.shop-select-all {
+/* Carrinho rápido: levar / tirar tudo / Quick cart: all / none */
+.shop-bulk {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  margin: 0 0 0.55rem;
-  border: 1px dashed var(--accent);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--accent) 8%, #fff);
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--accent);
+  justify-content: space-between;
+  gap: 0.65rem;
+  margin: 0 0 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 14px;
+  background: linear-gradient(120deg, #1f3d36 0%, #3d6b5c 100%);
+  color: #f4f7f5;
+  box-shadow: 0 8px 20px rgba(31, 61, 54, 0.18);
 }
-.shop-select-all input {
-  width: 1.15rem;
-  height: 1.15rem;
-  flex-shrink: 0;
+.shop-bulk-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.shop-bulk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.shop-bulk-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: #f4c95f;
+  color: #1f3d36;
+}
+.shop-bulk-btn:hover {
+  filter: brightness(1.06);
+}
+.shop-bulk-btn-ghost {
+  background: transparent;
+  color: #f4f7f5;
+  border: 1px solid rgba(244, 247, 245, 0.45);
+}
+.shop-bulk-btn.is-active {
+  box-shadow: 0 0 0 2px #fff inset;
+}
+.shop-bulk-btn-ghost.is-active {
+  background: rgba(244, 247, 245, 0.18);
 }
 
 .shop-check {

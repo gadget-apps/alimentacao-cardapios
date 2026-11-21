@@ -166,20 +166,20 @@
   }
 
   /**
-   * Sincroniza o checkbox “Selecionar todas” com o estado da lista.
-   * Keeps the “Select all” checkbox in sync with the list.
+   * Destaca o atalho ativo (tudo / nada) conforme a lista.
+   * Highlights the active bulk action (all / none) from list state.
    */
   function syncSelectAll(root, boxes, done) {
-    var master = root.querySelector("[data-select-all]");
-    if (!master) return;
+    var allBtn = root.querySelector("[data-select-all]");
+    var noneBtn = root.querySelector("[data-select-none]");
+    if (!allBtn || !noneBtn) return;
     var n = boxes.length;
-    if (n === 0) {
-      master.checked = false;
-      master.indeterminate = false;
-      return;
-    }
-    master.checked = done === n;
-    master.indeterminate = done > 0 && done < n;
+    var allOn = n > 0 && done === n;
+    var noneOn = done === 0;
+    allBtn.classList.toggle("is-active", allOn);
+    noneBtn.classList.toggle("is-active", noneOn);
+    allBtn.setAttribute("aria-pressed", allOn ? "true" : "false");
+    noneBtn.setAttribute("aria-pressed", noneOn ? "true" : "false");
   }
 
   /**
@@ -214,14 +214,19 @@
   }
 
   function ensureSelectAll(root) {
-    if (root.querySelector("[data-select-all]")) return;
+    if (root.querySelector(".shop-bulk")) return;
     var ul = root.querySelector("ul.shop-check");
     if (!ul) return;
-    var wrap = document.createElement("label");
-    wrap.className = "shop-select-all";
+    // Atalhos de carrinho: levar tudo ou tirar marcas.
+    // Cart shortcuts: take everything or clear marks.
+    var wrap = document.createElement("div");
+    wrap.className = "shop-bulk";
     wrap.innerHTML =
-      '<input type="checkbox" data-select-all />' +
-      "<span>Selecionar todas</span>";
+      '<span class="shop-bulk-label">Carrinho rápido</span>' +
+      '<div class="shop-bulk-actions">' +
+      '<button type="button" class="shop-bulk-btn" data-select-all>Levar tudo</button>' +
+      '<button type="button" class="shop-bulk-btn shop-bulk-btn-ghost" data-select-none>Tirar tudo</button>' +
+      "</div>";
     root.insertBefore(wrap, ul);
   }
 
@@ -262,10 +267,16 @@
       })(boxes[i]);
     }
 
-    var master = root.querySelector("[data-select-all]");
-    if (master) {
-      master.addEventListener("change", function () {
-        setAllChecked(root, semana, boxes, master.checked);
+    var allBtn = root.querySelector("[data-select-all]");
+    var noneBtn = root.querySelector("[data-select-none]");
+    if (allBtn) {
+      allBtn.addEventListener("click", function () {
+        setAllChecked(root, semana, boxes, true);
+      });
+    }
+    if (noneBtn) {
+      noneBtn.addEventListener("click", function () {
+        setAllChecked(root, semana, boxes, false);
       });
     }
 

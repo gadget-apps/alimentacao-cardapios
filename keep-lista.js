@@ -153,13 +153,76 @@
   }
 
   function updateProgress(root) {
-    var boxes = root.querySelectorAll('input[type="checkbox"]');
+    // Só itens da lista (não o “selecionar todas”).
+    // Only list items (not the “select all” control).
+    var boxes = root.querySelectorAll('input[type="checkbox"][data-id]');
     var done = 0;
     for (var i = 0; i < boxes.length; i++) {
       if (boxes[i].checked) done++;
     }
     var el = root.querySelector("[data-shop-progress]");
     if (el) el.textContent = done + " de " + boxes.length + " marcados para comprar";
+    syncSelectAll(root, boxes, done);
+  }
+
+  /**
+   * Sincroniza o checkbox “Selecionar todas” com o estado da lista.
+   * Keeps the “Select all” checkbox in sync with the list.
+   */
+  function syncSelectAll(root, boxes, done) {
+    var master = root.querySelector("[data-select-all]");
+    if (!master) return;
+    var n = boxes.length;
+    if (n === 0) {
+      master.checked = false;
+      master.indeterminate = false;
+      return;
+    }
+    master.checked = done === n;
+    master.indeterminate = done > 0 && done < n;
+  }
+
+  /**
+   * Marca ou desmarca todos os itens e grava no localStorage.
+   * Checks or unchecks every item and persists to localStorage.
+   */
+  function setAllChecked(root, semana, boxes, checked) {
+    var s = {};
+    for (var i = 0; i < boxes.length; i++) {
+      var input = boxes[i];
+      var id = input.getAttribute("data-id");
+      var li = input.closest ? input.closest("li") : null;
+      input.checked = checked;
+      if (checked) {
+        if (id) s[id] = true;
+        if (li)
+          li.className = (li.className.replace(/\bdone\b/g, "") + " done")
+            .replace(/\s+/g, " ")
+            .trim();
+      } else if (li) {
+        li.className = li.className.replace(/\bdone\b/g, "").replace(/\s+/g, " ").trim();
+      }
+    }
+    if (checked) saveState(semana, s);
+    else {
+      try {
+        localStorage.removeItem(storageKey(semana));
+      } catch (e) {}
+    }
+    updateProgress(root);
+    updateTotal(root);
+  }
+
+  function ensureSelectAll(root) {
+    if (root.querySelector("[data-select-all]")) return;
+    var ul = root.querySelector("ul.shop-check");
+    if (!ul) return;
+    var wrap = document.createElement("label");
+    wrap.className = "shop-select-all";
+    wrap.innerHTML =
+      '<input type="checkbox" data-select-all />' +
+      "<span>Selecionar todas</span>";
+    root.insertBefore(wrap, ul);
   }
 
   function init() {
@@ -169,6 +232,8 @@
     var semana = root.getAttribute("data-semana") || "1";
     var state = loadState(semana);
     var boxes = root.querySelectorAll('input[type="checkbox"][data-id]');
+
+    ensureSelectAll(root);
 
     for (var i = 0; i < boxes.length; i++) {
       (function (input) {
@@ -195,6 +260,13 @@
           updateTotal(root);
         });
       })(boxes[i]);
+    }
+
+    var master = root.querySelector("[data-select-all]");
+    if (master) {
+      master.addEventListener("change", function () {
+        setAllChecked(root, semana, boxes, master.checked);
+      });
     }
 
     if (!root.querySelector("[data-shop-progress]")) {

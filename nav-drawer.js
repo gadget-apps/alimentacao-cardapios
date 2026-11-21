@@ -49,7 +49,7 @@
     bar.innerHTML =
       '<button type="button" class="drawer-toggle" id="drawer-open" aria-label="Abrir menu">' +
       '<span></span><span></span><span></span></button>' +
-      '<span class="topbar-title">Cardápio Light</span>';
+      '<span class="topbar-title">Cardápio Low Carb</span>';
 
     var backdrop = document.createElement("div");
     backdrop.className = "drawer-backdrop";

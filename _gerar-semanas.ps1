@@ -154,7 +154,6 @@ $(Pots $w.pots)
     <section class="card">
       <div class="passo"><div class="passo-num">3</div><div class="passo-body">
         <h3>Durante a semana — só esquentar</h3>
-        <p>12:30 almoço · 20:00 jantar. Esquente o pote da tampa do dia. Academia: almoço maior.</p>
       </div></div>
 $daysHtml
     </section>

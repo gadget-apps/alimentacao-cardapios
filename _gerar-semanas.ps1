@@ -140,9 +140,9 @@ $(Shop $w.shop)
       <article class="recipe">$($w.prepD)</article>
       <article class="recipe">
         <h3>Depois: monte os potes da semana</h3>
-        <p class="footer-note">Cada linha = 1 pote (tampa). Arroz/feijão só no almoço, onde indicado. Jantar = nada.</p>
+        <p class="footer-note">Cada linha = 1 pote. Arroz/feijão só no almoço, onde indicado. Jantar = nada.</p>
         <table class="table">
-          <thead><tr><th>Tampa</th><th>Prato</th><th>Arroz / feijão</th></tr></thead>
+          <thead><tr><th>Dia</th><th>Prato</th><th>Arroz / feijão</th></tr></thead>
           <tbody>
 $(Pots $w.pots)
           </tbody>

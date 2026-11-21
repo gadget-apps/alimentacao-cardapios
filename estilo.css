@@ -230,6 +230,15 @@ body.drawer-open {
   color: var(--accent);
 }
 
+/* Card resumo da home / Home summary card */
+.card-resumo {
+  background: #f0eaf8;
+  border-color: #c9b8e0;
+}
+.card-resumo h2 {
+  color: #6b4f8a;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

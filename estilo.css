@@ -685,13 +685,34 @@ body.semana-8 .hero {
   border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
 }
 
-/* Cards da home — atalhos do drawer / Home shortcut cards (drawer order) */
-.week-list a.nav-precos {
+/* Home: Preços / Receitas soltos; semanas no quadro branco */
+/* Home: Prices / Recipes standalone; weeks inside white card */
+.home-link {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+  color: var(--ink);
+  box-shadow: 0 6px 18px rgba(31, 42, 36, 0.04);
+  margin-bottom: 1rem;
+  text-decoration: none;
+}
+.home-link:hover { text-decoration: none; }
+.home-link strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.home-link.nav-precos {
   background: #e8f0fa;
   border-color: #b8cce8;
-  grid-column: 1 / -1;
 }
-.week-list a.nav-precos strong { color: #3d6aa8; }
+.home-link.nav-precos strong { color: #3d6aa8; }
+.home-link.nav-receitas {
+  background: #f8ebe4;
+  border-color: #e5c4b0;
+}
+.home-link.nav-receitas strong { color: #b05a38; }
+
 .week-list a.w1 { background: #e7f2ec; border-color: #c5ddd0; }
 .week-list a.w2 { background: #eef1f9; border-color: #d0d8ec; }
 .week-list a.w3 { background: #f6eef3; border-color: #e4d0db; }
@@ -700,13 +721,6 @@ body.semana-8 .hero {
 .week-list a.w6 { background: #f5f0e6; border-color: #e0d4b8; }
 .week-list a.w7 { background: #f4ecef; border-color: #e0ced5; }
 .week-list a.w8 { background: #eef3ea; border-color: #d0dcc4; }
-.week-list a.nav-receitas {
-  background: #f8ebe4;
-  border-color: #e5c4b0;
-  /* Faixa inteira logo após as semanas / Full-width strip right after weeks */
-  grid-column: 1 / -1;
-}
-.week-list a.nav-receitas strong { color: #b05a38; }
 .week-list a.w1 strong { color: #5f8a72; }
 .week-list a.w2 strong { color: #6b7aa8; }
 .week-list a.w3 strong { color: #9a6f88; }

@@ -130,8 +130,8 @@ $(Shop $w.shop)
 
     <section class="card">
       <div class="passo"><div class="passo-num">2</div><div class="passo-body">
-        <h3>Domingo — ordem de preparo (~$($w.prepTime))</h3>
-        <p><strong>Não é receita.</strong> É a lista do que cozinhar hoje, na ordem A→D. O passo a passo fica em <a href="receitas.html">Receitas</a>.</p>
+        <h3>Ordem de preparo (~$($w.prepTime))</h3>
+        <p><strong>Não é receita.</strong> É a lista do que cozinhar no dia do prep, na ordem A→D (qualquer dia da semana). O passo a passo fica em <a href="receitas.html">Receitas</a>.</p>
         <p>No fim: monte <strong>14 potes</strong> (7 almoços + 7 jantares). Proteína ~180–200 g crua por pote.</p>
       </div></div>
       <article class="recipe">$($w.prepA)</article>

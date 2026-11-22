@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Atualizar Preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=35" />
+  <link rel="stylesheet" href="estilo.css?v=36" />
 </head>
 <body>
   <main class="wrap">
@@ -209,13 +209,28 @@
           });
       }
 
-      function pickCameraId(cameras) {
-        var i;
-        for (i = 0; i < cameras.length; i++) {
-          var label = (cameras[i].label || "").toLowerCase();
-          if (/back|traseir|rear|environment/.test(label)) return cameras[i].id;
+      /**
+       * No desktop, evita Phone Link / celular remoto (ex.: razr) e prefere webcam local.
+       * On desktop, skip Phone Link / remote phone cams (e.g. razr) and prefer local webcam.
+       */
+      function scoreCamera(cam) {
+        var label = (cam.label || "").toLowerCase();
+        var score = 0;
+        if (/phone link|continuidade|continuity|iphone|android|razr|galaxy|pixel|mobile|smartphone|virtual/.test(label)) {
+          score -= 100;
         }
-        return cameras[0].id;
+        if (/integrated|built-?in|webcam|usb|microsoft|logitech|hd camera|laptop|notebook/.test(label)) {
+          score += 50;
+        }
+        if (/back|traseir|rear|environment/.test(label)) score += 20;
+        if (/front|user|face/.test(label)) score += 5;
+        return score;
+      }
+
+      function rankedCameras(cameras) {
+        return cameras.slice().sort(function (a, b) {
+          return scoreCamera(b) - scoreCamera(a);
+        });
       }
 
       function onDecoded(decoded) {
@@ -233,6 +248,31 @@
           });
       }
 
+      function startWithId(cameraId) {
+        scanner = new Html5Qrcode("qr-reader", { verbose: false });
+        return scanner.start(
+          cameraId,
+          { fps: 10, qrbox: { width: 240, height: 240 } },
+          onDecoded,
+          function () {}
+        );
+      }
+
+      function tryCamerasInOrder(list, idx) {
+        if (idx >= list.length) {
+          return Promise.reject(new Error("Nenhuma câmera local respondeu"));
+        }
+        var cam = list[idx];
+        var label = cam.label || "Câmera " + (idx + 1);
+        showPageMsg("Tentando câmera: " + label + "…");
+        readerEl.innerHTML = "";
+        return startWithId(cam.id).catch(function () {
+          return hardStopCamera().then(function () {
+            return tryCamerasInOrder(list, idx + 1);
+          });
+        });
+      }
+
       function startCamera() {
         if (typeof Html5Qrcode === "undefined") {
           showPageMsg("Leitor de QR não carregou. Atualize a página.");
@@ -246,55 +286,34 @@
         }
         readerEl.innerHTML = "";
         setLiveUi();
-        showPageMsg("Pedindo câmera do dispositivo…");
+        showPageMsg("Pedindo câmera deste PC/celular…");
 
         function fail(err) {
           scanner = null;
           setIdleUi();
           showPageMsg(
-            "Não abriu a câmera (" +
+            "Não abriu a câmera deste computador (" +
               (err && err.message ? err.message : "erro") +
-              "). Permita o acesso no navegador ou use o link abaixo."
+              "). Se o Windows pedir o celular (Phone Link/razr), cancele e use a webcam do PC — ou abra este site no próprio celular."
           );
         }
 
         Html5Qrcode.getCameras()
           .then(function (cameras) {
             if (!cameras || !cameras.length) throw new Error("Nenhuma câmera neste aparelho");
-            var id = pickCameraId(cameras);
-            scanner = new Html5Qrcode("qr-reader", { verbose: false });
-            return scanner.start(
-              id,
-              { fps: 10, qrbox: { width: 240, height: 240 } },
-              onDecoded,
-              function () {}
-            );
+            var ordered = rankedCameras(cameras);
+            // Pula câmeras remotas se existir pelo menos uma local.
+            // Skip remote cameras when at least one local camera exists.
+            var locals = ordered.filter(function (c) {
+              return scoreCamera(c) >= 0;
+            });
+            var list = locals.length ? locals : ordered;
+            return tryCamerasInOrder(list, 0);
           })
           .then(function () {
             showPageMsg("Câmera ligada na área preta — aponte para o QR do cupom.");
           })
-          .catch(function () {
-            scanner = new Html5Qrcode("qr-reader", { verbose: false });
-            return scanner
-              .start(
-                { facingMode: "environment" },
-                { fps: 10, qrbox: { width: 240, height: 240 } },
-                onDecoded,
-                function () {}
-              )
-              .catch(function () {
-                return scanner.start(
-                  { facingMode: "user" },
-                  { fps: 10, qrbox: { width: 240, height: 240 } },
-                  onDecoded,
-                  function () {}
-                );
-              })
-              .then(function () {
-                showPageMsg("Câmera ligada na área preta — aponte para o QR do cupom.");
-              })
-              .catch(fail);
-          });
+          .catch(fail);
       }
 
       btnLer.addEventListener("click", function () {

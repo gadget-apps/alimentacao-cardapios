@@ -492,7 +492,9 @@
     var map = {
       "seed-aqa": "estimativa",
       "qr-code": "QR Code",
-      "nfe-xml": "NF XML",
+      // Leituras antigas via QR gravavam nfe-xml; na UI mostra QR Code.
+      // Older QR reads stored nfe-xml; UI shows QR Code.
+      "nfe-xml": "QR Code",
       "nfe-text": "NF texto",
       manual: "manual",
       import: "importação"

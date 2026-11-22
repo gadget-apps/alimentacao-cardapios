@@ -362,6 +362,21 @@
     };
   }
 
+  function xmlKids(parent, name) {
+    // NFC-e real usa namespace; getElementsByTagNameNS cobre os dois casos.
+    // Real NFC-e uses a namespace; getElementsByTagNameNS covers both cases.
+    if (!parent) return [];
+    var list = parent.getElementsByTagName
+      ? parent.getElementsByTagName(name)
+      : [];
+    if (list && list.length) return list;
+    if (parent.getElementsByTagNameNS) {
+      list = parent.getElementsByTagNameNS("*", name);
+      if (list && list.length) return list;
+    }
+    return [];
+  }
+
   function parseNFeXml(xmlText) {
     var items = [];
     var doc;
@@ -370,11 +385,11 @@
     } catch (e) {
       return items;
     }
-    var prods = doc.getElementsByTagName("prod");
+    var prods = xmlKids(doc, "prod");
     for (var i = 0; i < prods.length; i++) {
       var p = prods[i];
       function tag(n) {
-        var el = p.getElementsByTagName(n)[0];
+        var el = xmlKids(p, n)[0];
         return el ? el.textContent : "";
       }
       var name = tag("xProd");

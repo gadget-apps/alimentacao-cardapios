@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Cupom fictício de teste (sem namespace) para o leitor do site. -->
+<nfeProc versao="4.00">
+  <NFe>
+    <infNFe Id="NFe35260100000000000000550010000000011000000010" versao="4.00">
+      <ide>
+        <natOp>VENDA TESTE CARDAPIO</natOp>
+      </ide>
+      <emit>
+        <xNome>MERCADO TESTE ARARAQUARA</xNome>
+      </emit>
+      <det nItem="1">
+        <prod>
+          <cProd>1</cProd>
+          <xProd>QUIABO KG</xProd>
+          <uCom>KG</uCom>
+          <qCom>0.300</qCom>
+          <vUnCom>26.00</vUnCom>
+          <vProd>7.80</vProd>
+        </prod>
+      </det>
+      <det nItem="2">
+        <prod>
+          <cProd>2</cProd>
+          <xProd>PATINHO MOIDO</xProd>
+          <uCom>KG</uCom>
+          <qCom>0.380</qCom>
+          <vUnCom>56.00</vUnCom>
+          <vProd>21.28</vProd>
+        </prod>
+      </det>
+      <det nItem="3">
+        <prod>
+          <cProd>3</cProd>
+          <xProd>PEITO DE FRANGO</xProd>
+          <uCom>KG</uCom>
+          <qCom>0.570</qCom>
+          <vUnCom>23.00</vUnCom>
+          <vProd>13.11</vProd>
+        </prod>
+      </det>
+      <det nItem="4">
+        <prod>
+          <cProd>4</cProd>
+          <xProd>ARROZ INTEGRAL 1KG</xProd>
+          <uCom>KG</uCom>
+          <qCom>1.000</qCom>
+          <vUnCom>8.50</vUnCom>
+          <vProd>8.50</vProd>
+        </prod>
+      </det>
+      <det nItem="5">
+        <prod>
+          <cProd>5</cProd>
+          <xProd>TOMATE KG</xProd>
+          <uCom>KG</uCom>
+          <qCom>0.500</qCom>
+          <vUnCom>8.00</vUnCom>
+          <vProd>4.00</vProd>
+        </prod>
+      </det>
+      <det nItem="6">
+        <prod>
+          <cProd>6</cProd>
+          <xProd>CHOCOLATE IMPORTADO TESTE</xProd>
+          <uCom>UN</uCom>
+          <qCom>1.000</qCom>
+          <vUnCom>15.00</vUnCom>
+          <vProd>15.00</vProd>
+        </prod>
+      </det>
+      <total>
+        <ICMSTot>
+          <vProd>69.69</vProd>
+          <vNF>69.69</vNF>
+        </ICMSTot>
+      </total>
+    </infNFe>
+  </NFe>
+</nfeProc>

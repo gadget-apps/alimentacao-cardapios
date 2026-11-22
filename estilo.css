@@ -353,6 +353,21 @@ body.drawer-open {
   background: color-mix(in srgb, #3d6aa8 16%, transparent);
 }
 
+/* Nota ao lado do prato (corte/guarnição sem receita) — não é link. */
+/* Side note next to a dish (cut/side without recipe) — not a link. */
+.dish-note {
+  color: var(--muted);
+  font-size: 0.86em;
+  font-weight: 500;
+}
+
+/* Âncoras de receita não ficam atrás da topbar. */
+/* Recipe anchors stay clear of the sticky topbar. */
+.card[id],
+.recipe[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 .week-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

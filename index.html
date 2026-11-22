@@ -4,9 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=31" />
+  <link rel="stylesheet" href="estilo.css?v=32" />
 </head>
 <body>
+  <div id="flash-popup" class="flash-popup-backdrop" hidden>
+    <div class="flash-popup" role="dialog" aria-modal="true" aria-labelledby="flash-title">
+      <h2 id="flash-title">Preços atualizados</h2>
+      <p id="flash-body"></p>
+      <button type="button" class="btn-keep" id="flash-ok">OK</button>
+    </div>
+  </div>
+
   <main class="wrap">
     <section class="hero">
       <h1>Gestão Cardápio Low Carb</h1>
@@ -58,5 +66,41 @@
     <a href="receitas.html" class="home-link nav-receitas"><strong>Receitas</strong>Passo a passo · arroz · muffins · carnes</a>
   </main>
   <script src="nav-drawer.js?v=9"></script>
+  <script>
+    (function () {
+      var KEY = "alimentacao-preco-flash";
+      var backdrop = document.getElementById("flash-popup");
+      var body = document.getElementById("flash-body");
+      var raw = null;
+      try {
+        raw = sessionStorage.getItem(KEY);
+        sessionStorage.removeItem(KEY);
+      } catch (e) {}
+      if (!raw) return;
+      var data = null;
+      try {
+        data = JSON.parse(raw);
+      } catch (e2) {
+        return;
+      }
+      if (!data || !data.ok) return;
+      // Popup na home após leitura do QR / Home popup after QR read.
+      body.textContent =
+        "Leitura do QR concluída. Atualizei " +
+        (data.updated || 0) +
+        " preço(s) do catálogo" +
+        (data.skipped
+          ? " e ignorei " + data.skipped + " item(ns) fora da lista."
+          : ".") ;
+      backdrop.hidden = false;
+      function close() {
+        backdrop.hidden = true;
+      }
+      document.getElementById("flash-ok").addEventListener("click", close);
+      backdrop.addEventListener("click", function (ev) {
+        if (ev.target === backdrop) close();
+      });
+    })();
+  </script>
 </body>
 </html>

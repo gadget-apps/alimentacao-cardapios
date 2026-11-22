@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Atualizar Preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=32" />
+  <link rel="stylesheet" href="estilo.css?v=34" />
 </head>
 <body>
   <main class="wrap">
@@ -12,7 +12,7 @@
 
     <section class="hero">
       <h1>Atualizar Preços</h1>
-      <p>Capture o QR Code da NFC-e com a câmera deste aparelho. Só atualiza preços de produtos que já estão no <a href="precos.html">catálogo</a>.</p>
+      <p>Leia o QR Code da NFC-e com a câmera deste aparelho. Só atualiza preços de produtos que já estão no <a href="precos.html">catálogo</a>.</p>
       <div class="chips">
         <span class="chip">QR NFC-e</span>
         <span class="chip">Só catálogo</span>
@@ -21,9 +21,9 @@
 
     <section class="card">
       <h2>Leitor de QR Code da NFC-e</h2>
-      <p class="footer-note">Ao capturar, a câmera abre. Depois da leitura, você volta para o início com a confirmação.</p>
+      <p class="footer-note">Clicou → abre a câmera. Leu o QR → fecha a câmera e volta pro início com o resultado.</p>
       <div class="shop-actions">
-        <button type="button" class="btn-keep" id="btn-capturar">Capturar QR Code</button>
+        <button type="button" class="btn-keep" id="btn-capturar">Ler QR Code</button>
       </div>
       <p id="page-msg" class="footer-note" hidden></p>
     </section>
@@ -76,11 +76,13 @@
         return m ? m[0] : s;
       }
 
-      function goHomeSuccess(payload) {
+      function goHomeFlash(payload) {
         try {
           sessionStorage.setItem(FLASH_KEY, JSON.stringify(payload));
         } catch (e) {}
-        location.href = "index.html";
+        // Sai da tela de escaneamento e abre a home com popup.
+        // Leave the scan screen and open home with a popup.
+        location.replace("index.html?v=34");
       }
 
       function fetchCupom(url) {
@@ -129,29 +131,37 @@
         url = extractUrl(url);
         if (!url || !/^https?:\/\//i.test(url)) {
           var bad = "O QR precisa ser um link https da NFC-e.";
-          if (fromScan) showStatus(bad);
-          else showPageMsg(bad);
+          if (fromScan) {
+            goHomeFlash({
+              ok: false,
+              title: "Não foi possível atualizar",
+              message: bad
+            });
+          } else {
+            showPageMsg(bad);
+          }
           return Promise.resolve(false);
         }
         document.getElementById("nfce-url").value = url;
-        if (fromScan) showStatus("QR lido. Atualizando preços…");
-        else showPageMsg("Buscando cupom…");
+        if (!fromScan) showPageMsg("Buscando cupom…");
         return fetchCupom(url)
           .then(function (text) {
             var result = importFromText(text);
             if (!result.ok) {
               if (fromScan) {
-                showStatus(result.error);
-                handling = false;
+                goHomeFlash({
+                  ok: false,
+                  title: "Leitura feita, sem itens",
+                  message: result.error
+                });
               } else {
                 showPageMsg(result.error);
               }
               return false;
             }
-            // Sai da tela de scan e mostra popup na home.
-            // Leave the scan screen and show a popup on home.
-            goHomeSuccess({
+            goHomeFlash({
               ok: true,
+              title: "Preços atualizados",
               updated: result.updated,
               skipped: result.skipped,
               at: new Date().toISOString()
@@ -160,10 +170,13 @@
           })
           .catch(function () {
             var err =
-              "Não consegui baixar o cupom (bloqueio SEFAZ/CORS). Tente de novo mais tarde.";
+              "QR lido, mas não consegui baixar o cupom (bloqueio SEFAZ/CORS). Tente de novo mais tarde.";
             if (fromScan) {
-              showStatus(err);
-              handling = false;
+              goHomeFlash({
+                ok: false,
+                title: "Leitura feita, atualização falhou",
+                message: err
+              });
             } else {
               showPageMsg(err);
             }
@@ -171,23 +184,38 @@
           });
       }
 
-      function stopScanner() {
+      function hardStopCamera() {
+        // Desliga vídeo/tracks na hora (não deixa a câmera aberta).
+        // Stops video/tracks immediately (does not leave the camera open).
+        try {
+          var vids = readerEl.querySelectorAll("video");
+          for (var i = 0; i < vids.length; i++) {
+            var stream = vids[i].srcObject;
+            if (stream && stream.getTracks) {
+              stream.getTracks().forEach(function (t) {
+                t.stop();
+              });
+            }
+            vids[i].srcObject = null;
+          }
+        } catch (e) {}
         if (!scanner) return Promise.resolve();
-        return scanner
+        var s = scanner;
+        scanner = null;
+        return s
           .stop()
           .catch(function () {})
           .then(function () {
             try {
-              scanner.clear();
-            } catch (e) {}
-            scanner = null;
+              s.clear();
+            } catch (e2) {}
           });
       }
 
       function closeScanUi() {
-        return stopScanner().then(function () {
-          overlay.hidden = true;
-          document.body.classList.remove("scan-open");
+        overlay.hidden = true;
+        document.body.classList.remove("scan-open");
+        return hardStopCamera().then(function () {
           handling = false;
         });
       }
@@ -211,18 +239,20 @@
       function onDecoded(decoded) {
         if (handling || !decoded) return;
         handling = true;
-        showStatus("QR lido. Fechando câmera…");
-        stopScanner()
+        // Leu? Fecha a câmera na hora. Depois atualiza e vai pra home.
+        // Read? Close the camera immediately. Then update and go home.
+        overlay.hidden = true;
+        document.body.classList.remove("scan-open");
+        hardStopCamera()
           .then(function () {
             return processNfceUrl(decoded, true);
           })
-          .then(function (ok) {
-            if (!ok) {
-              // Mantém overlay para nova tentativa / Cancelar.
-              // Keep overlay for another try / Cancel.
-              handling = false;
-              startCameraOnly();
-            }
+          .catch(function () {
+            goHomeFlash({
+              ok: false,
+              title: "Falha na leitura",
+              message: "Não concluí a atualização dos preços."
+            });
           });
       }
 
@@ -282,16 +312,16 @@
       }
 
       /**
-       * Capturar QR Code → abre câmera em tela de escaneamento.
-       * Capture QR Code → opens the camera in the scan screen.
+       * Ler QR Code → abre câmera; ao ler, fecha a câmera.
+       * Read QR Code → opens camera; on read, closes the camera.
        */
-      function capturarQr() {
+      function lerQrCode() {
         if (handling) return;
         openScanUi();
         startCameraOnly();
       }
 
-      document.getElementById("btn-capturar").addEventListener("click", capturarQr);
+      document.getElementById("btn-capturar").addEventListener("click", lerQrCode);
       document.getElementById("btn-scan-cancel").addEventListener("click", function () {
         closeScanUi();
       });

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=32" />
+  <link rel="stylesheet" href="estilo.css?v=34" />
 </head>
 <body>
   <div id="flash-popup" class="flash-popup-backdrop" hidden>
@@ -83,15 +83,22 @@
       } catch (e2) {
         return;
       }
-      if (!data || !data.ok) return;
-      // Popup na home após leitura do QR / Home popup after QR read.
-      body.textContent =
-        "Leitura do QR concluída. Atualizei " +
-        (data.updated || 0) +
-        " preço(s) do catálogo" +
-        (data.skipped
-          ? " e ignorei " + data.skipped + " item(ns) fora da lista."
-          : ".") ;
+      if (!data) return;
+      // Popup na home após sair do escaneamento / Home popup after leaving scan.
+      var titleEl = document.getElementById("flash-title");
+      if (data.title) titleEl.textContent = data.title;
+      if (data.ok) {
+        body.textContent =
+          "Leitura do QR concluída com sucesso. Atualizei " +
+          (data.updated || 0) +
+          " preço(s) do catálogo" +
+          (data.skipped
+            ? " e ignorei " + data.skipped + " item(ns) fora da lista."
+            : ".");
+      } else {
+        if (!data.title) titleEl.textContent = "Não foi possível atualizar";
+        body.textContent = data.message || "A leitura/atualização não foi concluída.";
+      }
       backdrop.hidden = false;
       function close() {
         backdrop.hidden = true;

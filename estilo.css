@@ -320,6 +320,40 @@ body.drawer-open {
   margin-top: 0.5rem;
 }
 
+/* Links no texto: pilula azul, óbvia no toque (sem depender de hover). */
+/* In-content links: blue pill, obvious on touch (no hover needed). */
+.passo-body a,
+.footer-note a,
+.recipe > p a,
+.card > p a,
+.card > ul a,
+.ing a {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: baseline;
+  padding: 0.12rem 0.55rem;
+  margin: 0.12rem 0.08rem;
+  border-radius: 999px;
+  background: #e7f0fa;
+  border: 1px solid #9eb6d6;
+  color: #2f5a8a;
+  font-weight: 650;
+  font-size: 0.92em;
+  line-height: 1.35;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.passo-body a:active,
+.footer-note a:active,
+.recipe > p a:active,
+.card > p a:active,
+.card > ul a:active,
+.ing a:active {
+  background: #d5e5f5;
+  border-color: #7a9ec8;
+}
+
 .week-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

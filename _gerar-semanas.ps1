@@ -88,7 +88,7 @@ function Write-Week($w) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Semana $n - $($w.title)</title>
-  <link rel="stylesheet" href="estilo.css?v=14" />
+  <link rel="stylesheet" href="estilo.css?v=40" />
 </head>
 <body class="semana-$n">
   <main class="wrap">

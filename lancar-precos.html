@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Atualizar Preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=36" />
+  <link rel="stylesheet" href="estilo.css?v=37" />
 </head>
 <body>
   <main class="wrap">
@@ -34,7 +34,7 @@
         <button type="button" class="btn-keep" id="btn-ler">Ler QR Code</button>
         <button type="button" class="btn-keep btn-keep-secondary" id="btn-cancelar" disabled>Cancelar</button>
       </div>
-      <p id="page-msg" class="footer-note" hidden></p>
+      <div id="page-msg" class="scan-result" hidden role="status" aria-live="polite"></div>
     </section>
 
     <section class="card">
@@ -60,10 +60,16 @@
       var handling = false;
       var live = false;
 
-      function showPageMsg(t, asHtml) {
+      function showPageMsg(t, asHtml, kind) {
         pageMsg.hidden = false;
+        pageMsg.className =
+          "scan-result" +
+          (kind === "ok" ? " scan-result-ok" : kind === "err" ? " scan-result-err" : "");
         if (asHtml) pageMsg.innerHTML = t;
         else pageMsg.textContent = t;
+        try {
+          pageMsg.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } catch (e) {}
       }
 
       function extractUrl(raw) {
@@ -175,7 +181,7 @@
       function processNfceUrl(url) {
         url = extractUrl(url);
         if (!url || !/^https?:\/\//i.test(url)) {
-          showPageMsg("O QR precisa ser um link https da NFC-e.");
+          showPageMsg("O QR precisa ser um link https da NFC-e.", false, "err");
           return Promise.resolve(false);
         }
         document.getElementById("nfce-url").value = url;
@@ -184,11 +190,11 @@
           .then(function (text) {
             var result = importFromText(text);
             if (!result.ok) {
-              showPageMsg(result.error);
+              showPageMsg(result.error, false, "err");
               return false;
             }
             showPageMsg(
-              "Leitura ok. Atualizei <strong>" +
+              "<strong>Leitura concluída</strong><br />Atualizei <strong>" +
                 result.updated +
                 "</strong> preço(s) no catálogo" +
                 (result.skipped
@@ -196,14 +202,17 @@
                     result.skipped +
                     "</strong> item(ns) fora da lista"
                   : "") +
-                '. <a href="precos.html">Ver catálogo</a>',
-              true
+                '.<br /><a href="precos.html">Ver catálogo</a>',
+              true,
+              "ok"
             );
             return true;
           })
           .catch(function () {
             showPageMsg(
-              "QR lido, mas não consegui baixar o cupom (bloqueio SEFAZ/CORS). Tente de novo mais tarde."
+              "QR lido, mas não consegui baixar o cupom (bloqueio SEFAZ/CORS). Tente de novo mais tarde.",
+              false,
+              "err"
             );
             return false;
           });

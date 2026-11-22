@@ -811,6 +811,32 @@ body.drawer-open {
   cursor: not-allowed;
   filter: none;
 }
+/* Resultado da leitura do QR — bem visível / QR read result — high visibility */
+.scan-result {
+  margin-top: 0.85rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid #c5ddd0;
+  background: #e7f2ec;
+  color: #1f3d36;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.scan-result a {
+  color: #2f6b52;
+  font-weight: 800;
+}
+.scan-result-ok {
+  background: #dff5e8;
+  border-color: #7cbc96;
+  color: #184a34;
+}
+.scan-result-err {
+  background: #fdecea;
+  border-color: #e5a8a0;
+  color: #7a2e26;
+}
 
 /* Popup de sucesso na home / Success popup on home */
 .flash-popup-backdrop {

@@ -33,7 +33,7 @@
     </section>
   </main>
 
-  <script src="precos-store.js?v=12"></script>
+  <script src="precos-store.js?v=13"></script>
   <script>
     (function () {
       var P = window.AlimentacaoPrecos;
@@ -119,7 +119,7 @@
             ' <span class="catalog-unit">/ ' +
             (e.unit === "un" ? "un" : "kg") +
             "</span></td><td>" +
-            (e.source || "—") +
+            P.sourceLabel(e.source) +
             '</td><td class="catalog-edit-actions">' +
             '<button type="button" class="catalog-icon-btn catalog-icon-save" data-save="' +
             k +

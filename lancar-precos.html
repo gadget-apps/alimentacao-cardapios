@@ -48,7 +48,7 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-  <script src="precos-store.js?v=12"></script>
+  <script src="precos-store.js?v=13"></script>
   <script>
     (function () {
       var P = window.AlimentacaoPrecos;
@@ -170,7 +170,7 @@
         }
         // Persiste no catálogo local (só produtos já cadastrados).
         // Persists to the local catalog (only products already registered).
-        var res = P.importItems(items, { onlyExisting: true });
+        var res = P.importItems(items, { onlyExisting: true, source: "qr-code" });
         return {
           ok: true,
           updated: res.imported.length,

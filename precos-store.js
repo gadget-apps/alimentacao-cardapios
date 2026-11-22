@@ -460,16 +460,17 @@
         skipped.push({ name: it.name, key: key, reason: "fora-do-catalogo" });
         continue;
       }
+      var src = opts.source || it.source || "import";
       if (cat[key]) {
         // Mantém nome/unidade do cadastro; só atualiza o preço.
         // Keeps catalog name/unit; only updates the price.
         cat[key].unitPrice = it.unitPrice;
-        cat[key].source = it.source || "import";
+        cat[key].source = src;
         cat[key].updatedAt = new Date().toISOString();
         imported.push(cat[key]);
       } else {
         var saved = upsertPrice(cat, it.name, it.unitPrice, it.unit, {
-          source: it.source || "import"
+          source: src
         });
         if (saved) imported.push(saved);
       }
@@ -481,6 +482,22 @@
   function formatBRL(n) {
     if (n == null || !isFinite(n)) return "—";
     return "R$ " + n.toFixed(2).replace(".", ",");
+  }
+
+  /**
+   * Rótulo amigável da origem do preço no catálogo.
+   * Friendly label for the price source in the catalog.
+   */
+  function sourceLabel(source) {
+    var map = {
+      "seed-aqa": "estimativa",
+      "qr-code": "QR Code",
+      "nfe-xml": "NF XML",
+      "nfe-text": "NF texto",
+      manual: "manual",
+      import: "importação"
+    };
+    return map[source] || source || "—";
   }
 
   global.AlimentacaoPrecos = {
@@ -496,6 +513,7 @@
     importItems: importItems,
     parseQtyFromLabel: parseQtyFromLabel,
     formatBRL: formatBRL,
+    sourceLabel: sourceLabel,
     DEFAULTS_AQA: DEFAULTS_AQA,
     FIRST_BUY: FIRST_BUY,
     PANTRY_KEYS: PANTRY_KEYS,

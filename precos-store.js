@@ -57,30 +57,44 @@
     abobora: { name: "Abóbora / cabocha", unitPrice: 6.5, unit: "kg" },
     mussarela: { name: "Mussarela", unitPrice: 45.0, unit: "kg" },
     cebola: { name: "Cebola", unitPrice: 7.0, unit: "kg" },
-    alho: { name: "Alho", unitPrice: 28.0, unit: "kg" },
     limao: { name: "Limão", unitPrice: 10.0, unit: "kg" },
     molho_tomate: { name: "Molho de tomate / pelado", unitPrice: 6.5, unit: "un" },
-    cheiro_verde: { name: "Cheiro-verde (maço)", unitPrice: 3.0, unit: "un" }
+    cheiro_verde: { name: "Cheiro-verde (maço)", unitPrice: 3.0, unit: "un" },
+    // Despensa (estoque seco/frasco) — mesmos preços no catálogo e na lista.
+    // Pantry (dry/jar stock) — same prices in catalog and list.
+    arroz: { name: "Arroz integral", unitPrice: 8.0, unit: "kg" },
+    feijao: { name: "Feijão", unitPrice: 9.0, unit: "kg" },
+    azeite: { name: "Azeite (500 ml)", unitPrice: 28.0, unit: "un" },
+    alho: { name: "Alho industrializado", unitPrice: 9.0, unit: "un" },
+    sal: { name: "Sal", unitPrice: 3.0, unit: "kg" },
+    colorau: { name: "Colorau", unitPrice: 4.0, unit: "un" },
+    cominho: { name: "Cominho", unitPrice: 5.0, unit: "un" },
+    paprica: { name: "Páprica", unitPrice: 6.0, unit: "un" },
+    oregano: { name: "Orégano", unitPrice: 4.0, unit: "un" },
+    pimenta: { name: "Pimenta-do-reino", unitPrice: 5.0, unit: "un" },
+    louro: { name: "Louro", unitPrice: 3.0, unit: "un" },
+    shoyu: { name: "Shoyu / agridoce", unitPrice: 12.0, unit: "un" },
+    aveia: { name: "Aveia em flocos", unitPrice: 6.0, unit: "un" }
   };
 
   /**
-   * Despensa = estoque seco/frasco (1ª compra). Frescos das receitas vão na lista da semana.
-   * Pantry = dry/jar stock (first buy). Fresh recipe ingredients go on the week list.
+   * Itens da página Despensa (qtde/nota); preço vem do catálogo.
+   * Despensa page items (qty/note); price comes from the catalog.
    */
   var FIRST_BUY = [
-    { name: "Arroz integral", qty: "1 kg", estimate: 8.0, note: "lote semanal ~300 g" },
-    { name: "Feijão", qty: "1 kg", estimate: 9.0, note: "lote semanal ~250–350 g" },
-    { name: "Azeite", qty: "500 ml", estimate: 28.0, note: "todas as receitas" },
-    { name: "Alho industrializado", qty: "1 pote", estimate: 9.0, note: "substitui alho fresco · todas as receitas" },
-    { name: "Sal", qty: "1 kg", estimate: 3.0, note: "despensa" },
-    { name: "Colorau", qty: "1 pote", estimate: 4.0, note: "panela, moída, porco" },
-    { name: "Cominho", qty: "1 pote", estimate: 5.0, note: "panela, moída, recheados" },
-    { name: "Páprica", qty: "1 pote", estimate: 6.0, note: "quase todos os pratos" },
-    { name: "Orégano", qty: "1 pote", estimate: 4.0, note: "panela, molho, recheados" },
-    { name: "Pimenta-do-reino", qty: "1 pote", estimate: 5.0, note: "temperos" },
-    { name: "Louro", qty: "1 pacote", estimate: 3.0, note: "panela e feijão" },
-    { name: "Shoyu / agridoce", qty: "1 frasco", estimate: 12.0, note: "porco shoyu" },
-    { name: "Aveia em flocos", qty: "200 g", estimate: 6.0, note: "almôndegas (opcional)" }
+    { name: "Arroz integral", qty: "1 kg", note: "lote semanal ~300 g" },
+    { name: "Feijão", qty: "1 kg", note: "lote semanal ~250–350 g" },
+    { name: "Azeite", qty: "1 un (500 ml)", note: "todas as receitas" },
+    { name: "Alho industrializado", qty: "1 pote", note: "substitui alho fresco · todas as receitas" },
+    { name: "Sal", qty: "1 kg", note: "despensa" },
+    { name: "Colorau", qty: "1 pote", note: "refogados e moída" },
+    { name: "Cominho", qty: "1 pote", note: "refogados e recheados" },
+    { name: "Páprica", qty: "1 pote", note: "quase todos os pratos" },
+    { name: "Orégano", qty: "1 pote", note: "molho e recheados" },
+    { name: "Pimenta-do-reino", qty: "1 pote", note: "uso geral" },
+    { name: "Louro", qty: "1 pacote", note: "feijão e refogados" },
+    { name: "Shoyu / agridoce", qty: "1 frasco", note: "receita shoyu" },
+    { name: "Aveia em flocos", qty: "1 pacote", note: "almôndegas (opcional)" }
   ];
 
   var ALIASES = {
@@ -117,7 +131,8 @@
     cominho: ["cominho"],
     paprica: ["paprica", "páprica"],
     oregano: ["oregano", "orégano"],
-    sal: ["sal"]
+    sal: ["sal"],
+    pimenta: ["pimenta-do-reino", "pimenta do reino", "pimenta"]
   };
 
   function isPantryKey(key) {
@@ -156,18 +171,30 @@
   }
 
   function canonicalKey(name) {
-    var f = fold(name);
+    // Ignora nota após "·" antes do fold (senão o ponto vira espaço).
+    // Strip the note after "·" before fold (otherwise the dot becomes a space).
+    var rawMain = String(name || "").split(/\s*[·•]\s*/)[0];
+    var f = fold(rawMain);
+    var main = f;
+    var best = null;
+    var bestLen = 0;
     for (var key in ALIASES) {
       if (!ALIASES.hasOwnProperty(key)) continue;
       var list = ALIASES[key];
       for (var i = 0; i < list.length; i++) {
-        if (f.indexOf(fold(list[i])) !== -1) return key;
+        var alias = fold(list[i]);
+        if (!alias) continue;
+        if (main.indexOf(alias) !== -1 && alias.length > bestLen) {
+          best = key;
+          bestLen = alias.length;
+        }
       }
     }
-    var parts = f.split(" ").filter(function (w) {
-      return w.length > 2 && ["para", "com", "sem", "tipo", "kg", "maco", "frasco"].indexOf(w) === -1;
+    if (best) return best;
+    var parts = main.split(" ").filter(function (w) {
+      return w.length > 2 && ["para", "com", "sem", "tipo", "kg", "maco", "frasco", "pote", "pacote"].indexOf(w) === -1;
     });
-    return parts.slice(0, 2).join("_") || f;
+    return parts.slice(0, 2).join("_") || main;
   }
 
   function parseMoney(s) {
@@ -214,13 +241,31 @@
     var changed = false;
     for (var key in DEFAULTS_AQA) {
       if (!DEFAULTS_AQA.hasOwnProperty(key)) continue;
+      var d = DEFAULTS_AQA[key];
+      // NF/manual não é sobrescrito.
+      // NF/manual is never overwritten.
       if (cat[key] && cat[key].source && cat[key].source !== "seed-aqa") continue;
-      if (cat[key] && cat[key].source && cat[key].source !== "seed-aqa") {
-        // keep NF/manual
+      if (!cat[key]) {
+        cat[key] = {
+          key: key,
+          name: d.name,
+          unitPrice: d.unitPrice,
+          unit: d.unit,
+          updatedAt: new Date().toISOString(),
+          source: "seed-aqa"
+        };
+        changed = true;
         continue;
       }
-      if (!cat[key]) {
-        var d = DEFAULTS_AQA[key];
+      // Atualiza seed da despensa se nome/unidade/preço mudaram no app.
+      // Refresh pantry seed when name/unit/price changed in the app.
+      if (
+        isPantryKey(key) &&
+        cat[key].source === "seed-aqa" &&
+        (cat[key].unit !== d.unit ||
+          cat[key].unitPrice !== d.unitPrice ||
+          cat[key].name !== d.name)
+      ) {
         cat[key] = {
           key: key,
           name: d.name,
@@ -235,18 +280,6 @@
     return changed;
   }
 
-  function stripPantrySeeds(cat) {
-    var changed = false;
-    for (var key in PANTRY_KEYS) {
-      if (!PANTRY_KEYS.hasOwnProperty(key)) continue;
-      if (cat[key] && cat[key].source === "seed-aqa") {
-        delete cat[key];
-        changed = true;
-      }
-    }
-    return changed;
-  }
-
   function loadCatalog() {
     var cat = {};
     try {
@@ -255,7 +288,7 @@
     } catch (e) {
       cat = {};
     }
-    var changed = stripPantrySeeds(cat);
+    var changed = false;
     // Sempre completa chaves faltantes com seed Araraquara (não sobrescreve NF/manual).
     // Always fill missing keys with Araraquara seed (never overwrite NF/manual).
     if (seedAraraquara(cat)) changed = true;
@@ -289,18 +322,25 @@
   function estimateLine(label, cat) {
     cat = cat || loadCatalog();
     var key = canonicalKey(label);
-    if (isPantryLabel(label) || isPantryKey(key)) {
-      return { key: key, matched: false, estimate: null, detail: null, pantry: true };
-    }
+    // Despensa e semanas usam o mesmo catálogo (preço unitário × quantidade da linha).
+    // Pantry and weeks share the same catalog (unit price × line quantity).
     var entry = cat[key];
-    if (!entry) return { key: key, matched: false, estimate: null, detail: null };
+    if (!entry) {
+      return {
+        key: key,
+        matched: false,
+        estimate: null,
+        detail: null,
+        pantry: isPantryLabel(label) || isPantryKey(key)
+      };
+    }
     var q = parseQtyFromLabel(label);
     var estimate = null;
     var detail = "";
     if (entry.unit === "kg" && q.unit === "kg" && q.qty != null) {
       estimate = entry.unitPrice * q.qty;
       detail = q.qty.toFixed(3).replace(/\.?0+$/, "") + " kg × R$ " + entry.unitPrice.toFixed(2).replace(".", ",") + "/kg";
-    } else if (entry.unit === "un" && q.qty != null) {
+    } else if (entry.unit === "un" && q.unit === "un" && q.qty != null) {
       estimate = entry.unitPrice * q.qty;
       detail = q.qty + " × R$ " + entry.unitPrice.toFixed(2).replace(".", ",");
     } else if (entry.unit === "kg" && q.unit === "un") {
@@ -312,7 +352,14 @@
       estimate = entry.unitPrice;
       detail = "R$ " + entry.unitPrice.toFixed(2).replace(".", ",") + " / " + entry.unit;
     }
-    return { key: key, matched: true, estimate: estimate, detail: detail, entry: entry };
+    return {
+      key: key,
+      matched: true,
+      estimate: estimate,
+      detail: detail,
+      entry: entry,
+      pantry: isPantryLabel(label) || isPantryKey(key)
+    };
   }
 
   function parseNFeXml(xmlText) {

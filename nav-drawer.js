@@ -6,6 +6,7 @@
   var LINKS = [
     { href: "index.html", label: "Início" },
     { href: "precos.html", label: "Preços" },
+    { href: "despensa.html", label: "Despensa" },
     { href: "semana-1.html", label: "Semana 1" },
     { href: "semana-2.html", label: "Semana 2" },
     { href: "semana-3.html", label: "Semana 3" },

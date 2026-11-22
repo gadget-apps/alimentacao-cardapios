@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=24" />
+  <link rel="stylesheet" href="estilo.css?v=26" />
   <style>
     .nf-file {
       display: flex;
@@ -49,19 +49,12 @@
 
     <section class="hero">
       <h1>Preços</h1>
-      <p>Valores iniciais ≈ varejo Araraquara (proteína, legumes, queijo — sem arroz/feijão/temperos). Depois da compra: XML ou texto da NF — atualiza as estimativas das semanas neste aparelho.</p>
+      <p>Cadastro único de produtos (semanas + despensa). Valores iniciais ≈ varejo Araraquara. Depois da compra: XML ou texto da NF — atualiza as listas neste aparelho.</p>
       <div class="chips">
         <span class="chip">Seed Araraquara</span>
         <span class="chip">NF XML / texto</span>
-        <span class="chip">Listas das semanas</span>
+        <span class="chip">Semanas + despensa</span>
       </div>
-    </section>
-
-    <section class="card" id="despensa">
-      <h2>Despensa — primeira compra</h2>
-      <p class="footer-note">Só estoque seco/frasco (arroz, feijão, azeite, temperos…). Frescos das receitas — cebola, alho, limão, mussarela, molho — ficam na lista de cada semana. Valores ≈ Araraquara.</p>
-      <div id="first-buy-table"></div>
-      <p class="shop-total" id="first-buy-total"></p>
     </section>
 
     <section class="card">
@@ -113,7 +106,7 @@
 
     <section class="card" id="catalogo">
       <h2>3) Catálogo neste aparelho</h2>
-      <p class="footer-note">Itens <em>seed-aqa</em> são estimativa Araraquara. NF/manual sobrescreve. Na lista de compras, o ícone de lápis ao lado do valor abre o produto aqui.</p>
+      <p class="footer-note">Itens <em>seed-aqa</em> são estimativa Araraquara (inclui despensa). NF/manual sobrescreve. Nas listas (semanas ou <a href="despensa.html">Despensa</a>), o lápis abre o produto aqui.</p>
       <div id="edit-return-banner" class="catalog-return-banner" hidden></div>
       <div id="catalog-table"></div>
       <div class="shop-actions">
@@ -123,7 +116,7 @@
     </section>
   </main>
 
-  <script src="precos-store.js?v=9"></script>
+  <script src="precos-store.js?v=10"></script>
   <script>
     (function () {
       var P = window.AlimentacaoPrecos;
@@ -218,12 +211,16 @@
             "</select></td><td>" +
             (e.source || "—") +
             '</td><td class="catalog-edit-actions">' +
-            '<button type="button" class="btn-keep" data-save="' +
+            '<button type="button" class="catalog-icon-btn catalog-icon-save" data-save="' +
             k +
-            '" style="padding:0.35rem 0.7rem;font-size:0.85rem">Salvar</button>' +
-            '<button type="button" class="btn-keep btn-keep-secondary" data-del="' +
+            '" title="Salvar" aria-label="Salvar">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>' +
+            "</button>" +
+            '<button type="button" class="catalog-icon-btn catalog-icon-del" data-del="' +
             k +
-            '" style="padding:0.35rem 0.7rem;font-size:0.85rem">Apagar</button></td></tr>';
+            '" title="Apagar" aria-label="Apagar">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>' +
+            "</button></td></tr>";
         });
         html += "</tbody></table>";
         box.innerHTML = html;
@@ -378,8 +375,7 @@
       renderCatalog();
     })();
   </script>
-  <script src="despensa-lista.js?v=4"></script>
-  <script src="keep-lista.js?v=14"></script>
-  <script src="nav-drawer.js?v=6"></script>
+  <script src="keep-lista.js?v=15"></script>
+  <script src="nav-drawer.js?v=7"></script>
 </body>
 </html>

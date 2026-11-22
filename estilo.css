@@ -716,8 +716,43 @@ body.drawer-open {
 }
 .catalog-edit-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
   gap: 0.35rem;
+}
+/* Ícones salvar / apagar no catálogo / Save & delete icons in catalog */
+.catalog-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 0;
+}
+.catalog-icon-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  display: block;
+}
+.catalog-icon-save {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.catalog-icon-save:hover {
+  filter: brightness(1.06);
+}
+.catalog-icon-del {
+  background: #fff;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.catalog-icon-del:hover {
+  background: var(--accent-soft);
 }
 .catalog-return-banner {
   margin: 0 0 0.85rem;
@@ -830,6 +865,11 @@ body.semana-8 .hero {
   border-color: #b8cce8;
 }
 .home-link.nav-precos strong { color: #3d6aa8; }
+.home-link.nav-despensa {
+  background: #eef6f0;
+  border-color: #c5ddd0;
+}
+.home-link.nav-despensa strong { color: #3d6b5c; }
 .home-link.nav-receitas {
   background: #f8ebe4;
   border-color: #e5c4b0;

@@ -96,22 +96,6 @@
     var P = window.AlimentacaoPrecos;
     if (!P) return;
 
-    // Despensa: preços já no HTML — só garante data-estimate.
-    // Pantry: prices already in HTML — ensure data-estimate.
-    if (root.getAttribute("data-despensa") === "1") {
-      var dLabels = root.querySelectorAll("label.shop-item");
-      for (var d = 0; d < dLabels.length; d++) {
-        var dl = dLabels[d];
-        if (dl.getAttribute("data-estimate")) continue;
-        var pe = dl.querySelector(".shop-price");
-        var pv = parsePriceText(pe ? plainText(pe) : "");
-        if (pv != null) dl.setAttribute("data-estimate", String(pv));
-      }
-      updateProgress(root);
-      updateTotal(root);
-      return;
-    }
-
     var cat = P.loadCatalog();
     var labels = root.querySelectorAll("label.shop-item");
     for (var i = 0; i < labels.length; i++) {
@@ -131,11 +115,7 @@
         label.appendChild(priceEl);
       }
       label.removeAttribute("data-estimate");
-      if (est.pantry) {
-        priceEl.textContent = "";
-        priceEl.title = "Despensa — fora da estimativa";
-        priceEl.className = "shop-price";
-      } else if (est.matched && est.estimate != null) {
+      if (est.matched && est.estimate != null) {
         priceEl.textContent = P.formatBRL(est.estimate);
         priceEl.title = est.detail || "";
         priceEl.className = "shop-price shop-price-ok";
@@ -161,7 +141,7 @@
     var oldInLi = li ? li.querySelector(".shop-price-edit") : null;
     if (oldInLabel) oldInLabel.parentNode.removeChild(oldInLabel);
     if (oldInLi && oldInLi !== oldInLabel) oldInLi.parentNode.removeChild(oldInLi);
-    if (!est || est.pantry || !est.key) return;
+    if (!est || !est.key) return;
     var page =
       (location.pathname || "").split("/").pop() ||
       (location.href || "").split("/").pop() ||

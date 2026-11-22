@@ -485,21 +485,12 @@
   }
 
   /**
-   * Rótulo amigável da origem do preço no catálogo.
-   * Friendly label for the price source in the catalog.
+   * Só renomeia nfe-xml → qr-code; demais origens ficam iguais.
+   * Only renames nfe-xml → qr-code; other sources stay unchanged.
    */
   function sourceLabel(source) {
-    var map = {
-      "seed-aqa": "estimativa",
-      "qr-code": "QR Code",
-      // Leituras antigas via QR gravavam nfe-xml; na UI mostra QR Code.
-      // Older QR reads stored nfe-xml; UI shows QR Code.
-      "nfe-xml": "QR Code",
-      "nfe-text": "NF texto",
-      manual: "manual",
-      import: "importação"
-    };
-    return map[source] || source || "—";
+    if (source === "nfe-xml") return "qr-code";
+    return source || "—";
   }
 
   global.AlimentacaoPrecos = {

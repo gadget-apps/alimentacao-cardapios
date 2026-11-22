@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Preços — Cardápio Low Carb, High Protein</title>
-  <link rel="stylesheet" href="estilo.css?v=43" />
+  <link rel="stylesheet" href="estilo.css?v=44" />
 </head>
 <body>
   <main class="wrap">
@@ -14,7 +14,6 @@
       <h1>Preços</h1>
       <p>Catálogo de produtos neste aparelho (semanas + despensa). Unidade fica fixa; só o valor edita. Atualização de preço: <a href="lancar-precos.html">QR da NFC-e</a> (não adiciona produto novo).</p>
       <div class="chips">
-        <span class="chip">Seed Araraquara</span>
         <span class="chip">Semanas + despensa</span>
         <span class="chip"><a href="lancar-precos.html" style="color:inherit;text-decoration:none">Atualizar Preços</a></span>
       </div>
@@ -22,18 +21,18 @@
 
     <section class="card" id="catalogo">
       <h2>Catálogo neste aparelho</h2>
-      <p class="footer-note">Itens <em>seed-aqa</em> são estimativa Araraquara (inclui despensa). A <a href="lancar-precos.html">NFC-e</a> só atualiza preço de quem já está aqui. Nas listas, o lápis também edita o valor.</p>
+      <p class="footer-note">Estimativas iniciais podem ser editadas. A <a href="lancar-precos.html">NFC-e</a> só atualiza preço de quem já está aqui. Nas listas, o lápis também edita o valor.</p>
       <div id="edit-return-banner" class="catalog-return-banner" hidden></div>
       <p id="catalog-msg" class="footer-note" hidden></p>
       <div id="catalog-table"></div>
       <div class="shop-actions">
-        <button type="button" class="btn-keep btn-keep-secondary" id="btn-reseed">Recarregar estimativas Araraquara (só vazios)</button>
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-reseed">Recarregar estimativas (só vazios)</button>
         <button type="button" class="btn-keep btn-keep-secondary" id="btn-wipe">Apagar todos os preços</button>
       </div>
     </section>
   </main>
 
-  <script src="precos-store.js?v=13"></script>
+  <script src="precos-store.js?v=14"></script>
   <script>
     (function () {
       var P = window.AlimentacaoPrecos;
@@ -206,7 +205,7 @@
       document.getElementById("btn-reseed").addEventListener("click", function () {
         localStorage.removeItem("alimentacao-precos-seeded-aqa-v1");
         P.loadCatalog();
-        showMsg("Estimativas Araraquara aplicadas nos itens que estavam vazios.");
+        showMsg("Estimativas aplicadas nos itens que estavam vazios.");
         renderCatalog();
       });
       document.getElementById("btn-wipe").addEventListener("click", function () {
@@ -215,7 +214,7 @@
         localStorage.removeItem("alimentacao-precos-seeded-aqa-v1");
         P.loadCatalog();
         renderCatalog();
-        showMsg("Catálogo limpo e seed Araraquara recarregado.");
+        showMsg("Catálogo limpo e estimativas recarregadas.");
       });
       renderCatalog();
     })();

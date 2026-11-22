@@ -88,7 +88,7 @@ function Write-Week($w) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Semana $n - $($w.title)</title>
-  <link rel="stylesheet" href="estilo.css?v=43" />
+  <link rel="stylesheet" href="estilo.css?v=44" />
 </head>
 <body class="semana-$n">
   <main class="wrap">
@@ -110,7 +110,6 @@ $(Chips $w.chips)
         <li><strong>20:00</strong> Jantar — pote 350–450 g (~180–200 g proteína + legume, <em>sem</em> arroz/feijão)</li>
         <li><strong>23:00</strong> Dormir</li>
       </ul>
-      <p class="footer-note">Dia de academia: almoço no teto (~500–550 g) ou +2 cs feijão. Fome 2–3 h depois → aumente legume/proteína no pote, não pule refeição.</p>
     </section>
 
     <section class="card">
@@ -154,7 +153,7 @@ $(Pots $w.pots)
 $daysHtml
     </section>
   </main>
-  <script src="precos-store.js?v=9"></script>
+  <script src="precos-store.js?v=14"></script>
   <script src="keep-lista.js?v=13"></script>
   <script src="tema.js?v=1"></script>
   <script src="nav-drawer.js?v=11"></script>
@@ -176,7 +175,7 @@ $ovosShop = "Ovos - 2 dúzias (omeletes no dia + 2/dia no café)"
 
 $weeks = @(
   @{
-    n=1; title="Panela · porco · frango · ovo"; sub="14 potes · jantar todo dia · panela · recheados · porco · frango/omelete"
+    n=1; title="Panela · porco · frango · ovo"; sub="14 potes · panela · recheados · porco · frango/omelete"
     chips=@("14 potes","Jantar 20:00","Frango almoço","Omelete no dia"); prepTime="2h10"
     potNote="Receitas: <a href=`"receitas.html#s1`">semana 1</a>."
     shop=@(
@@ -370,9 +369,9 @@ $weeks = @(
   },
 
   @{
-    n=4; title="Moída econômica"; sub="14 potes · acém · porco · frango/omelete · sem patinho"
-    chips=@("14 potes","Acém","Porco","Sem patinho"); prepTime="2h00"
-    potNote="Semana sem recheado de patinho. <a href=`"receitas.html#s4`">Receitas</a>."
+    n=4; title="Acém · porco · frango · omelete"; sub="14 potes · acém · porco · frango/omelete"
+    chips=@("14 potes","Acém","Porco","Omelete no dia"); prepTime="2h00"
+    potNote="<a href=`"receitas.html#s4`">Receitas semana 4</a>."
     shop=@(
       "Acém/músculo moído - 950 g",
       "Pernil ou lombo (porco) em cubos - 760 g",
@@ -558,7 +557,7 @@ $weeks = @(
   },
 
   @{
-    n=7; title="Fecha ciclo econômico"; sub="14 potes · panela · recheados · porco · almôndegas · frango/omelete"
+    n=7; title="Panela · recheados · porco · omelete"; sub="14 potes · panela · recheados · porco · almôndegas · frango/omelete"
     chips=@("14 potes","Carne panela","Acém","Porco"); prepTime="2h10"
     potNote="<a href=`"receitas.html#s7`">Receitas semana 7</a>."
     shop=@(
@@ -622,8 +621,8 @@ $weeks = @(
   },
 
   @{
-    n=8; title="Panela · porco · frango · ovo"; sub="14 potes · panela · recheados · porco · frango/omelete · fecha ciclo"
-    chips=@("14 potes","Jantar 20:00","Fecha ciclo"); prepTime="2h10"
+    n=8; title="Panela · porco · frango · ovo"; sub="14 potes · panela · recheados · porco · frango/omelete"
+    chips=@("14 potes","Jantar 20:00","frango/omelete"); prepTime="2h10"
     potNote="<a href=`"receitas.html#s8`">Receitas semana 8</a>."
     shop=@(
       "Acém/músculo (panela) - 570 g",

@@ -489,7 +489,12 @@
    * Only renames nfe-xml → qr-code; other sources stay unchanged.
    */
   function sourceLabel(source) {
+    // Só rótulos úteis na gestão; códigos internos não aparecem.
+    // Show management-friendly labels; hide internal source codes.
     if (source === "nfe-xml") return "qr-code";
+    if (source === "seed-aqa") return "estimativa";
+    if (source === "qr-code") return "qr-code";
+    if (source === "manual") return "manual";
     return source || "—";
   }
 

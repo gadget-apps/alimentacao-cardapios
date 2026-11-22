@@ -568,6 +568,8 @@ body.drawer-open {
 
 .shop-check li {
   margin: 0;
+  display: grid;
+  gap: 0.35rem;
 }
 
 .shop-item {
@@ -665,6 +667,54 @@ body.drawer-open {
   max-width: 9rem;
   white-space: normal;
   text-align: right;
+}
+
+/* Ajustar preço na lista → cadastro / Adjust price on list → catalog */
+.shop-price-edit {
+  display: inline-flex;
+  align-self: end;
+  margin: 0 0.15rem 0.15rem auto;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #b8cce8;
+  background: #e8f0fa;
+  color: #3d6aa8;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.shop-price-edit:hover {
+  filter: brightness(0.97);
+  text-decoration: none;
+}
+
+.catalog-edit-row {
+  background: #f0eaf8 !important;
+  outline: 2px solid #6b4f8a;
+  outline-offset: -2px;
+}
+.catalog-edit-row input,
+.catalog-edit-row select {
+  width: 100%;
+  max-width: 7.5rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+}
+.catalog-edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.catalog-return-banner {
+  margin: 0 0 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: #e8f0fa;
+  border: 1px solid #b8cce8;
+  color: #3d6aa8;
+  font-weight: 600;
 }
 
 .shop-total {

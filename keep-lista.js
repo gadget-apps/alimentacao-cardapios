@@ -148,8 +148,41 @@
         priceEl.className = "shop-price";
         priceEl.title = "Sem preço no catálogo";
       }
+      // Ajustar preço → cadastro do produto; ao salvar, volta com fração atualizada.
+      // Adjust price → product catalog; on save, return with recalculated fraction.
+      ensurePriceAdjust(label, est, text);
     }
     updateTotal(root);
+  }
+
+  function ensurePriceAdjust(label, est, lineText) {
+    var li = label.closest ? label.closest("li") : label.parentNode;
+    if (!li) return;
+    var old = li.querySelector(".shop-price-edit");
+    if (old) old.parentNode.removeChild(old);
+    if (!est || est.pantry || !est.key) return;
+    var page =
+      (location.pathname || "").split("/").pop() ||
+      (location.href || "").split("/").pop() ||
+      "index.html";
+    if (page.indexOf("?") >= 0) page = page.split("?")[0];
+    if (!page || page.indexOf(".html") < 0) page = "semana-1.html";
+    var href =
+      "precos.html?edit=" +
+      encodeURIComponent(est.key) +
+      "&return=" +
+      encodeURIComponent(page) +
+      "&name=" +
+      encodeURIComponent(lineText || "");
+    var a = document.createElement("a");
+    a.className = "shop-price-edit";
+    a.href = href;
+    a.textContent = "Ajustar preço";
+    a.title = "Alterar o preço no cadastro e recalcular este item";
+    a.addEventListener("click", function (ev) {
+      ev.stopPropagation();
+    });
+    li.appendChild(a);
   }
 
   function updateProgress(root) {

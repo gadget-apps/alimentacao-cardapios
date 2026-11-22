@@ -158,8 +158,8 @@ $(Pots $w.pots)
 $daysHtml
     </section>
   </main>
-  <script src="precos-store.js?v=7"></script>
-  <script src="keep-lista.js?v=12"></script>
+  <script src="precos-store.js?v=9"></script>
+  <script src="keep-lista.js?v=13"></script>
   <script src="tema.js?v=1"></script>
   <script src="nav-drawer.js?v=6"></script>
 </body>

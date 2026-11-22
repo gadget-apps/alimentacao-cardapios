@@ -88,7 +88,7 @@ function Write-Week($w) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Semana $n - $($w.title)</title>
-  <link rel="stylesheet" href="estilo.css?v=44" />
+  <link rel="stylesheet" href="estilo.css?v=45" />
 </head>
 <body class="semana-$n">
   <main class="wrap">
@@ -185,11 +185,9 @@ $weeks = @(
       "Pernil ou lombo (porco) em cubos - 380 g",
       "Peito de frango - 570 g",
       $ovosShop,
-      "Quiabo - 300 g",
       "Pimentão - 1",
       "Abobrinha - 2",
       "Brócolis - 600 g",
-      "Vagem - 400 g",
       "Tomate - 3",
       "Pepino - 1",
       "Couve - 1 maço",
@@ -213,11 +211,11 @@ $weeks = @(
         <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete reforçado</a> é feito <strong>no dia</strong> (não entra no lote do prep)</p>
 "@
     pots=@(
-      @("Seg almoço","Carne de panela + quiabo","2 cs arroz"),
+      @("Seg almoço","Carne de panela + brócolis","2 cs arroz"),
       @("Seg jantar","Frango + brócolis","nada"),
       @("Ter almoço","Pimentão recheado (patinho)","2 cs arroz"),
-      @("Ter jantar","Carne de panela + vagem","nada"),
-      @("Qua almoço","Porco em cubos + vagem","2 cs arroz + 2 cs feijão"),
+      @("Ter jantar","Carne de panela + brócolis","nada"),
+      @("Qua almoço","Porco em cubos + brócolis","2 cs arroz + 2 cs feijão"),
       @("Qua jantar","Omelete reforçado + tomate/pepino","nada"),
       @("Qui almoço","Abobrinha recheada (patinho)","2 cs arroz"),
       @("Qui jantar","Frango + brócolis","nada"),
@@ -225,17 +223,17 @@ $weeks = @(
       @("Sex jantar","Porco em cubos + abobrinha","nada"),
       @("Sáb almoço","Omelete reforçado + abobrinha","2 cs arroz"),
       @("Sáb jantar","Clássica (acém) + couve","nada"),
-      @("Dom almoço","Carne de panela + quiabo","2 cs arroz + 2 cs feijão"),
+      @("Dom almoço","Carne de panela + brócolis","2 cs arroz + 2 cs feijão"),
       @("Dom jantar","Omelete reforçado + tomate","nada")
     )
     days=@(
-      @{label="Segunda"; body=(MealBody "Carne de panela + quiabo" "Frango + brócolis")},
-      @{label="Terça"; body=(MealBody "Pimentão recheado" "Carne de panela + vagem")},
-      @{label="Quarta"; body=(MealBody "Porco em cubos + vagem" "Omelete reforçado + tomate/pepino")},
+      @{label="Segunda"; body=(MealBody "Carne de panela + brócolis" "Frango + brócolis")},
+      @{label="Terça"; body=(MealBody "Pimentão recheado" "Carne de panela + brócolis")},
+      @{label="Quarta"; body=(MealBody "Porco em cubos + brócolis" "Omelete reforçado + tomate/pepino")},
       @{label="Quinta"; body=(MealBody "Abobrinha recheada" "Frango + brócolis")},
       @{label="Sexta"; body=(MealBody "Frango + brócolis" "Porco em cubos + abobrinha")},
       @{label="Sábado"; body=(MealBody "Omelete reforçado + abobrinha" "Clássica (acém) + couve")},
-      @{label="Domingo"; body=(MealBody "Carne de panela + quiabo" "Omelete reforçado + tomate")}
+      @{label="Domingo"; body=(MealBody "Carne de panela + brócolis" "Omelete reforçado + tomate")}
     )
   },
 
@@ -254,7 +252,6 @@ $weeks = @(
       "Tomate firme - 3",
       "Chuchu - 1",
       "Brócolis - 600 g",
-      "Vagem - 500 g",
       "Couve - 1 maço",
       "Abobrinha - 2",
       "Mussarela - 90 g",
@@ -283,12 +280,12 @@ $weeks = @(
       @("Ter jantar","Omelete reforçado + abobrinha","nada"),
       @("Qua almoço","Chuchu recheado","2 cs arroz"),
       @("Qua jantar","Almôndegas (acém) + couve","nada"),
-      @("Qui almoço","Porco shoyu + vagem","2 cs arroz"),
+      @("Qui almoço","Porco shoyu + brócolis","2 cs arroz"),
       @("Qui jantar","Carne de panela + brócolis","nada"),
       @("Sex almoço","Frango + brócolis","2 cs arroz"),
       @("Sex jantar","Porco shoyu + abobrinha","nada"),
-      @("Sáb almoço","Omelete reforçado + vagem","2 cs arroz"),
-      @("Sáb jantar","Almôndegas (acém) + vagem","nada"),
+      @("Sáb almoço","Omelete reforçado + brócolis","2 cs arroz"),
+      @("Sáb jantar","Almôndegas (acém) + brócolis","nada"),
       @("Dom almoço","Almôndegas (acém) + brócolis","2 cs arroz + 2 cs feijão"),
       @("Dom jantar","Omelete reforçado + couve","nada")
     )
@@ -296,9 +293,9 @@ $weeks = @(
       @{label="Segunda"; body=(MealBody "Berinjela recheada" "Almôndegas (acém) + brócolis")},
       @{label="Terça"; body=(MealBody "Tomate recheado" "Omelete reforçado + abobrinha")},
       @{label="Quarta"; body=(MealBody "Chuchu recheado" "Almôndegas (acém) + couve")},
-      @{label="Quinta"; body=(MealBody "Porco shoyu + vagem" "Carne de panela + brócolis")},
+      @{label="Quinta"; body=(MealBody "Porco shoyu + brócolis" "Carne de panela + brócolis")},
       @{label="Sexta"; body=(MealBody "Frango + brócolis" "Porco shoyu + abobrinha")},
-      @{label="Sábado"; body=(MealBody "Omelete reforçado + vagem" "Almôndegas (acém) + vagem")},
+      @{label="Sábado"; body=(MealBody "Omelete reforçado + brócolis" "Almôndegas (acém) + brócolis")},
       @{label="Domingo"; body=(MealBody "Almôndegas (acém) + brócolis" "Omelete reforçado + couve")}
     )
   },
@@ -316,10 +313,8 @@ $weeks = @(
       $ovosShop,
       "Abóbora - 1 fatia",
       "Pimentão - 1",
-      "Quiabo - 300 g",
       "Berinjela - 1",
       "Brócolis - 500 g",
-      "Vagem - 400 g",
       "Couve - 1 maço",
       "Tomate - 2",
       "Mussarela - 60 g",
@@ -343,28 +338,28 @@ $weeks = @(
 "@
     pots=@(
       @("Seg almoço","Abóbora recheada","1–2 cs arroz"),
-      @("Seg jantar","Carne de panela + vagem","nada"),
+      @("Seg jantar","Carne de panela + brócolis","nada"),
       @("Ter almoço","Pimentão recheado","2 cs arroz"),
       @("Ter jantar","Clássica (acém) + couve","nada"),
-      @("Qua almoço","Porco + quiabo","2 cs arroz + 2 cs feijão"),
+      @("Qua almoço","Porco + brócolis","2 cs arroz + 2 cs feijão"),
       @("Qua jantar","Omelete reforçado + tomate","nada"),
       @("Qui almoço","Berinjela ao molho (porco)","2 cs arroz"),
       @("Qui jantar","Carne de panela + brócolis","nada"),
       @("Sex almoço","Frango + brócolis","2 cs arroz"),
-      @("Sex jantar","Porco + vagem","nada"),
+      @("Sex jantar","Porco + brócolis","nada"),
       @("Sáb almoço","Omelete reforçado + couve","2 cs arroz"),
       @("Sáb jantar","Clássica (acém) + brócolis","nada"),
-      @("Dom almoço","Carne de panela + quiabo","2 cs arroz + 2 cs feijão"),
+      @("Dom almoço","Carne de panela + brócolis","2 cs arroz + 2 cs feijão"),
       @("Dom jantar","Omelete reforçado + tomate","nada")
     )
     days=@(
-      @{label="Segunda"; body=(MealBody "Abóbora recheada" "Carne de panela + vagem")},
+      @{label="Segunda"; body=(MealBody "Abóbora recheada" "Carne de panela + brócolis")},
       @{label="Terça"; body=(MealBody "Pimentão recheado" "Clássica de acém + couve")},
-      @{label="Quarta"; body=(MealBody "Porco + quiabo" "Omelete reforçado + tomate")},
+      @{label="Quarta"; body=(MealBody "Porco + brócolis" "Omelete reforçado + tomate")},
       @{label="Quinta"; body=(MealBody "Berinjela ao molho" "Carne de panela + brócolis")},
-      @{label="Sexta"; body=(MealBody "Frango + brócolis" "Porco + vagem")},
+      @{label="Sexta"; body=(MealBody "Frango + brócolis" "Porco + brócolis")},
       @{label="Sábado"; body=(MealBody "Omelete reforçado + couve" "Clássica de acém + brócolis")},
-      @{label="Domingo"; body=(MealBody "Carne de panela + quiabo" "Omelete reforçado + tomate")}
+      @{label="Domingo"; body=(MealBody "Carne de panela + brócolis" "Omelete reforçado + tomate")}
     )
   },
 
@@ -381,7 +376,6 @@ $weeks = @(
       "Abobrinha - 2",
       "Chuchu - 1",
       "Brócolis - 600 g",
-      "Vagem - 500 g",
       "Couve - 1 maço",
       "Cebola - 2",
       "Limão - 2 un",
@@ -402,27 +396,27 @@ $weeks = @(
 "@
     pots=@(
       @("Seg almoço","Clássica (acém) + brócolis","2 cs arroz + 2 cs feijão"),
-      @("Seg jantar","Porco shoyu + vagem","nada"),
-      @("Ter almoço","Porco shoyu + vagem","2 cs arroz"),
+      @("Seg jantar","Porco shoyu + brócolis","nada"),
+      @("Ter almoço","Porco shoyu + brócolis","2 cs arroz"),
       @("Ter jantar","Omelete reforçado + couve","nada"),
       @("Qua almoço","Almôndegas (acém) + brócolis","2 cs arroz + 2 cs feijão"),
       @("Qua jantar","Porco + abobrinha","nada"),
       @("Qui almoço","Porco + pimentão","2 cs arroz + 2 cs feijão"),
-      @("Qui jantar","Frango + vagem","nada"),
+      @("Qui jantar","Frango + brócolis","nada"),
       @("Sex almoço","Frango + brócolis","2 cs arroz"),
       @("Sex jantar","Clássica (acém) + couve","nada"),
       @("Sáb almoço","Omelete reforçado + chuchu","2 cs arroz"),
-      @("Sáb jantar","Almôndegas (acém) + vagem","nada"),
+      @("Sáb jantar","Almôndegas (acém) + brócolis","nada"),
       @("Dom almoço","Almôndegas (acém) + couve","2 cs arroz + 2 cs feijão"),
       @("Dom jantar","Omelete reforçado + abobrinha","nada")
     )
     days=@(
-      @{label="Segunda"; body=(MealBody "Clássica de acém + brócolis" "Porco shoyu + vagem")},
-      @{label="Terça"; body=(MealBody "Porco shoyu + vagem" "Omelete reforçado + couve")},
+      @{label="Segunda"; body=(MealBody "Clássica de acém + brócolis" "Porco shoyu + brócolis")},
+      @{label="Terça"; body=(MealBody "Porco shoyu + brócolis" "Omelete reforçado + couve")},
       @{label="Quarta"; body=(MealBody "Almôndegas (acém) + brócolis" "Porco + abobrinha")},
-      @{label="Quinta"; body=(MealBody "Porco + pimentão" "Frango + vagem")},
+      @{label="Quinta"; body=(MealBody "Porco + pimentão" "Frango + brócolis")},
       @{label="Sexta"; body=(MealBody "Frango + brócolis" "Clássica + couve")},
-      @{label="Sábado"; body=(MealBody "Omelete reforçado + chuchu" "Almôndegas (acém) + vagem")},
+      @{label="Sábado"; body=(MealBody "Omelete reforçado + chuchu" "Almôndegas (acém) + brócolis")},
       @{label="Domingo"; body=(MealBody "Almôndegas (acém) + couve" "Omelete reforçado + abobrinha")}
     )
   },
@@ -438,13 +432,11 @@ $weeks = @(
       "Acém moído - 200 g (clássica)",
       "Peito de frango - 380 g",
       $ovosShop,
-      "Quiabo - 300 g",
       "Abobrinha - 2",
       "Pimentão - 1",
       "Berinjela - 1",
       "Tomate firme - 3",
       "Brócolis - 500 g",
-      "Vagem - 500 g",
       "Pepino - 1",
       "Mussarela - 120 g",
       "Molho de tomate - 1 lata",
@@ -454,8 +446,8 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Cozinhar: carne de panela (380 g) + quiabo</h3>
-        <p class="footer-note">2 potes · <a href="receitas.html#panela">Carne de panela</a> · <a href="receitas.html#quiabo">Quiabo</a></p>
+        <h3>B) Cozinhar: carne de panela (380 g) + brócolis</h3>
+        <p class="footer-note">2 potes · <a href="receitas.html#panela">Carne de panela</a> · <a href="receitas.html#brocolis">Brócolis</a></p>
 "@
     prepC=@"
         <h3>C) Cozinhar: 4 recheados (760 g) + porco (380 g) + clássica (200 g)</h3>
@@ -467,28 +459,28 @@ $weeks = @(
 "@
     pots=@(
       @("Seg almoço","Abobrinha recheada","2 cs arroz"),
-      @("Seg jantar","Carne de panela + quiabo","nada"),
+      @("Seg jantar","Carne de panela + brócolis","nada"),
       @("Ter almoço","Pimentão recheado","2 cs arroz"),
       @("Ter jantar","Omelete reforçado + pepino","nada"),
       @("Qua almoço","Berinjela recheada","2 cs arroz"),
-      @("Qua jantar","Porco shoyu + vagem","nada"),
+      @("Qua jantar","Porco shoyu + brócolis","nada"),
       @("Qui almoço","Tomate recheado","2 cs arroz"),
       @("Qui jantar","Frango + brócolis","nada"),
-      @("Sex almoço","Frango + vagem","2 cs arroz"),
-      @("Sex jantar","Clássica (acém) + vagem","nada"),
+      @("Sex almoço","Frango + brócolis","2 cs arroz"),
+      @("Sex jantar","Clássica (acém) + brócolis","nada"),
       @("Sáb almoço","Omelete reforçado + abobrinha","2 cs arroz"),
       @("Sáb jantar","Porco + brócolis","nada"),
-      @("Dom almoço","Carne de panela + quiabo","2 cs arroz"),
+      @("Dom almoço","Carne de panela + brócolis","2 cs arroz"),
       @("Dom jantar","Omelete reforçado + tomate","nada")
     )
     days=@(
-      @{label="Segunda"; body=(MealBody "Abobrinha recheada" "Carne de panela + quiabo")},
+      @{label="Segunda"; body=(MealBody "Abobrinha recheada" "Carne de panela + brócolis")},
       @{label="Terça"; body=(MealBody "Pimentão recheado" "Omelete reforçado + pepino")},
-      @{label="Quarta"; body=(MealBody "Berinjela recheada" "Porco shoyu + vagem")},
+      @{label="Quarta"; body=(MealBody "Berinjela recheada" "Porco shoyu + brócolis")},
       @{label="Quinta"; body=(MealBody "Tomate recheado" "Frango + brócolis")},
-      @{label="Sexta"; body=(MealBody "Frango + vagem" "Clássica + vagem")},
+      @{label="Sexta"; body=(MealBody "Frango + brócolis" "Clássica + brócolis")},
       @{label="Sábado"; body=(MealBody "Omelete reforçado + abobrinha" "Porco + brócolis")},
-      @{label="Domingo"; body=(MealBody "Carne de panela + quiabo" "Omelete reforçado + tomate")}
+      @{label="Domingo"; body=(MealBody "Carne de panela + brócolis" "Omelete reforçado + tomate")}
     )
   },
 
@@ -507,7 +499,6 @@ $weeks = @(
       "Chuchu - 1",
       "Pimentão - 1",
       "Brócolis - 600 g",
-      "Vagem - 500 g",
       "Couve - 1 maço",
       "Tomate - 2",
       "Mussarela - 60 g",
@@ -535,11 +526,11 @@ $weeks = @(
       @("Ter almoço","Chuchu recheado","2 cs arroz"),
       @("Ter jantar","Omelete reforçado + couve","nada"),
       @("Qua almoço","Almôndegas (acém) + brócolis","2 cs arroz + 2 cs feijão"),
-      @("Qua jantar","Porco shoyu + vagem","nada"),
+      @("Qua jantar","Porco shoyu + brócolis","nada"),
       @("Qui almoço","Porco refogado + couve","2 cs arroz + 2 cs feijão"),
       @("Qui jantar","Carne de panela + brócolis","nada"),
-      @("Sex almoço","Frango + vagem","2 cs arroz"),
-      @("Sex jantar","Carne de panela + vagem","nada"),
+      @("Sex almoço","Frango + brócolis","2 cs arroz"),
+      @("Sex jantar","Carne de panela + brócolis","nada"),
       @("Sáb almoço","Omelete reforçado + brócolis","2 cs arroz"),
       @("Sáb jantar","Almôndegas (acém) + couve","nada"),
       @("Dom almoço","Almôndegas (acém) + brócolis","2 cs arroz + 2 cs feijão"),
@@ -548,9 +539,9 @@ $weeks = @(
     days=@(
       @{label="Segunda"; body=(MealBody "Abóbora recheada" "Almôndegas (acém) + brócolis")},
       @{label="Terça"; body=(MealBody "Chuchu recheado" "Omelete reforçado + couve")},
-      @{label="Quarta"; body=(MealBody "Almôndegas (acém) + brócolis" "Porco shoyu + vagem")},
+      @{label="Quarta"; body=(MealBody "Almôndegas (acém) + brócolis" "Porco shoyu + brócolis")},
       @{label="Quinta"; body=(MealBody "Porco refogado + couve" "Carne de panela + brócolis")},
-      @{label="Sexta"; body=(MealBody "Frango + vagem" "Carne de panela + vagem")},
+      @{label="Sexta"; body=(MealBody "Frango + brócolis" "Carne de panela + brócolis")},
       @{label="Sábado"; body=(MealBody "Omelete reforçado + brócolis" "Almôndegas (acém) + couve")},
       @{label="Domingo"; body=(MealBody "Almôndegas (acém) + brócolis" "Omelete reforçado + tomate")}
     )
@@ -567,13 +558,11 @@ $weeks = @(
       "Acém moído - 380 g (almôndegas × 2)",
       "Peito de frango - 380 g",
       $ovosShop,
-      "Quiabo - 300 g",
       "Pimentão - 1",
       "Berinjela - 1",
       "Tomate firme - 3",
       "Abobrinha - 2",
       "Brócolis - 600 g",
-      "Vagem - 500 g",
       "Mussarela - 90 g",
       "Molho de tomate - 1 lata",
       "Cebola - 2",
@@ -582,8 +571,8 @@ $weeks = @(
     )
     prepA=$arroz
     prepB=@"
-        <h3>B) Cozinhar: carne de panela (380 g) + quiabo</h3>
-        <p class="footer-note">2 potes · <a href="receitas.html#panela">Carne de panela</a> · <a href="receitas.html#quiabo">Quiabo</a></p>
+        <h3>B) Cozinhar: carne de panela (380 g) + brócolis</h3>
+        <p class="footer-note">2 potes · <a href="receitas.html#panela">Carne de panela</a> · <a href="receitas.html#brocolis">Brócolis</a></p>
 "@
     prepC=@"
         <h3>C) Cozinhar: recheados (570 g) + porco (380 g) + almôndegas (380 g)</h3>
@@ -594,29 +583,29 @@ $weeks = @(
         <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete reforçado</a> é feito <strong>no dia</strong> (não entra no lote do prep)</p>
 "@
     pots=@(
-      @("Seg almoço","Carne de panela + quiabo","2 cs arroz"),
+      @("Seg almoço","Carne de panela + brócolis","2 cs arroz"),
       @("Seg jantar","Almôndegas (acém) + brócolis","nada"),
       @("Ter almoço","Pimentão recheado","2 cs arroz"),
       @("Ter jantar","Omelete reforçado + abobrinha","nada"),
       @("Qua almoço","Berinjela recheada","2 cs arroz"),
-      @("Qua jantar","Porco shoyu + vagem","nada"),
+      @("Qua jantar","Porco shoyu + brócolis","nada"),
       @("Qui almoço","Tomate recheado","2 cs arroz"),
       @("Qui jantar","Frango + brócolis","nada"),
-      @("Sex almoço","Frango + vagem","2 cs arroz"),
+      @("Sex almoço","Frango + brócolis","2 cs arroz"),
       @("Sex jantar","Porco + abobrinha","nada"),
       @("Sáb almoço","Omelete reforçado + brócolis","2 cs arroz"),
-      @("Sáb jantar","Almôndegas (acém) + vagem","nada"),
-      @("Dom almoço","Carne de panela + quiabo","2 cs arroz + 2 cs feijão"),
+      @("Sáb jantar","Almôndegas (acém) + brócolis","nada"),
+      @("Dom almoço","Carne de panela + brócolis","2 cs arroz + 2 cs feijão"),
       @("Dom jantar","Omelete reforçado + tomate","nada")
     )
     days=@(
-      @{label="Segunda"; body=(MealBody "Carne de panela + quiabo" "Almôndegas (acém) + brócolis")},
+      @{label="Segunda"; body=(MealBody "Carne de panela + brócolis" "Almôndegas (acém) + brócolis")},
       @{label="Terça"; body=(MealBody "Pimentão recheado" "Omelete reforçado + abobrinha")},
-      @{label="Quarta"; body=(MealBody "Berinjela recheada" "Porco shoyu + vagem")},
+      @{label="Quarta"; body=(MealBody "Berinjela recheada" "Porco shoyu + brócolis")},
       @{label="Quinta"; body=(MealBody "Tomate recheado" "Frango + brócolis")},
-      @{label="Sexta"; body=(MealBody "Frango + vagem" "Porco + abobrinha")},
-      @{label="Sábado"; body=(MealBody "Omelete reforçado + brócolis" "Almôndegas (acém) + vagem")},
-      @{label="Domingo"; body=(MealBody "Carne de panela + quiabo" "Omelete reforçado + tomate")}
+      @{label="Sexta"; body=(MealBody "Frango + brócolis" "Porco + abobrinha")},
+      @{label="Sábado"; body=(MealBody "Omelete reforçado + brócolis" "Almôndegas (acém) + brócolis")},
+      @{label="Domingo"; body=(MealBody "Carne de panela + brócolis" "Omelete reforçado + tomate")}
     )
   },
 
@@ -631,11 +620,9 @@ $weeks = @(
       "Pernil ou lombo (porco) em cubos - 380 g",
       "Peito de frango - 570 g",
       $ovosShop,
-      "Quiabo - 300 g",
       "Pimentão - 1",
       "Abobrinha - 2",
       "Brócolis - 600 g",
-      "Vagem - 400 g",
       "Tomate - 3",
       "Couve - 1 maço",
       "Mussarela - 60 g",
@@ -658,11 +645,11 @@ $weeks = @(
         <p class="footer-note"><a href="receitas.html#frango">Frango</a> · <a href="receitas.html#omelete">Omelete reforçado</a> é feito <strong>no dia</strong> (não entra no lote do prep)</p>
 "@
     pots=@(
-      @("Seg almoço","Carne de panela + quiabo","2 cs arroz"),
+      @("Seg almoço","Carne de panela + brócolis","2 cs arroz"),
       @("Seg jantar","Frango + brócolis","nada"),
       @("Ter almoço","Pimentão recheado","2 cs arroz"),
-      @("Ter jantar","Carne de panela + vagem","nada"),
-      @("Qua almoço","Porco refogado + vagem","2 cs arroz + 2 cs feijão"),
+      @("Ter jantar","Carne de panela + brócolis","nada"),
+      @("Qua almoço","Porco refogado + brócolis","2 cs arroz + 2 cs feijão"),
       @("Qua jantar","Omelete reforçado + tomate","nada"),
       @("Qui almoço","Abobrinha recheada","2 cs arroz"),
       @("Qui jantar","Frango + brócolis","nada"),
@@ -670,17 +657,17 @@ $weeks = @(
       @("Sex jantar","Porco + abobrinha","nada"),
       @("Sáb almoço","Omelete reforçado + abobrinha","2 cs arroz"),
       @("Sáb jantar","Clássica (acém) + couve","nada"),
-      @("Dom almoço","Carne de panela + quiabo","2 cs arroz + 2 cs feijão"),
+      @("Dom almoço","Carne de panela + brócolis","2 cs arroz + 2 cs feijão"),
       @("Dom jantar","Omelete reforçado + tomate","nada")
     )
     days=@(
-      @{label="Segunda"; body=(MealBody "Carne de panela + quiabo" "Frango + brócolis")},
-      @{label="Terça"; body=(MealBody "Pimentão recheado" "Carne de panela + vagem")},
-      @{label="Quarta"; body=(MealBody "Porco refogado + vagem" "Omelete reforçado + tomate")},
+      @{label="Segunda"; body=(MealBody "Carne de panela + brócolis" "Frango + brócolis")},
+      @{label="Terça"; body=(MealBody "Pimentão recheado" "Carne de panela + brócolis")},
+      @{label="Quarta"; body=(MealBody "Porco refogado + brócolis" "Omelete reforçado + tomate")},
       @{label="Quinta"; body=(MealBody "Abobrinha recheada" "Frango + brócolis")},
       @{label="Sexta"; body=(MealBody "Frango + brócolis" "Porco + abobrinha")},
       @{label="Sábado"; body=(MealBody "Omelete reforçado + abobrinha" "Clássica + couve")},
-      @{label="Domingo"; body=(MealBody "Carne de panela + quiabo" "Omelete reforçado + tomate")}
+      @{label="Domingo"; body=(MealBody "Carne de panela + brócolis" "Omelete reforçado + tomate")}
     )
   }
 )

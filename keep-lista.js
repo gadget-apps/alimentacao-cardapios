@@ -157,9 +157,10 @@
 
   function ensurePriceAdjust(label, est, lineText) {
     var li = label.closest ? label.closest("li") : label.parentNode;
-    if (!li) return;
-    var old = li.querySelector(".shop-price-edit");
-    if (old) old.parentNode.removeChild(old);
+    var oldInLabel = label.querySelector(".shop-price-edit");
+    var oldInLi = li ? li.querySelector(".shop-price-edit") : null;
+    if (oldInLabel) oldInLabel.parentNode.removeChild(oldInLabel);
+    if (oldInLi && oldInLi !== oldInLabel) oldInLi.parentNode.removeChild(oldInLi);
     if (!est || est.pantry || !est.key) return;
     var page =
       (location.pathname || "").split("/").pop() ||
@@ -177,12 +178,16 @@
     var a = document.createElement("a");
     a.className = "shop-price-edit";
     a.href = href;
-    a.textContent = "Ajustar preço";
-    a.title = "Alterar o preço no cadastro e recalcular este item";
+    a.title = "Ajustar preço";
+    a.setAttribute("aria-label", "Ajustar preço");
+    // Ícone de lápis — sem texto na linha da lista.
+    // Pencil icon — no text on the shopping row.
+    a.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
     a.addEventListener("click", function (ev) {
       ev.stopPropagation();
     });
-    li.appendChild(a);
+    label.appendChild(a);
   }
 
   function updateProgress(root) {

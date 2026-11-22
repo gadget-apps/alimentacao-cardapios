@@ -669,23 +669,35 @@ body.drawer-open {
   text-align: right;
 }
 
-/* Ajustar preço na lista → cadastro / Adjust price on list → catalog */
+/* Ícone ajustar preço na lista → cadastro / Edit-price icon on list → catalog */
 .shop-price-edit {
   display: inline-flex;
-  align-self: end;
-  margin: 0 0.15rem 0.15rem auto;
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid #b8cce8;
-  background: #e8f0fa;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin: 0 0 0 0.2rem;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid #c5d4e8;
+  background: #eef3fa;
   color: #3d6aa8;
-  font-size: 0.82rem;
-  font-weight: 700;
   text-decoration: none;
+  line-height: 0;
+}
+.shop-price-edit svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  display: block;
 }
 .shop-price-edit:hover {
-  filter: brightness(0.97);
+  background: #e0ebf8;
+  border-color: #9eb6d6;
   text-decoration: none;
+}
+.shop-check li.done .shop-price-edit {
+  opacity: 0.45;
 }
 
 .catalog-edit-row {

@@ -320,27 +320,27 @@ body.drawer-open {
   margin-top: 0.5rem;
 }
 
-/* Links no texto: pilula azul, óbvia no toque (sem depender de hover). */
-/* In-content links: blue pill, obvious on touch (no hover needed). */
+/* Links no texto: pílula discreta, ainda óbvia no toque. */
+/* In-content links: quiet pill, still obvious on touch. */
 .passo-body a,
 .footer-note a,
 .recipe > p a,
 .card > p a,
 .card > ul a,
 .ing a {
-  display: inline-flex;
-  align-items: center;
-  vertical-align: baseline;
-  padding: 0.12rem 0.55rem;
-  margin: 0.12rem 0.08rem;
-  border-radius: 999px;
-  background: #e7f0fa;
-  border: 1px solid #9eb6d6;
-  color: #2f5a8a;
-  font-weight: 650;
-  font-size: 0.92em;
-  line-height: 1.35;
-  text-decoration: none;
+  display: inline;
+  padding: 0.05rem 0.32rem;
+  margin: 0 0.04rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, #3d6aa8 10%, transparent);
+  border: 1px solid color-mix(in srgb, #3d6aa8 22%, var(--line));
+  color: #3d6aa8;
+  font-weight: 600;
+  font-size: 0.86em;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.12em;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -350,8 +350,7 @@ body.drawer-open {
 .card > p a:active,
 .card > ul a:active,
 .ing a:active {
-  background: #d5e5f5;
-  border-color: #7a9ec8;
+  background: color-mix(in srgb, #3d6aa8 16%, transparent);
 }
 
 .week-list {

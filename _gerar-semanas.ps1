@@ -164,9 +164,15 @@ $daysHtml
   Write-Host "OK semana-$n"
 }
 
+# Após gerar as semanas, rode: python _separar-prep.py
+# After generating weeks, run: python _separar-prep.py
 $arroz = @"
-        <h3>A) Cozinhar: arroz + feijão (lote)</h3>
-        <p class="footer-note">Passo a passo: <a href="receitas.html#arroz">Receitas → Arroz e feijão</a></p>
+        <h3>A) Cozinhar: arroz (lote)</h3>
+        <p class="footer-note">Passo a passo: <a href="receitas.html#arroz">Arroz</a></p>
+"@
+$feijao = @"
+        <h3>B) Cozinhar: feijão (lote)</h3>
+        <p class="footer-note">Passo a passo: <a href="receitas.html#feijao">Feijão</a></p>
 "@
 
 # Ovos: omeletes no dia + café (2/dia × 7).

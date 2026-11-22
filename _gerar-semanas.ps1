@@ -122,7 +122,6 @@ $(Chips $w.chips)
 $(Shop $w.shop)
         </ul>
         <div class="shop-actions">
-          <button type="button" class="btn-keep" data-keep-download data-semana="$n">Baixar lista (Google Keep)</button>
           <button type="button" class="btn-keep btn-keep-secondary" data-keep-reset data-semana="$n">Limpar marcas</button>
         </div>
       </div>

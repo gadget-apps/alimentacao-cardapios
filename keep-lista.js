@@ -26,20 +26,6 @@
     return (el.innerText || el.textContent || "").replace(/\s+/g, " ").trim();
   }
 
-  function downloadTxt(filename, text) {
-    var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(function () {
-      URL.revokeObjectURL(url);
-    }, 500);
-  }
-
   function parsePriceText(s) {
     if (!s) return null;
     var m = String(s).replace(/\s/g, "").match(/R\$\s*([\d.]+),(\d{2})/);
@@ -312,35 +298,7 @@
 
     root.addEventListener("click", function (ev) {
       var t = ev.target;
-      var dl = t.closest ? t.closest("[data-keep-download]") : null;
       var rs = t.closest ? t.closest("[data-keep-reset]") : null;
-
-      if (dl) {
-        var title =
-          semana === "despensa" ? "Despensa — 1ª compra" : "Compras — Semana " + semana;
-        var lines = [title, ""];
-        var list = root.querySelectorAll("label.shop-item");
-        for (var j = 0; j < list.length; j++) {
-          var inp = list[j].querySelector("input");
-          var nameEl = list[j].querySelector("[data-item-name]") || list[j].querySelector("span");
-          var priceEl = list[j].querySelector(".shop-price");
-          var mark = inp && inp.checked ? "☑" : "☐";
-          var price = priceEl ? "  " + plainText(priceEl) : "";
-          lines.push(mark + " " + plainText(nameEl) + price);
-        }
-        var tot = root.querySelector("[data-shop-total]");
-        if (tot) {
-          lines.push("");
-          lines.push(plainText(tot));
-        }
-        var fname =
-          semana === "despensa"
-            ? "despensa-primeira-compra-keep.txt"
-            : "compras-semana-" + semana + "-keep.txt";
-        downloadTxt(fname, lines.join("\r\n"));
-        var hint = document.getElementById("keep-hint");
-        if (hint) hint.hidden = false;
-      }
 
       if (rs) {
         var resetMsg =

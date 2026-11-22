@@ -31,7 +31,6 @@
       lis +
       "</ul>" +
       '<div class="shop-actions">' +
-      '<button type="button" class="btn-keep" data-keep-download data-semana="despensa">Baixar lista (Google Keep)</button>' +
       '<button type="button" class="btn-keep btn-keep-secondary" data-keep-reset data-semana="despensa">Limpar marcas</button>' +
       "</div></div>";
 

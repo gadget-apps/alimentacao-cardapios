@@ -1,4 +1,4 @@
-﻿# 8 semanas · recomp Márcio (86 kg) · rotina 8h–23h
+# 8 semanas · recomp Márcio (86 kg) · rotina 8h–23h
 # - Café 8:00 · Almoço 12:30 · Jantar 20:00 (todos os dias) · Dormir 23:00
 # - Pote: ~180–200 g proteína crua; almoço 400–550 g; jantar 350–450 g sem arroz
 # - Economia: frango 1 almoço/sem · muffin 1 almoço/sem · porco em cubos · acém vs patinho
@@ -157,7 +157,7 @@ $daysHtml
   <script src="precos-store.js?v=9"></script>
   <script src="keep-lista.js?v=13"></script>
   <script src="tema.js?v=1"></script>
-  <script src="nav-drawer.js?v=6"></script>
+  <script src="nav-drawer.js?v=11"></script>
 </body>
 </html>
 "@

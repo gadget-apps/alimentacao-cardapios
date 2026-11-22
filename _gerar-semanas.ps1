@@ -175,7 +175,7 @@ $ovosShop = "Ovos - 2 dúzias (omeletes no dia + 2/dia no café)"
 
 $weeks = @(
   @{
-    n=1; title="Panela · porco · frango · ovo"; sub="14 potes · panela · recheados · porco · frango/omelete"
+    n=1; title="Carne de panela · porco · frango · ovo"; sub="14 potes · carne de panela · recheados · porco · frango/omelete"
     chips=@("14 potes","Jantar 20:00","Frango almoço","Omelete no dia"); prepTime="2h10"
     potNote="Receitas: <a href=`"receitas.html#s1`">semana 1</a>."
     shop=@(
@@ -301,8 +301,8 @@ $weeks = @(
   },
 
   @{
-    n=3; title="Panela · porco · frango · ovo"; sub="14 potes · panela · recheados · porco · clássica · frango/omelete"
-    chips=@("14 potes","Jantar 20:00","Carne panela","Porco"); prepTime="2h10"
+    n=3; title="Carne de panela · porco · frango · ovo"; sub="14 potes · carne de panela · recheados · porco · clássica · frango/omelete"
+    chips=@("14 potes","Jantar 20:00","Carne de panela","Porco"); prepTime="2h10"
     potNote="<a href=`"receitas.html#s3`">Receitas semana 3</a>."
     shop=@(
       "Acém/músculo (panela) - 570 g",
@@ -422,7 +422,7 @@ $weeks = @(
   },
 
   @{
-    n=5; title="Recheados · porco · frango · ovo"; sub="14 potes · 4 recheados · panela · porco · frango/omelete"
+    n=5; title="Recheados · porco · frango · ovo"; sub="14 potes · 4 recheados · carne de panela · porco · frango/omelete"
     chips=@("14 potes","4 recheados","Jantar 20:00"); prepTime="2h15"
     potNote="<a href=`"receitas.html#s5`">Receitas semana 5</a>."
     shop=@(
@@ -548,8 +548,8 @@ $weeks = @(
   },
 
   @{
-    n=7; title="Panela · recheados · porco · omelete"; sub="14 potes · panela · recheados · porco · almôndegas · frango/omelete"
-    chips=@("14 potes","Carne panela","Acém","Porco"); prepTime="2h10"
+    n=7; title="Carne de panela · recheados · porco · omelete"; sub="14 potes · carne de panela · recheados · porco · almôndegas · frango/omelete"
+    chips=@("14 potes","Carne de panela","Acém","Porco"); prepTime="2h10"
     potNote="<a href=`"receitas.html#s7`">Receitas semana 7</a>."
     shop=@(
       "Acém/músculo (panela) - 380 g",
@@ -610,7 +610,7 @@ $weeks = @(
   },
 
   @{
-    n=8; title="Panela · porco · frango · ovo"; sub="14 potes · panela · recheados · porco · frango/omelete"
+    n=8; title="Carne de panela · porco · frango · ovo"; sub="14 potes · carne de panela · recheados · porco · frango/omelete"
     chips=@("14 potes","Jantar 20:00","frango/omelete"); prepTime="2h10"
     potNote="<a href=`"receitas.html#s8`">Receitas semana 8</a>."
     shop=@(

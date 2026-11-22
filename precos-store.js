@@ -421,17 +421,46 @@
     return items;
   }
 
-  function importItems(rawItems) {
+  /**
+   * Atualiza preços da NF só para produtos já no catálogo (não cria item novo).
+   * Updates NF prices only for products already in the catalog (does not create items).
+   * opts.onlyExisting padrão true — compras fora da lista não entram no orçamento.
+   * opts.onlyExisting defaults to true — off-list purchases stay out of the budget.
+   */
+  function importItems(rawItems, opts) {
+    opts = opts || {};
+    var onlyExisting = opts.onlyExisting !== false;
     var cat = loadCatalog();
     var imported = [];
+    var skipped = [];
     for (var i = 0; i < rawItems.length; i++) {
       var it = rawItems[i];
       if (!it.name || it.unitPrice == null) continue;
-      var saved = upsertPrice(cat, it.name, it.unitPrice, it.unit, { source: it.source || "import" });
-      if (saved) imported.push(saved);
+      var key = canonicalKey(it.name);
+      if (!key) {
+        skipped.push({ name: it.name, reason: "sem-chave" });
+        continue;
+      }
+      if (onlyExisting && !cat[key]) {
+        skipped.push({ name: it.name, key: key, reason: "fora-do-catalogo" });
+        continue;
+      }
+      if (cat[key]) {
+        // Mantém nome/unidade do cadastro; só atualiza o preço.
+        // Keeps catalog name/unit; only updates the price.
+        cat[key].unitPrice = it.unitPrice;
+        cat[key].source = it.source || "import";
+        cat[key].updatedAt = new Date().toISOString();
+        imported.push(cat[key]);
+      } else {
+        var saved = upsertPrice(cat, it.name, it.unitPrice, it.unit, {
+          source: it.source || "import"
+        });
+        if (saved) imported.push(saved);
+      }
     }
     saveCatalog(cat);
-    return { catalog: cat, imported: imported };
+    return { catalog: cat, imported: imported, skipped: skipped };
   }
 
   function formatBRL(n) {

@@ -763,6 +763,18 @@ body.drawer-open {
   padding: 0.55rem;
   border-radius: 10px;
 }
+/* Leitor QR NFC-e / NFC-e QR reader */
+.qr-reader {
+  width: 100%;
+  max-width: 420px;
+  margin: 0.5rem auto 0.75rem;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #111;
+}
+.qr-reader video {
+  border-radius: 16px;
+}
 
 /* Unidade fixa no catálogo (não é seletor) / Fixed unit label in catalog */
 .catalog-unit {

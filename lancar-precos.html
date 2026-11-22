@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lançar preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=28" />
+  <link rel="stylesheet" href="estilo.css?v=29" />
 </head>
 <body>
   <main class="wrap">
@@ -12,140 +12,216 @@
 
     <section class="hero">
       <h1>Lançar preços</h1>
-      <p>Depois da compra: XML ou texto da NF, ou digite um preço. Grava no catálogo deste aparelho.</p>
+      <p>Escaneie o QR da NFC-e no cupom. Só atualiza preços de produtos que já estão no <a href="precos.html">catálogo</a> — compra fora da lista não entra no orçamento.</p>
       <div class="chips">
-        <span class="chip">NF XML / texto</span>
-        <span class="chip">Digitar</span>
+        <span class="chip">QR NFC-e</span>
+        <span class="chip">Só catálogo</span>
         <span class="chip"><a href="precos.html" style="color:inherit;text-decoration:none">Ver catálogo</a></span>
       </div>
     </section>
 
     <section class="card">
-      <h2>1) Nota fiscal</h2>
-      <p class="footer-note">Use o XML da NFC-e (QR do cupom / SEFAZ) ou cole o texto da nota. PDF escaneado sozinho não lê.</p>
+      <h2>Escanear QR da NFC-e</h2>
+      <p class="footer-note">Aponte a câmera para o QR do cupom. No iPhone/Android use HTTPS (já é o caso neste site) e permita o acesso à câmera.</p>
 
-      <div class="nf-file">
-        <strong>Arquivo XML da NF</strong>
-        <label class="nf-file-btn" for="xml-file">Escolher arquivo XML</label>
-        <input id="xml-file" type="file" accept=".xml,text/xml,application/xml" />
-        <span class="nf-file-name" id="xml-file-name">Nenhum arquivo escolhido</span>
+      <div id="qr-reader" class="qr-reader"></div>
+      <div class="shop-actions">
+        <button type="button" class="btn-keep" id="btn-scan-start">Abrir câmera</button>
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-scan-stop" hidden>Parar câmera</button>
       </div>
-
-      <textarea id="nf-text" rows="8" placeholder="Ou cole aqui o texto da NF / conteúdo do XML…" class="nf-textarea"></textarea>
-
-      <div class="shop-actions" style="margin-top:0.75rem">
-        <button type="button" class="btn-keep" id="btn-import">Ler e gravar preços</button>
-        <button type="button" class="btn-keep btn-keep-secondary" id="btn-clear-paste">Limpar campo</button>
-      </div>
-      <p id="import-msg" class="footer-note" hidden></p>
+      <p id="scan-status" class="footer-note" hidden></p>
     </section>
 
     <section class="card">
-      <h2>2) Ou digitar um preço</h2>
-      <div class="shop-grid">
-        <div>
-          <label>Produto<br />
-            <input id="manual-name" type="text" placeholder="Ex: quiabo" class="field-input" />
-          </label>
-        </div>
-        <div>
-          <label>Preço<br />
-            <input id="manual-price" type="text" placeholder="Ex: 12,90" class="field-input" />
-          </label>
-        </div>
-        <div>
-          <label>Unidade<br />
-            <select id="manual-unit" class="field-input">
-              <option value="kg">por kg</option>
-              <option value="un">por unidade</option>
-            </select>
-          </label>
-        </div>
-      </div>
+      <h2>Ou cole o link do QR</h2>
+      <p class="footer-note">Se a câmera falhar, cole aqui a URL que o QR abre (consulta SEFAZ / NFC-e).</p>
+      <input id="nfce-url" type="url" class="field-input" placeholder="https://… (link do QR da NFC-e)" autocomplete="off" />
       <div class="shop-actions">
-        <button type="button" class="btn-keep" id="btn-manual">Salvar preço</button>
+        <button type="button" class="btn-keep" id="btn-fetch-url">Buscar e atualizar preços</button>
       </div>
+      <p id="import-msg" class="footer-note" hidden></p>
     </section>
   </main>
 
-  <script src="precos-store.js?v=10"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="precos-store.js?v=11"></script>
   <script>
     (function () {
       var P = window.AlimentacaoPrecos;
       var msg = document.getElementById("import-msg");
+      var statusEl = document.getElementById("scan-status");
+      var scanner = null;
+      var busy = false;
 
-      function showMsg(t) {
+      function showMsg(htmlOrText, asHtml) {
         msg.hidden = false;
-        msg.textContent = t;
+        if (asHtml) msg.innerHTML = htmlOrText;
+        else msg.textContent = htmlOrText;
       }
 
-      function doImport(text) {
+      function showStatus(t) {
+        statusEl.hidden = false;
+        statusEl.textContent = t;
+      }
+
+      function isNfceUrl(u) {
+        if (!u) return false;
+        var s = String(u).trim();
+        if (!/^https?:\/\//i.test(s)) return false;
+        return /nfce|nfe\.fazenda|fazenda\.|sefaz|sat\.|qrcode|qr\.code/i.test(s) || /[?&]p=\d{44}/.test(s);
+      }
+
+      function extractUrl(raw) {
+        var s = String(raw || "").trim();
+        var m = s.match(/https?:\/\/[^\s<>"']+/i);
+        return m ? m[0] : s;
+      }
+
+      /**
+       * Busca o conteúdo do cupom (XML/HTML). Site estático: tenta direto e, se CORS bloquear, proxy público.
+       * Fetches the receipt content (XML/HTML). Static site: try direct, then public proxy if CORS blocks.
+       */
+      function fetchCupom(url) {
+        return fetch(url, { method: "GET", redirect: "follow" })
+          .then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.text();
+          })
+          .catch(function () {
+            var proxied =
+              "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
+            return fetch(proxied).then(function (r) {
+              if (!r.ok) throw new Error("Proxy HTTP " + r.status);
+              return r.text();
+            });
+          });
+      }
+
+      function importFromText(text, sourceLabel) {
         var items = [];
         if (
           text.indexOf("<prod") >= 0 ||
           text.indexOf("<PROD") >= 0 ||
           text.indexOf("nfeProc") >= 0 ||
-          text.indexOf("NFe") >= 0
+          text.indexOf("NFe") >= 0 ||
+          text.indexOf("nfce") >= 0
         ) {
           items = P.parseNFeXml(text);
         }
         if (!items.length) items = P.parseNFeText(text);
         if (!items.length) {
           showMsg(
-            "Não achei itens. Cole o XML da NF ou linhas tipo: QUIABO 0,500 KG X 12,90 6,45"
+            "Abri o link, mas não achei itens da NF (XML/lista). Tente de novo ou confira se o cupom ainda está válido na SEFAZ."
           );
           return;
         }
-        var res = P.importItems(items);
-        // Feedback com link para o catálogo.
-        // Feedback with a link to the catalog.
-        msg.hidden = false;
-        msg.innerHTML =
-          "Gravei " +
-          res.imported.length +
-          ' preço(s). Veja o <a href="precos.html">catálogo</a> ou qualquer lista.';
+        // Só atualiza quem já existe no catálogo.
+        // Only updates products already in the catalog.
+        var res = P.importItems(items, { onlyExisting: true });
+        var nUp = res.imported.length;
+        var nSkip = (res.skipped || []).length;
+        showMsg(
+          "Atualizei <strong>" +
+            nUp +
+            "</strong> preço(s) do catálogo" +
+            (sourceLabel ? " (" + sourceLabel + ")" : "") +
+            ". Ignorei <strong>" +
+            nSkip +
+            "</strong> item(ns) que não estão no cadastro (compra fora da lista)." +
+            ' <a href="precos.html">Ver catálogo</a>',
+          true
+        );
       }
 
-      document.getElementById("btn-import").addEventListener("click", function () {
-        doImport(document.getElementById("nf-text").value || "");
-      });
-      document.getElementById("btn-clear-paste").addEventListener("click", function () {
-        document.getElementById("nf-text").value = "";
-        document.getElementById("xml-file").value = "";
-        document.getElementById("xml-file-name").textContent = "Nenhum arquivo escolhido";
-        msg.hidden = true;
-      });
-      document.getElementById("xml-file").addEventListener("change", function (ev) {
-        var f = ev.target.files && ev.target.files[0];
-        if (!f) return;
-        document.getElementById("xml-file-name").textContent = f.name;
-        var reader = new FileReader();
-        reader.onload = function () {
-          var text = String(reader.result || "");
-          document.getElementById("nf-text").value = text;
-          doImport(text);
-        };
-        reader.readAsText(f);
-      });
-      document.getElementById("btn-manual").addEventListener("click", function () {
-        var name = document.getElementById("manual-name").value.trim();
-        var price = document
-          .getElementById("manual-price")
-          .value.trim()
-          .replace(".", "")
-          .replace(",", ".");
-        var unit = document.getElementById("manual-unit").value;
-        var n = parseFloat(price);
-        if (!name || !isFinite(n)) {
-          showMsg("Preencha produto e preço.");
+      function processNfceUrl(url) {
+        url = extractUrl(url);
+        if (!url) {
+          showMsg("Informe o link do QR da NFC-e.");
+          return Promise.resolve();
+        }
+        if (!/^https?:\/\//i.test(url)) {
+          showMsg("O QR precisa ser um link https da NFC-e.");
+          return Promise.resolve();
+        }
+        document.getElementById("nfce-url").value = url;
+        showMsg("Buscando cupom…");
+        return fetchCupom(url)
+          .then(function (text) {
+            importFromText(text, "NFC-e");
+          })
+          .catch(function () {
+            showMsg(
+              "Não consegui baixar o cupom deste link (bloqueio da SEFAZ/CORS). Abra o link no navegador, baixe o XML se disponível, ou tente de novo mais tarde."
+            );
+          });
+      }
+
+      function stopScanner() {
+        if (!scanner) return Promise.resolve();
+        return scanner
+          .stop()
+          .catch(function () {})
+          .then(function () {
+            scanner = null;
+            document.getElementById("btn-scan-start").hidden = false;
+            document.getElementById("btn-scan-stop").hidden = true;
+          });
+      }
+
+      function startScanner() {
+        if (typeof Html5Qrcode === "undefined") {
+          showStatus("Biblioteca de QR não carregou. Use o campo de link abaixo.");
           return;
         }
-        var cat = P.loadCatalog();
-        P.upsertPrice(cat, name, n, unit, { source: "manual" });
-        P.saveCatalog(cat);
-        showMsg("Preço salvo: " + name + " — abra o catálogo em Preços se quiser revisar.");
-        document.getElementById("manual-name").value = "";
-        document.getElementById("manual-price").value = "";
+        if (busy) return;
+        busy = true;
+        stopScanner().then(function () {
+          scanner = new Html5Qrcode("qr-reader");
+          showStatus("Pedindo câmera…");
+          scanner
+            .start(
+              { facingMode: "environment" },
+              { fps: 8, qrbox: { width: 240, height: 240 } },
+              function (decoded) {
+                if (busy || !decoded) return;
+                // Evita ler o mesmo QR várias vezes em sequência.
+                // Avoid processing the same QR repeatedly in a burst.
+                busy = true;
+                showStatus("QR lido. Processando…");
+                stopScanner().then(function () {
+                  processNfceUrl(decoded).finally(function () {
+                    busy = false;
+                  });
+                });
+              },
+              function () {}
+            )
+            .then(function () {
+              busy = false;
+              document.getElementById("btn-scan-start").hidden = true;
+              document.getElementById("btn-scan-stop").hidden = false;
+              showStatus("Câmera ligada — aponte para o QR do cupom.");
+            })
+            .catch(function (err) {
+              busy = false;
+              scanner = null;
+              showStatus(
+                "Não abriu a câmera (" +
+                  (err && err.message ? err.message : "erro") +
+                  "). Cole o link do QR abaixo."
+              );
+            });
+        });
+      }
+
+      document.getElementById("btn-scan-start").addEventListener("click", startScanner);
+      document.getElementById("btn-scan-stop").addEventListener("click", function () {
+        stopScanner().then(function () {
+          showStatus("Câmera parada.");
+        });
+      });
+      document.getElementById("btn-fetch-url").addEventListener("click", function () {
+        processNfceUrl(document.getElementById("nfce-url").value);
       });
     })();
   </script>

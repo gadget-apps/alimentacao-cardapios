@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=28" />
+  <link rel="stylesheet" href="estilo.css?v=29" />
 </head>
 <body>
   <main class="wrap">
@@ -12,7 +12,7 @@
 
     <section class="hero">
       <h1>Preços</h1>
-      <p>Catálogo de produtos neste aparelho (semanas + despensa). Unidade fica fixa; só o valor edita. Para NF ou digitar novo preço: <a href="lancar-precos.html">Lançar preços</a>.</p>
+      <p>Catálogo de produtos neste aparelho (semanas + despensa). Unidade fica fixa; só o valor edita. Atualização de preço: <a href="lancar-precos.html">QR da NFC-e</a> (não adiciona produto novo).</p>
       <div class="chips">
         <span class="chip">Seed Araraquara</span>
         <span class="chip">Semanas + despensa</span>
@@ -22,7 +22,7 @@
 
     <section class="card" id="catalogo">
       <h2>Catálogo neste aparelho</h2>
-      <p class="footer-note">Itens <em>seed-aqa</em> são estimativa Araraquara (inclui despensa). NF/manual sobrescreve via <a href="lancar-precos.html">Lançar preços</a>. Nas listas, o lápis abre o produto aqui.</p>
+      <p class="footer-note">Itens <em>seed-aqa</em> são estimativa Araraquara (inclui despensa). A <a href="lancar-precos.html">NFC-e</a> só atualiza preço de quem já está aqui. Nas listas, o lápis também edita o valor.</p>
       <div id="edit-return-banner" class="catalog-return-banner" hidden></div>
       <p id="catalog-msg" class="footer-note" hidden></p>
       <div id="catalog-table"></div>
@@ -33,7 +33,7 @@
     </section>
   </main>
 
-  <script src="precos-store.js?v=10"></script>
+  <script src="precos-store.js?v=11"></script>
   <script>
     (function () {
       var P = window.AlimentacaoPrecos;

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Atualizar Preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=34" />
+  <link rel="stylesheet" href="estilo.css?v=35" />
 </head>
 <body>
   <main class="wrap">
@@ -21,9 +21,18 @@
 
     <section class="card">
       <h2>Leitor de QR Code da NFC-e</h2>
-      <p class="footer-note">Clicou → abre a câmera. Leu o QR → fecha a câmera e volta pro início com o resultado.</p>
+      <p class="footer-note">Clicou em <strong>Ler QR Code</strong> → a área preta mostra a câmera. Leu → fecha a câmera, grava no catálogo e libera nova leitura.</p>
+
+      <div id="qr-reader" class="qr-reader">
+        <div class="qr-reader-placeholder" id="qr-placeholder">
+          <strong>Área do leitor de QR Code</strong>
+          <span>Aqui aparece a câmera ao tocar em Ler QR Code. Aponte para o QR da NFC-e do cupom.</span>
+        </div>
+      </div>
+
       <div class="shop-actions">
-        <button type="button" class="btn-keep" id="btn-capturar">Ler QR Code</button>
+        <button type="button" class="btn-keep" id="btn-ler">Ler QR Code</button>
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-cancelar" disabled>Cancelar</button>
       </div>
       <p id="page-msg" class="footer-note" hidden></p>
     </section>
@@ -38,36 +47,23 @@
     </section>
   </main>
 
-  <!-- Tela cheia de escaneamento / Full-screen scan UI -->
-  <div id="scan-overlay" class="scan-overlay" hidden>
-    <div class="scan-overlay-bar">
-      <strong>Aponte para o QR da NFC-e</strong>
-      <button type="button" class="btn-keep btn-keep-secondary" id="btn-scan-cancel">Cancelar</button>
-    </div>
-    <div id="qr-reader" class="qr-reader qr-reader-overlay"></div>
-    <p id="scan-status" class="scan-overlay-status">Pedindo câmera do dispositivo…</p>
-  </div>
-
   <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="precos-store.js?v=11"></script>
   <script>
     (function () {
       var P = window.AlimentacaoPrecos;
-      var overlay = document.getElementById("scan-overlay");
       var readerEl = document.getElementById("qr-reader");
-      var statusEl = document.getElementById("scan-status");
       var pageMsg = document.getElementById("page-msg");
+      var btnLer = document.getElementById("btn-ler");
+      var btnCancelar = document.getElementById("btn-cancelar");
       var scanner = null;
       var handling = false;
-      var FLASH_KEY = "alimentacao-preco-flash";
+      var live = false;
 
-      function showPageMsg(t) {
+      function showPageMsg(t, asHtml) {
         pageMsg.hidden = false;
-        pageMsg.textContent = t;
-      }
-
-      function showStatus(t) {
-        statusEl.textContent = t;
+        if (asHtml) pageMsg.innerHTML = t;
+        else pageMsg.textContent = t;
       }
 
       function extractUrl(raw) {
@@ -76,13 +72,60 @@
         return m ? m[0] : s;
       }
 
-      function goHomeFlash(payload) {
+      function setIdleUi() {
+        btnLer.disabled = false;
+        btnCancelar.disabled = true;
+        live = false;
+        readerEl.classList.remove("is-live");
+        readerEl.innerHTML =
+          '<div class="qr-reader-placeholder" id="qr-placeholder">' +
+          "<strong>Área do leitor de QR Code</strong>" +
+          "<span>Aqui aparece a câmera ao tocar em Ler QR Code. Aponte para o QR da NFC-e do cupom.</span>" +
+          "</div>";
+      }
+
+      function setLiveUi() {
+        btnLer.disabled = true;
+        btnCancelar.disabled = false;
+        live = true;
+        readerEl.classList.add("is-live");
+      }
+
+      function hardStopCamera() {
         try {
-          sessionStorage.setItem(FLASH_KEY, JSON.stringify(payload));
+          var vids = readerEl.querySelectorAll("video");
+          for (var i = 0; i < vids.length; i++) {
+            var stream = vids[i].srcObject;
+            if (stream && stream.getTracks) {
+              stream.getTracks().forEach(function (t) {
+                t.stop();
+              });
+            }
+            vids[i].srcObject = null;
+          }
         } catch (e) {}
-        // Sai da tela de escaneamento e abre a home com popup.
-        // Leave the scan screen and open home with a popup.
-        location.replace("index.html?v=34");
+        if (!scanner) return Promise.resolve();
+        var s = scanner;
+        scanner = null;
+        return s
+          .stop()
+          .catch(function () {})
+          .then(function () {
+            try {
+              s.clear();
+            } catch (e2) {}
+          });
+      }
+
+      /**
+       * Fecha a câmera e restaura a área preta com o texto de ajuda.
+       * Closes the camera and restores the black area with help text.
+       */
+      function resetReader() {
+        return hardStopCamera().then(function () {
+          setIdleUi();
+          handling = false;
+        });
       }
 
       function fetchCupom(url) {
@@ -119,6 +162,8 @@
             error: "Li o cupom, mas não achei itens da NF. Confira se ainda está válido na SEFAZ."
           };
         }
+        // Persiste no catálogo local (só produtos já cadastrados).
+        // Persists to the local catalog (only products already registered).
         var res = P.importItems(items, { onlyExisting: true });
         return {
           ok: true,
@@ -127,104 +172,41 @@
         };
       }
 
-      function processNfceUrl(url, fromScan) {
+      function processNfceUrl(url) {
         url = extractUrl(url);
         if (!url || !/^https?:\/\//i.test(url)) {
-          var bad = "O QR precisa ser um link https da NFC-e.";
-          if (fromScan) {
-            goHomeFlash({
-              ok: false,
-              title: "Não foi possível atualizar",
-              message: bad
-            });
-          } else {
-            showPageMsg(bad);
-          }
+          showPageMsg("O QR precisa ser um link https da NFC-e.");
           return Promise.resolve(false);
         }
         document.getElementById("nfce-url").value = url;
-        if (!fromScan) showPageMsg("Buscando cupom…");
+        showPageMsg("QR lido. Atualizando preços no catálogo…");
         return fetchCupom(url)
           .then(function (text) {
             var result = importFromText(text);
             if (!result.ok) {
-              if (fromScan) {
-                goHomeFlash({
-                  ok: false,
-                  title: "Leitura feita, sem itens",
-                  message: result.error
-                });
-              } else {
-                showPageMsg(result.error);
-              }
+              showPageMsg(result.error);
               return false;
             }
-            goHomeFlash({
-              ok: true,
-              title: "Preços atualizados",
-              updated: result.updated,
-              skipped: result.skipped,
-              at: new Date().toISOString()
-            });
+            showPageMsg(
+              "Leitura ok. Atualizei <strong>" +
+                result.updated +
+                "</strong> preço(s) no catálogo" +
+                (result.skipped
+                  ? " e ignorei <strong>" +
+                    result.skipped +
+                    "</strong> item(ns) fora da lista"
+                  : "") +
+                '. <a href="precos.html">Ver catálogo</a>',
+              true
+            );
             return true;
           })
           .catch(function () {
-            var err =
-              "QR lido, mas não consegui baixar o cupom (bloqueio SEFAZ/CORS). Tente de novo mais tarde.";
-            if (fromScan) {
-              goHomeFlash({
-                ok: false,
-                title: "Leitura feita, atualização falhou",
-                message: err
-              });
-            } else {
-              showPageMsg(err);
-            }
+            showPageMsg(
+              "QR lido, mas não consegui baixar o cupom (bloqueio SEFAZ/CORS). Tente de novo mais tarde."
+            );
             return false;
           });
-      }
-
-      function hardStopCamera() {
-        // Desliga vídeo/tracks na hora (não deixa a câmera aberta).
-        // Stops video/tracks immediately (does not leave the camera open).
-        try {
-          var vids = readerEl.querySelectorAll("video");
-          for (var i = 0; i < vids.length; i++) {
-            var stream = vids[i].srcObject;
-            if (stream && stream.getTracks) {
-              stream.getTracks().forEach(function (t) {
-                t.stop();
-              });
-            }
-            vids[i].srcObject = null;
-          }
-        } catch (e) {}
-        if (!scanner) return Promise.resolve();
-        var s = scanner;
-        scanner = null;
-        return s
-          .stop()
-          .catch(function () {})
-          .then(function () {
-            try {
-              s.clear();
-            } catch (e2) {}
-          });
-      }
-
-      function closeScanUi() {
-        overlay.hidden = true;
-        document.body.classList.remove("scan-open");
-        return hardStopCamera().then(function () {
-          handling = false;
-        });
-      }
-
-      function openScanUi() {
-        overlay.hidden = false;
-        document.body.classList.add("scan-open");
-        readerEl.innerHTML = "";
-        showStatus("Pedindo câmera do dispositivo…");
       }
 
       function pickCameraId(cameras) {
@@ -239,94 +221,93 @@
       function onDecoded(decoded) {
         if (handling || !decoded) return;
         handling = true;
-        // Leu? Fecha a câmera na hora. Depois atualiza e vai pra home.
-        // Read? Close the camera immediately. Then update and go home.
-        overlay.hidden = true;
-        document.body.classList.remove("scan-open");
+        // Leu → fecha câmera, restaura placeholder, libera botão, grava preços.
+        // Read → close camera, restore placeholder, enable button, save prices.
         hardStopCamera()
           .then(function () {
-            return processNfceUrl(decoded, true);
+            setIdleUi();
+            return processNfceUrl(decoded);
           })
-          .catch(function () {
-            goHomeFlash({
-              ok: false,
-              title: "Falha na leitura",
-              message: "Não concluí a atualização dos preços."
-            });
+          .finally(function () {
+            handling = false;
           });
       }
 
-      function startCameraOnly() {
+      function startCamera() {
         if (typeof Html5Qrcode === "undefined") {
-          showStatus("Leitor de QR não carregou. Atualize a página.");
-          return Promise.resolve();
+          showPageMsg("Leitor de QR não carregou. Atualize a página.");
+          setIdleUi();
+          return;
         }
         if (!window.isSecureContext) {
-          showStatus("A câmera só funciona em HTTPS. Use o link do site.");
-          return Promise.resolve();
+          showPageMsg("A câmera só funciona em HTTPS. Use o link do site.");
+          setIdleUi();
+          return;
         }
-        return Html5Qrcode.getCameras()
+        readerEl.innerHTML = "";
+        setLiveUi();
+        showPageMsg("Pedindo câmera do dispositivo…");
+
+        function fail(err) {
+          scanner = null;
+          setIdleUi();
+          showPageMsg(
+            "Não abriu a câmera (" +
+              (err && err.message ? err.message : "erro") +
+              "). Permita o acesso no navegador ou use o link abaixo."
+          );
+        }
+
+        Html5Qrcode.getCameras()
           .then(function (cameras) {
             if (!cameras || !cameras.length) throw new Error("Nenhuma câmera neste aparelho");
             var id = pickCameraId(cameras);
             scanner = new Html5Qrcode("qr-reader", { verbose: false });
             return scanner.start(
               id,
-              { fps: 10, qrbox: { width: 260, height: 260 } },
+              { fps: 10, qrbox: { width: 240, height: 240 } },
               onDecoded,
               function () {}
             );
           })
           .then(function () {
-            showStatus("Câmera ligada — aponte para o QR do cupom.");
+            showPageMsg("Câmera ligada na área preta — aponte para o QR do cupom.");
           })
           .catch(function () {
             scanner = new Html5Qrcode("qr-reader", { verbose: false });
             return scanner
               .start(
                 { facingMode: "environment" },
-                { fps: 10, qrbox: { width: 260, height: 260 } },
+                { fps: 10, qrbox: { width: 240, height: 240 } },
                 onDecoded,
                 function () {}
               )
               .catch(function () {
                 return scanner.start(
                   { facingMode: "user" },
-                  { fps: 10, qrbox: { width: 260, height: 260 } },
+                  { fps: 10, qrbox: { width: 240, height: 240 } },
                   onDecoded,
                   function () {}
                 );
               })
               .then(function () {
-                showStatus("Câmera ligada — aponte para o QR do cupom.");
+                showPageMsg("Câmera ligada na área preta — aponte para o QR do cupom.");
               })
-              .catch(function (err) {
-                scanner = null;
-                showStatus(
-                  "Não abriu a câmera (" +
-                    (err && err.message ? err.message : "erro") +
-                    "). Permita o acesso no navegador ou use o link abaixo."
-                );
-              });
+              .catch(fail);
           });
       }
 
-      /**
-       * Ler QR Code → abre câmera; ao ler, fecha a câmera.
-       * Read QR Code → opens camera; on read, closes the camera.
-       */
-      function lerQrCode() {
-        if (handling) return;
-        openScanUi();
-        startCameraOnly();
-      }
-
-      document.getElementById("btn-capturar").addEventListener("click", lerQrCode);
-      document.getElementById("btn-scan-cancel").addEventListener("click", function () {
-        closeScanUi();
+      btnLer.addEventListener("click", function () {
+        if (handling || live) return;
+        startCamera();
+      });
+      btnCancelar.addEventListener("click", function () {
+        resetReader().then(function () {
+          showPageMsg("Leitura cancelada.");
+        });
       });
       document.getElementById("btn-fetch-url").addEventListener("click", function () {
-        processNfceUrl(document.getElementById("nfce-url").value, false);
+        processNfceUrl(document.getElementById("nfce-url").value);
       });
     })();
   </script>

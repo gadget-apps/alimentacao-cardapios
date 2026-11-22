@@ -81,20 +81,22 @@
    * Itens da página Despensa (qtde/nota); preço vem do catálogo.
    * Despensa page items (qty/note); price comes from the catalog.
    */
+  // Só nome e quantidade — notas de uso não entram na lista.
+  // Name and qty only — usage notes stay out of the list.
   var FIRST_BUY = [
-    { name: "Arroz integral", qty: "1 kg", note: "lote semanal ~300 g" },
-    { name: "Feijão", qty: "1 kg", note: "lote semanal ~250–350 g" },
-    { name: "Azeite", qty: "1 un (500 ml)", note: "todas as receitas" },
-    { name: "Alho industrializado", qty: "1 pote", note: "substitui alho fresco · todas as receitas" },
-    { name: "Sal", qty: "1 kg", note: "despensa" },
-    { name: "Colorau", qty: "1 pote", note: "refogados e moída" },
-    { name: "Cominho", qty: "1 pote", note: "refogados e recheados" },
-    { name: "Páprica", qty: "1 pote", note: "quase todos os pratos" },
-    { name: "Orégano", qty: "1 pote", note: "molho e recheados" },
-    { name: "Pimenta-do-reino", qty: "1 pote", note: "uso geral" },
-    { name: "Louro", qty: "1 pacote", note: "feijão e refogados" },
-    { name: "Shoyu / agridoce", qty: "1 frasco", note: "receita shoyu" },
-    { name: "Aveia em flocos", qty: "1 pacote", note: "almôndegas (opcional)" }
+    { name: "Arroz integral", qty: "1 kg" },
+    { name: "Feijão", qty: "1 kg" },
+    { name: "Azeite", qty: "1 un (500 ml)" },
+    { name: "Alho industrializado", qty: "1 pote" },
+    { name: "Sal", qty: "1 kg" },
+    { name: "Colorau", qty: "1 pote" },
+    { name: "Cominho", qty: "1 pote" },
+    { name: "Páprica", qty: "1 pote" },
+    { name: "Orégano", qty: "1 pote" },
+    { name: "Pimenta-do-reino", qty: "1 pote" },
+    { name: "Louro", qty: "1 pacote" },
+    { name: "Shoyu / agridoce", qty: "1 frasco" },
+    { name: "Aveia em flocos", qty: "1 pacote" }
   ];
 
   var ALIASES = {

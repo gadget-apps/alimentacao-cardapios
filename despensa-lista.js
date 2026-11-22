@@ -8,14 +8,10 @@
     var box = document.getElementById(boxId);
     if (!P || !P.FIRST_BUY || !box) return null;
 
-    // Só nome/qtde/nota; preço e lápis vêm do keep-lista + catálogo.
-    // Name/qty/note only; price and pencil come from keep-lista + catalog.
+    // Só nome/qtde; preço e lápis vêm do keep-lista + catálogo.
+    // Name/qty only; price and pencil come from keep-lista + catalog.
     var lis = P.FIRST_BUY.map(function (it, i) {
-      var label =
-        it.name +
-        " — " +
-        it.qty +
-        (it.note ? " · " + it.note : "");
+      var label = it.name + " — " + it.qty;
       return (
         '<li><label class="shop-item"><input type="checkbox" data-id="d' +
         i +

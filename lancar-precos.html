@@ -3,43 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lançar preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=30" />
+  <title>Atualizar Preços — Gestão Cardápio Low Carb</title>
+  <link rel="stylesheet" href="estilo.css?v=31" />
 </head>
 <body>
   <main class="wrap">
     <nav class="nav" hidden></nav>
 
     <section class="hero">
-      <h1>Lançar preços</h1>
-      <p>Escaneie o QR da NFC-e no cupom. Só atualiza preços de produtos que já estão no <a href="precos.html">catálogo</a> — compra fora da lista não entra no orçamento.</p>
+      <h1>Atualizar Preços</h1>
+      <p>A câmera abre <strong>dentro desta página</strong> (webcam do PC ou câmera do celular — a deste aparelho). Só atualiza preços de produtos que já estão no <a href="precos.html">catálogo</a>.</p>
       <div class="chips">
+        <span class="chip">Câmera deste aparelho</span>
         <span class="chip">QR NFC-e</span>
         <span class="chip">Só catálogo</span>
-        <span class="chip"><a href="precos.html" style="color:inherit;text-decoration:none">Ver catálogo</a></span>
       </div>
     </section>
 
     <section class="card">
-      <h2>Leitor de QR da NFC-e</h2>
-      <p class="footer-note">Toque em <strong>Abrir câmera</strong>, permita o acesso e aponte para o QR do cupom.</p>
+      <h2>Leitor de QR Code da NFC-e</h2>
+      <p class="footer-note">Não usa leitor externo. O site pede permissão e mostra o vídeo aqui embaixo. No PC: webcam (ex. Microsoft). No celular: câmera do próprio telefone.</p>
+
+      <label class="footer-note" for="camera-select">Câmera<br />
+        <select id="camera-select" class="field-input" disabled>
+          <option value="">Toque em “Abrir câmera” para listar…</option>
+        </select>
+      </label>
 
       <div id="qr-reader" class="qr-reader">
         <div class="qr-reader-placeholder" id="qr-placeholder">
-          <strong>Área do leitor de QR</strong>
-          <span>A câmera aparece aqui depois de autorizar</span>
+          <strong>Vídeo da câmera deste aparelho</strong>
+          <span>Depois de autorizar, a imagem aparece aqui nesta página</span>
         </div>
       </div>
+
       <div class="shop-actions">
-        <button type="button" class="btn-keep" id="btn-scan-start">Abrir câmera</button>
+        <button type="button" class="btn-keep" id="btn-scan-start">Abrir câmera deste aparelho</button>
         <button type="button" class="btn-keep btn-keep-secondary" id="btn-scan-stop" hidden>Parar câmera</button>
       </div>
       <p id="scan-status" class="footer-note" hidden></p>
     </section>
 
     <section class="card">
-      <h2>Ou cole o link do QR</h2>
-      <p class="footer-note">Se a câmera falhar, cole aqui a URL que o QR abre (consulta SEFAZ / NFC-e).</p>
+      <h2>Se a câmera não abrir</h2>
+      <p class="footer-note">Cole o link que o QR da NFC-e abre (consulta SEFAZ).</p>
       <input id="nfce-url" type="url" class="field-input" placeholder="https://… (link do QR da NFC-e)" autocomplete="off" />
       <div class="shop-actions">
         <button type="button" class="btn-keep" id="btn-fetch-url">Buscar e atualizar preços</button>
@@ -48,15 +55,17 @@
     </section>
   </main>
 
-  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="precos-store.js?v=11"></script>
   <script>
     (function () {
       var P = window.AlimentacaoPrecos;
       var msg = document.getElementById("import-msg");
       var statusEl = document.getElementById("scan-status");
+      var camSelect = document.getElementById("camera-select");
+      var readerEl = document.getElementById("qr-reader");
       var scanner = null;
-      var busy = false;
+      var handling = false;
 
       function showMsg(htmlOrText, asHtml) {
         msg.hidden = false;
@@ -69,17 +78,19 @@
         statusEl.textContent = t;
       }
 
-      function isNfceUrl(u) {
-        if (!u) return false;
-        var s = String(u).trim();
-        if (!/^https?:\/\//i.test(s)) return false;
-        return /nfce|nfe\.fazenda|fazenda\.|sefaz|sat\.|qrcode|qr\.code/i.test(s) || /[?&]p=\d{44}/.test(s);
-      }
-
       function extractUrl(raw) {
         var s = String(raw || "").trim();
         var m = s.match(/https?:\/\/[^\s<>"']+/i);
         return m ? m[0] : s;
+      }
+
+      function ensurePlaceholder() {
+        if (readerEl.querySelector("#qr-placeholder")) return;
+        readerEl.innerHTML =
+          '<div class="qr-reader-placeholder" id="qr-placeholder">' +
+          "<strong>Vídeo da câmera deste aparelho</strong>" +
+          "<span>Depois de autorizar, a imagem aparece aqui nesta página</span>" +
+          "</div>";
       }
 
       /**
@@ -116,23 +127,19 @@
         if (!items.length) items = P.parseNFeText(text);
         if (!items.length) {
           showMsg(
-            "Abri o link, mas não achei itens da NF (XML/lista). Tente de novo ou confira se o cupom ainda está válido na SEFAZ."
+            "Abri o link, mas não achei itens da NF. Confira se o cupom ainda está válido na SEFAZ."
           );
           return;
         }
-        // Só atualiza quem já existe no catálogo.
-        // Only updates products already in the catalog.
         var res = P.importItems(items, { onlyExisting: true });
-        var nUp = res.imported.length;
-        var nSkip = (res.skipped || []).length;
         showMsg(
           "Atualizei <strong>" +
-            nUp +
+            res.imported.length +
             "</strong> preço(s) do catálogo" +
             (sourceLabel ? " (" + sourceLabel + ")" : "") +
             ". Ignorei <strong>" +
-            nSkip +
-            "</strong> item(ns) que não estão no cadastro (compra fora da lista)." +
+            (res.skipped || []).length +
+            "</strong> item(ns) fora do cadastro." +
             ' <a href="precos.html">Ver catálogo</a>',
           true
         );
@@ -156,76 +163,148 @@
           })
           .catch(function () {
             showMsg(
-              "Não consegui baixar o cupom deste link (bloqueio da SEFAZ/CORS). Abra o link no navegador, baixe o XML se disponível, ou tente de novo mais tarde."
+              "Não consegui baixar o cupom deste link (bloqueio da SEFAZ/CORS). Tente de novo mais tarde."
             );
           });
       }
 
+      function fillCameraSelect(cameras, preferredId) {
+        camSelect.innerHTML = "";
+        camSelect.disabled = !cameras.length;
+        if (!cameras.length) {
+          camSelect.innerHTML = '<option value="">Nenhuma câmera encontrada neste aparelho</option>';
+          return;
+        }
+        for (var i = 0; i < cameras.length; i++) {
+          var opt = document.createElement("option");
+          opt.value = cameras[i].id;
+          opt.textContent = cameras[i].label || "Câmera " + (i + 1) + " deste aparelho";
+          if (preferredId && cameras[i].id === preferredId) opt.selected = true;
+          camSelect.appendChild(opt);
+        }
+      }
+
+      function pickCameraId(cameras) {
+        if (camSelect.value) return camSelect.value;
+        // Prefere traseira no celular; no PC pega a primeira (webcam Microsoft etc.).
+        // Prefer back camera on phone; on PC use the first webcam.
+        var i;
+        for (i = 0; i < cameras.length; i++) {
+          var label = (cameras[i].label || "").toLowerCase();
+          if (/back|traseir|rear|environment/.test(label)) return cameras[i].id;
+        }
+        return cameras[0].id;
+      }
+
       function stopScanner() {
-        if (!scanner) return Promise.resolve();
+        if (!scanner) {
+          ensurePlaceholder();
+          readerEl.classList.remove("is-live");
+          document.getElementById("btn-scan-start").hidden = false;
+          document.getElementById("btn-scan-stop").hidden = true;
+          return Promise.resolve();
+        }
         return scanner
           .stop()
           .catch(function () {})
           .then(function () {
+            try {
+              scanner.clear();
+            } catch (e) {}
             scanner = null;
+            ensurePlaceholder();
+            readerEl.classList.remove("is-live");
             document.getElementById("btn-scan-start").hidden = false;
             document.getElementById("btn-scan-stop").hidden = true;
           });
       }
 
+      function onDecoded(decoded) {
+        if (handling || !decoded) return;
+        handling = true;
+        showStatus("QR lido neste aparelho. Processando…");
+        stopScanner()
+          .then(function () {
+            return processNfceUrl(decoded);
+          })
+          .finally(function () {
+            handling = false;
+          });
+      }
+
+      function startWithCameraId(cameraId) {
+        scanner = new Html5Qrcode("qr-reader", { verbose: false });
+        var config = { fps: 10, qrbox: { width: 250, height: 250 } };
+        return scanner.start(cameraId, config, onDecoded, function () {}).then(function () {
+          readerEl.classList.add("is-live");
+          document.getElementById("btn-scan-start").hidden = true;
+          document.getElementById("btn-scan-stop").hidden = false;
+          showStatus("Câmera deste aparelho ligada dentro da página — aponte para o QR do cupom.");
+        });
+      }
+
+      /**
+       * Abre a câmera do próprio PC/celular via navegador (getUserMedia), sem aparelho externo.
+       * Opens this PC/phone camera via the browser (getUserMedia), no external scanner.
+       */
       function startScanner() {
         if (typeof Html5Qrcode === "undefined") {
-          showStatus("Biblioteca de QR não carregou. Use o campo de link abaixo.");
+          showStatus("Não carregou o leitor de QR. Atualize a página ou use o link abaixo.");
           return;
         }
-        if (busy) return;
-        busy = true;
-        stopScanner().then(function () {
-          scanner = new Html5Qrcode("qr-reader");
-          showStatus("Pedindo câmera…");
-          scanner
-            .start(
-              { facingMode: "environment" },
-              { fps: 8, qrbox: { width: 240, height: 240 } },
-              function (decoded) {
-                if (busy || !decoded) return;
-                // Evita ler o mesmo QR várias vezes em sequência.
-                // Avoid processing the same QR repeatedly in a burst.
-                busy = true;
-                showStatus("QR lido. Processando…");
-                stopScanner().then(function () {
-                  processNfceUrl(decoded).finally(function () {
-                    busy = false;
-                  });
-                });
-              },
-              function () {}
-            )
-            .then(function () {
-              busy = false;
-              document.getElementById("qr-reader").classList.add("is-live");
-              document.getElementById("btn-scan-start").hidden = true;
-              document.getElementById("btn-scan-stop").hidden = false;
-              showStatus("Câmera ligada — aponte para o QR do cupom.");
-            })
-            .catch(function (err) {
-              busy = false;
-              scanner = null;
-              document.getElementById("qr-reader").classList.remove("is-live");
-              showStatus(
-                "Não abriu a câmera (" +
-                  (err && err.message ? err.message : "erro") +
-                  "). Cole o link do QR abaixo."
-              );
+        if (!window.isSecureContext) {
+          showStatus("A câmera só funciona em HTTPS (ou localhost). Abra pelo link do GitHub Pages.");
+          return;
+        }
+        if (handling) return;
+        showStatus("Pedindo permissão da câmera deste aparelho…");
+
+        stopScanner()
+          .then(function () {
+            return Html5Qrcode.getCameras();
+          })
+          .then(function (cameras) {
+            if (!cameras || !cameras.length) {
+              throw new Error("Nenhuma câmera neste aparelho");
+            }
+            fillCameraSelect(cameras, camSelect.value || null);
+            var id = pickCameraId(cameras);
+            camSelect.value = id;
+            return startWithCameraId(id);
+          })
+          .catch(function (err) {
+            // Fallback: constraint genérica (webcam do PC).
+            // Fallback: generic constraint (PC webcam).
+            return startWithCameraId({ facingMode: "user" }).catch(function () {
+              return startWithCameraId({ facingMode: "environment" }).catch(function (err2) {
+                scanner = null;
+                ensurePlaceholder();
+                readerEl.classList.remove("is-live");
+                showStatus(
+                  "Não abriu a câmera deste aparelho (" +
+                    ((err && err.message) || (err2 && err2.message) || "erro") +
+                    "). Permita o acesso no navegador (cadeado na barra de endereço) e tente de novo."
+                );
+              });
             });
-        });
+          });
       }
 
       document.getElementById("btn-scan-start").addEventListener("click", startScanner);
       document.getElementById("btn-scan-stop").addEventListener("click", function () {
         stopScanner().then(function () {
-          document.getElementById("qr-reader").classList.remove("is-live");
           showStatus("Câmera parada.");
+        });
+      });
+      camSelect.addEventListener("change", function () {
+        if (!camSelect.value) return;
+        if (document.getElementById("btn-scan-stop").hidden) return;
+        stopScanner().then(function () {
+          startWithCameraId(camSelect.value).catch(function (err) {
+            showStatus(
+              "Não trocou a câmera (" + (err && err.message ? err.message : "erro") + ")."
+            );
+          });
         });
       });
       document.getElementById("btn-fetch-url").addEventListener("click", function () {
@@ -233,6 +312,6 @@
       });
     })();
   </script>
-  <script src="nav-drawer.js?v=8"></script>
+  <script src="nav-drawer.js?v=9"></script>
 </body>
 </html>

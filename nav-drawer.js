@@ -6,7 +6,7 @@
   var LINKS = [
     { href: "index.html", label: "Início" },
     { href: "precos.html", label: "Preços" },
-    { href: "lancar-precos.html", label: "Lançar preços" },
+    { href: "lancar-precos.html", label: "Atualizar Preços" },
     { href: "despensa.html", label: "Despensa" },
     { href: "semana-1.html", label: "Semana 1" },
     { href: "semana-2.html", label: "Semana 2" },

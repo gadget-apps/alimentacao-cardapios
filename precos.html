@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=26" />
+  <link rel="stylesheet" href="estilo.css?v=27" />
   <style>
     .nf-file {
       display: flex;
@@ -199,16 +199,9 @@
             '" value="' +
             priceVal +
             '" aria-label="Preço" />' +
-            ' <select data-unit-input="' +
-            k +
-            '">' +
-            '<option value="kg"' +
-            (e.unit === "kg" ? " selected" : "") +
-            "> / kg</option>" +
-            '<option value="un"' +
-            (e.unit === "un" ? " selected" : "") +
-            "> / un</option>" +
-            "</select></td><td>" +
+            ' <span class="catalog-unit">/ ' +
+            (e.unit === "un" ? "un" : "kg") +
+            "</span></td><td>" +
             (e.source || "—") +
             '</td><td class="catalog-edit-actions">' +
             '<button type="button" class="catalog-icon-btn catalog-icon-save" data-save="' +
@@ -229,7 +222,6 @@
           btn.addEventListener("click", function () {
             var k = btn.getAttribute("data-save");
             var priceEl = box.querySelector('[data-price-input="' + k + '"]');
-            var unitEl = box.querySelector('[data-unit-input="' + k + '"]');
             var raw = (priceEl.value || "")
               .trim()
               .replace(/\./g, "")
@@ -241,11 +233,13 @@
             }
             var c = P.loadCatalog();
             var prev = c[k] || { key: k, name: editName || k };
+            // Unidade fica fixa no cadastro do produto (não muda ao salvar preço).
+            // Unit stays fixed on the product record (does not change when saving price).
             c[k] = {
               key: k,
               name: prev.name || k,
               unitPrice: n,
-              unit: (unitEl && unitEl.value) || prev.unit || "kg",
+              unit: prev.unit || "kg",
               updatedAt: new Date().toISOString(),
               source: "manual"
             };

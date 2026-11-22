@@ -714,6 +714,21 @@ body.drawer-open {
   border-radius: 8px;
   font: inherit;
 }
+/* Unidade fixa no catálogo (não é seletor) / Fixed unit label in catalog */
+.catalog-unit {
+  display: inline-block;
+  margin-left: 0.25rem;
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+#catalog-table input[data-price-input] {
+  max-width: 5.5rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+}
 .catalog-edit-actions {
   display: flex;
   flex-wrap: nowrap;

@@ -714,6 +714,56 @@ body.drawer-open {
   border-radius: 8px;
   font: inherit;
 }
+/* NF / lançar preços / Invoice import UI */
+.nf-file {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card, #fff);
+}
+.nf-file strong { flex: 1 1 auto; }
+.nf-file input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+.nf-file-btn {
+  display: inline-block;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  background: var(--ink, #1f3d36);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nf-file-name {
+  flex: 1 1 100%;
+  font-size: 0.9rem;
+  color: var(--muted, #5c6b66);
+}
+.nf-textarea,
+.field-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font: inherit;
+}
+.field-input {
+  padding: 0.55rem;
+  border-radius: 10px;
+}
+
 /* Unidade fixa no catálogo (não é seletor) / Fixed unit label in catalog */
 .catalog-unit {
   display: inline-block;
@@ -880,6 +930,11 @@ body.semana-8 .hero {
   border-color: #b8cce8;
 }
 .home-link.nav-precos strong { color: #3d6aa8; }
+.home-link.nav-lancar {
+  background: #f3eef8;
+  border-color: #d4c6e8;
+}
+.home-link.nav-lancar strong { color: #6b4f8a; }
 .home-link.nav-despensa {
   background: #eef6f0;
   border-color: #c5ddd0;

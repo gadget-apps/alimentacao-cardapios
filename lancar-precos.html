@@ -12,7 +12,7 @@
 
     <section class="hero">
       <h1>Atualizar Preços</h1>
-      <p>Ao abrir esta página, o site <strong>liga a câmera deste aparelho</strong> (PC ou celular) e mostra o vídeo aqui. Só atualiza preços de produtos que já estão no <a href="precos.html">catálogo</a>.</p>
+      <p>Use a <strong>câmera deste aparelho</strong> (PC ou celular) para ler o QR da NFC-e. Só atualiza preços de produtos que já estão no <a href="precos.html">catálogo</a>.</p>
       <div class="chips">
         <span class="chip">Câmera deste aparelho</span>
         <span class="chip">QR NFC-e</span>
@@ -22,23 +22,23 @@
 
     <section class="card">
       <h2>Leitor de QR Code da NFC-e</h2>
-      <p class="footer-note">A câmera do dispositivo sobe sozinha ao entrar. Autorize se o navegador pedir. No PC: webcam. No celular: câmera do telefone.</p>
+      <p class="footer-note">Toque em <strong>Abrir câmera</strong> para usar a câmera deste aparelho. No PC: webcam. No celular: câmera do telefone.</p>
 
       <label class="footer-note" for="camera-select">Câmera do dispositivo<br />
         <select id="camera-select" class="field-input" disabled>
-          <option value="">Detectando câmeras…</option>
+          <option value="">Toque em “Abrir câmera” para listar…</option>
         </select>
       </label>
 
       <div id="qr-reader" class="qr-reader">
         <div class="qr-reader-placeholder" id="qr-placeholder">
-          <strong>Ligando a câmera do dispositivo…</strong>
-          <span>Permita o acesso se o navegador perguntar</span>
+          <strong>Câmera do dispositivo</strong>
+          <span>Toque em Abrir câmera — o vídeo aparece aqui</span>
         </div>
       </div>
 
       <div class="shop-actions">
-        <button type="button" class="btn-keep" id="btn-scan-start" hidden>Religar câmera</button>
+        <button type="button" class="btn-keep" id="btn-scan-start">Abrir câmera</button>
         <button type="button" class="btn-keep btn-keep-secondary" id="btn-scan-stop" hidden>Parar câmera</button>
       </div>
       <p id="scan-status" class="footer-note" hidden></p>
@@ -311,15 +311,6 @@
         processNfceUrl(document.getElementById("nfce-url").value);
       });
 
-      // Liga a câmera do dispositivo assim que a página carrega.
-      // Starts this device's camera as soon as the page loads.
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", function () {
-          setTimeout(startScanner, 200);
-        });
-      } else {
-        setTimeout(startScanner, 200);
-      }
     })();
   </script>
   <script src="nav-drawer.js?v=9"></script>

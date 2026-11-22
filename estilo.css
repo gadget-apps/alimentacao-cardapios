@@ -765,15 +765,45 @@ body.drawer-open {
 }
 /* Leitor QR NFC-e / NFC-e QR reader */
 .qr-reader {
+  position: relative;
   width: 100%;
   max-width: 420px;
+  min-height: 280px;
   margin: 0.5rem auto 0.75rem;
   overflow: hidden;
   border-radius: 16px;
+  background: #1a1a1a;
+  border: 2px dashed #5c6b66;
+  box-sizing: border-box;
+}
+.qr-reader.is-live {
+  border-style: solid;
+  border-color: var(--accent);
   background: #111;
 }
+.qr-reader-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  color: #c5d0cb;
+  text-align: center;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+.qr-reader-placeholder strong {
+  color: #fff;
+  font-size: 1.05rem;
+}
+.qr-reader.is-live .qr-reader-placeholder {
+  display: none;
+}
 .qr-reader video {
-  border-radius: 16px;
+  border-radius: 14px;
 }
 
 /* Unidade fixa no catálogo (não é seletor) / Fixed unit label in catalog */

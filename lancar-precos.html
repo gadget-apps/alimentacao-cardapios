@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lançar preços — Gestão Cardápio Low Carb</title>
-  <link rel="stylesheet" href="estilo.css?v=29" />
+  <link rel="stylesheet" href="estilo.css?v=30" />
 </head>
 <body>
   <main class="wrap">
@@ -21,10 +21,15 @@
     </section>
 
     <section class="card">
-      <h2>Escanear QR da NFC-e</h2>
-      <p class="footer-note">Aponte a câmera para o QR do cupom. No iPhone/Android use HTTPS (já é o caso neste site) e permita o acesso à câmera.</p>
+      <h2>Leitor de QR da NFC-e</h2>
+      <p class="footer-note">Toque em <strong>Abrir câmera</strong>, permita o acesso e aponte para o QR do cupom.</p>
 
-      <div id="qr-reader" class="qr-reader"></div>
+      <div id="qr-reader" class="qr-reader">
+        <div class="qr-reader-placeholder" id="qr-placeholder">
+          <strong>Área do leitor de QR</strong>
+          <span>A câmera aparece aqui depois de autorizar</span>
+        </div>
+      </div>
       <div class="shop-actions">
         <button type="button" class="btn-keep" id="btn-scan-start">Abrir câmera</button>
         <button type="button" class="btn-keep btn-keep-secondary" id="btn-scan-stop" hidden>Parar câmera</button>
@@ -198,6 +203,7 @@
             )
             .then(function () {
               busy = false;
+              document.getElementById("qr-reader").classList.add("is-live");
               document.getElementById("btn-scan-start").hidden = true;
               document.getElementById("btn-scan-stop").hidden = false;
               showStatus("Câmera ligada — aponte para o QR do cupom.");
@@ -205,6 +211,7 @@
             .catch(function (err) {
               busy = false;
               scanner = null;
+              document.getElementById("qr-reader").classList.remove("is-live");
               showStatus(
                 "Não abriu a câmera (" +
                   (err && err.message ? err.message : "erro") +
@@ -217,6 +224,7 @@
       document.getElementById("btn-scan-start").addEventListener("click", startScanner);
       document.getElementById("btn-scan-stop").addEventListener("click", function () {
         stopScanner().then(function () {
+          document.getElementById("qr-reader").classList.remove("is-live");
           showStatus("Câmera parada.");
         });
       });

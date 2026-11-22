@@ -295,27 +295,6 @@
     paintEstimates(root);
     updateProgress(root);
     updateTotal(root);
-
-    root.addEventListener("click", function (ev) {
-      var t = ev.target;
-      var rs = t.closest ? t.closest("[data-keep-reset]") : null;
-
-      if (rs) {
-        var resetMsg =
-          semana === "despensa"
-            ? "Limpar todas as marcas da despensa?"
-            : "Limpar todas as marcas desta semana?";
-        if (!confirm(resetMsg)) return;
-        localStorage.removeItem(storageKey(semana));
-        for (var k = 0; k < boxes.length; k++) {
-          boxes[k].checked = false;
-          var li2 = boxes[k].closest ? boxes[k].closest("li") : null;
-          if (li2) li2.className = li2.className.replace(/\bdone\b/g, "").trim();
-        }
-        updateProgress(root);
-        updateTotal(root);
-      }
-    });
   }
 
   if (document.readyState === "loading") {

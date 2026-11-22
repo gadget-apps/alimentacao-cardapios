@@ -29,10 +29,7 @@
       '<div id="lista-compras" data-semana="despensa">' +
       '<ul class="shop-check">' +
       lis +
-      "</ul>" +
-      '<div class="shop-actions">' +
-      '<button type="button" class="btn-keep btn-keep-secondary" data-keep-reset data-semana="despensa">Limpar marcas</button>' +
-      "</div></div>";
+      "</ul></div>";
 
     return box.querySelector("#lista-compras");
   }

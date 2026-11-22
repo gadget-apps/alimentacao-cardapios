@@ -121,9 +121,6 @@ $(Chips $w.chips)
         <ul class="shop-check">
 $(Shop $w.shop)
         </ul>
-        <div class="shop-actions">
-          <button type="button" class="btn-keep btn-keep-secondary" data-keep-reset data-semana="$n">Limpar marcas</button>
-        </div>
       </div>
     </section>
 

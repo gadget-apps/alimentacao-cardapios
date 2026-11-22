@@ -902,7 +902,9 @@ body.drawer-open {
   display: none !important;
 }
 .flash-popup {
-  width: min(100%, 22rem);
+  width: min(100%, 36rem);
+  max-height: min(90vh, 34rem);
+  overflow: auto;
   background: #fff;
   border-radius: 18px;
   padding: 1.25rem 1.35rem;
@@ -919,9 +921,62 @@ body.drawer-open {
   line-height: 1.45;
 }
 .flash-popup .btn-keep {
-  margin-top: 0;
+  margin-top: 0.75rem;
   width: 100%;
   justify-content: center;
+}
+
+/* Resultado do QR: atualizados | não atualizados. */
+/* QR result: updated | not updated. */
+.flash-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 0 0 0.25rem;
+}
+@media (max-width: 560px) {
+  .flash-cols {
+    grid-template-columns: 1fr;
+  }
+}
+.flash-col {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.65rem 0.75rem;
+  background: color-mix(in srgb, var(--paper) 88%, var(--week-tint, #e8f0eb));
+  min-height: 4rem;
+}
+.flash-col h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.flash-col-ok h3 {
+  color: #2f6b52;
+}
+.flash-col-skip h3 {
+  color: #8a5a3a;
+}
+.flash-col ul {
+  margin: 0;
+  padding: 0 0 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.flash-col li {
+  margin: 0.2rem 0;
+}
+.flash-col .flash-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.flash-col .flash-price {
+  color: var(--muted);
+  font-size: 0.86em;
 }
 
 /* Unidade fixa no catálogo (não é seletor) / Fixed unit label in catalog */

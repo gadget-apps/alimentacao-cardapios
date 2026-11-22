@@ -4,9 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Atualizar Preços — Cardápio Low Carb, High Protein</title>
-  <link rel="stylesheet" href="estilo.css?v=45" />
+  <link rel="stylesheet" href="estilo.css?v=46" />
 </head>
 <body>
+  <div id="flash-popup" class="flash-popup-backdrop" hidden>
+    <div class="flash-popup" role="dialog" aria-modal="true" aria-labelledby="flash-title">
+      <h2 id="flash-title">Leitura do QR</h2>
+      <p id="flash-summary" class="footer-note"></p>
+      <div class="flash-cols" id="flash-cols">
+        <div class="flash-col flash-col-ok">
+          <h3>Produtos atualizados</h3>
+          <ul id="flash-updated"></ul>
+        </div>
+        <div class="flash-col flash-col-skip">
+          <h3>Produtos não atualizados</h3>
+          <ul id="flash-skipped"></ul>
+        </div>
+      </div>
+      <button type="button" class="btn-keep" id="flash-ok">OK</button>
+    </div>
+  </div>
+
   <main class="wrap">
     <nav class="nav" hidden></nav>
 
@@ -174,7 +192,74 @@
         return {
           ok: true,
           updated: res.imported.length,
-          skipped: (res.skipped || []).length
+          skipped: (res.skipped || []).length,
+          updatedItems: (res.imported || []).map(function (it) {
+            return {
+              name: it.name || "—",
+              price: P.formatBRL(it.unitPrice)
+            };
+          }),
+          skippedItems: (res.skipped || []).map(function (it) {
+            return { name: it.name || "—" };
+          })
+        };
+      }
+
+      /**
+       * Popup com 2 colunas: atualizados x não atualizados.
+       * Two-column popup: updated vs not updated.
+       */
+      function showResultPopup(result) {
+        var backdrop = document.getElementById("flash-popup");
+        var titleEl = document.getElementById("flash-title");
+        var summary = document.getElementById("flash-summary");
+        var ulOk = document.getElementById("flash-updated");
+        var ulSkip = document.getElementById("flash-skipped");
+        titleEl.textContent = "Leitura do QR concluída";
+        summary.textContent =
+          (result.updated || 0) +
+          " atualizado(s) · " +
+          (result.skipped || 0) +
+          " não atualizado(s)";
+        function fillList(ul, items, emptyText, withPrice) {
+          ul.innerHTML = "";
+          if (!items || !items.length) {
+            var p = document.createElement("p");
+            p.className = "flash-empty";
+            p.textContent = emptyText;
+            ul.appendChild(p);
+            return;
+          }
+          for (var i = 0; i < items.length; i++) {
+            var li = document.createElement("li");
+            var label = items[i].name || "—";
+            if (withPrice && items[i].price) {
+              li.innerHTML =
+                label +
+                ' <span class="flash-price">' +
+                items[i].price +
+                "</span>";
+            } else {
+              li.textContent = label;
+            }
+            ul.appendChild(li);
+          }
+        }
+        fillList(ulOk, result.updatedItems, "Nenhum preço atualizado.", true);
+        fillList(
+          ulSkip,
+          result.skippedItems,
+          "Nenhum item fora do catálogo.",
+          false
+        );
+        backdrop.hidden = false;
+        function close() {
+          backdrop.hidden = true;
+        }
+        var btn = document.getElementById("flash-ok");
+        btn.onclick = close;
+        backdrop.onclick = function (ev) {
+          if (ev.target === backdrop) close();
         };
       }
 
@@ -194,18 +279,11 @@
               return false;
             }
             showPageMsg(
-              "<strong>Leitura concluída</strong><br />Atualizei <strong>" +
-                result.updated +
-                "</strong> preço(s) no catálogo" +
-                (result.skipped
-                  ? " e ignorei <strong>" +
-                    result.skipped +
-                    "</strong> item(ns) fora da lista"
-                  : "") +
-                '.<br /><a href="precos.html">Ver catálogo</a>',
+              "<strong>Leitura concluída</strong> · <a href=\"precos.html\">Ver catálogo</a>",
               true,
               "ok"
             );
+            showResultPopup(result);
             return true;
           })
           .catch(function () {

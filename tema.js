@@ -26,7 +26,7 @@
     if (/quiabo/.test(t)) return "prato-quiabo";
     if (/panela/.test(t)) return "prato-panela";
     if (/cl[aá]ssica/.test(t)) return "prato-classica";
-    if (/carne|mo[ií]da|patinho/.test(t)) return "prato-moida";
+    if (/carne|mo[ií]da|patinho|segunda/.test(t)) return "prato-moida";
     return "";
   }
 

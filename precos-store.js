@@ -7,7 +7,7 @@
  */
 (function (global) {
   var STORAGE_KEY = "alimentacao-precos-v1";
-  var SEEDED_FLAG = "alimentacao-precos-seeded-aqa-v1";
+  var SEEDED_FLAG = "alimentacao-precos-seeded-aqa-v2";
 
   /**
    * Preços aproximados varejo região Araraquara (CEAGESP atacado × ~2 + IEA carnes).
@@ -39,7 +39,7 @@
   };
 
   var DEFAULTS_AQA = {
-    patinho: { name: "Patinho moído", unitPrice: 56.0, unit: "kg" },
+    carne_segunda: { name: "Carne de segunda (moída)", unitPrice: 36.0, unit: "kg" },
     acem: { name: "Acém / músculo", unitPrice: 43.0, unit: "kg" },
     porco: { name: "Pernil / lombo (porco)", unitPrice: 28.0, unit: "kg" },
     frango: { name: "Peito de frango", unitPrice: 23.0, unit: "kg" },
@@ -100,8 +100,8 @@
   ];
 
   var ALIASES = {
-    patinho: ["patinho", "patinho moido"],
-    acem: ["acem", "acém", "musculo", "músculo", "paleta", "carne de panela", "panela", "acem moido", "acém moído"],
+    carne_segunda: ["carne de segunda", "segunda", "patinho", "patinho moido", "acem moido", "acém moído", "carne moida", "carne moída"],
+    acem: ["acem", "acém", "musculo", "músculo", "paleta", "carne de panela", "panela"],
     porco: ["porco", "pernil", "lombo", "lombo suino", "lombo suíno", "porco em cubos", "pernil ou lombo"],
     frango: ["frango", "peito de frango", "peito"],
     ovo: ["ovo", "ovos", "duzia", "dúzia"],
@@ -149,7 +149,7 @@
     // Pantry-only shopping line (e.g. rice · beans · seasonings).
     if (/arroz|feijao|tempero|azeite|shoyu|aveia|\bsal\b|colorau|cominho|paprica|oregano|louro|pimenta|alho industrializado|alho em pasta|alho triturado/.test(f)) {
       if (
-        !/patinho|acem|musculo|porco|pernil|lombo|frango|ovo|quiabo|brocolis|vagem|couve|abobrinha|berinjela|pimentao|chuchu|tomate|pepino|abobora|mussarela|queijo|cebola|limao|molho|cheiro/.test(
+        !/patinho|carne de segunda|segunda|acem|musculo|porco|pernil|lombo|frango|ovo|quiabo|brocolis|vagem|couve|abobrinha|berinjela|pimentao|chuchu|tomate|pepino|abobora|mussarela|queijo|cebola|limao|molho|cheiro/.test(
           f
         )
       ) {
@@ -158,7 +158,7 @@
     }
     // Linha só de alho (despensa industrializado).
     // Garlic-only line (industrial pantry).
-    if (/^alho\b/.test(f) && !/patinho|porco|frango|cebola/.test(f)) return true;
+    if (/^alho\b/.test(f) && !/patinho|segunda|porco|frango|cebola/.test(f)) return true;
     return false;
   }
 

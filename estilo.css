@@ -885,6 +885,26 @@ body.drawer-open {
   border-color: #e5a8a0;
   color: #7a2e26;
 }
+/* Link longo da NFC-e no celular — quebra e permite toque longo para copiar.
+   Long NFC-e URL on mobile — wraps; long-press to copy. */
+.nfce-url-text {
+  margin: 0.65rem 0 0;
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  background: #f3f6f4;
+  border: 1px solid #d5e0da;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.35;
+  word-break: break-all;
+  color: #1f3d36;
+  user-select: text;
+  -webkit-user-select: text;
+}
+#paste-card .btn-keep {
+  display: inline-flex;
+  margin-top: 0.35rem;
+}
 
 /* Popup de sucesso na home / Success popup on home */
 .flash-popup-backdrop {

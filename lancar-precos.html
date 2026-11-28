@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Atualizar Preços — Cardápio Low Carb, High Protein</title>
-  <link rel="stylesheet" href="estilo.css?v=46" />
+  <link rel="stylesheet" href="estilo.css?v=47" />
 </head>
 <body>
   <div id="flash-popup" class="flash-popup-backdrop" hidden>
@@ -61,16 +61,19 @@
       <input id="nfce-url" type="url" class="field-input" placeholder="https://… (link do QR da NFC-e)" autocomplete="off" />
       <div class="shop-actions">
         <button type="button" class="btn-keep" id="btn-fetch-url">Buscar e atualizar preços</button>
-        <a class="btn-keep btn-keep-secondary" id="btn-open-sefaz" href="#" target="_blank" rel="noopener" hidden>Abrir link na SEFAZ</a>
       </div>
     </section>
 
     <section class="card" id="paste-card" hidden>
-      <h2>Colar cupom (quando a SEFAZ bloqueia)</h2>
-      <p class="footer-note">O navegador não consegue baixar a nota sozinho (CORS). Abra o link na SEFAZ → selecione tudo (Ctrl+A) → copie → cole abaixo.</p>
-      <textarea id="nfce-paste" class="field-input" rows="8" placeholder="Cole aqui o texto ou HTML da consulta da NFC-e…"></textarea>
+      <h2>Cupom bloqueado — abra o link</h2>
+      <p class="footer-note">No celular: toque no botão abaixo (abre a SEFAZ). Na página da nota, toque longo no texto → <strong>Selecionar tudo</strong> → <strong>Copiar</strong>. Volte aqui e toque em <strong>Colar da área de transferência</strong>.</p>
+      <p class="footer-note"><strong>Link do QR:</strong></p>
+      <a id="nfce-link" class="btn-keep" href="#" target="_blank" rel="noopener">Abrir cupom na SEFAZ</a>
+      <p id="nfce-link-text" class="nfce-url-text" hidden></p>
+      <textarea id="nfce-paste" class="field-input" rows="6" placeholder="Ou cole aqui o texto da nota…" style="margin-top:0.75rem"></textarea>
       <div class="shop-actions">
-        <button type="button" class="btn-keep" id="btn-paste-import">Atualizar preços com o texto colado</button>
+        <button type="button" class="btn-keep" id="btn-clipboard-paste">Colar da área de transferência</button>
+        <button type="button" class="btn-keep btn-keep-secondary" id="btn-paste-import">Atualizar com o texto abaixo</button>
       </div>
     </section>
   </main>
@@ -172,6 +175,9 @@
             return u;
           },
           function (u) {
+            return "https://r.jina.ai/" + u;
+          },
+          function (u) {
             return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u);
           },
           function (u) {
@@ -206,14 +212,18 @@
 
       function showPasteFallback(url) {
         var pasteCard = document.getElementById("paste-card");
-        var openBtn = document.getElementById("btn-open-sefaz");
+        var linkBtn = document.getElementById("nfce-link");
+        var linkText = document.getElementById("nfce-link-text");
         pasteCard.hidden = false;
         if (url && /^https?:\/\//i.test(url)) {
-          openBtn.hidden = false;
-          openBtn.href = url;
+          linkBtn.href = url;
+          linkBtn.hidden = false;
+          linkText.hidden = false;
+          linkText.textContent = url;
+          document.getElementById("nfce-url").value = url;
         }
         try {
-          pasteCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          pasteCard.scrollIntoView({ behavior: "smooth", block: "start" });
         } catch (e) {}
       }
 
@@ -342,9 +352,11 @@
           })
           .catch(function () {
             showPasteFallback(url);
+            // Mensagem com o próprio link — no celular o botão/link fica fixo no card abaixo.
+            // Message includes the link — on mobile the button/link stays fixed in the card below.
             showPageMsg(
-              "QR lido, mas a SEFAZ bloqueou o download automático (CORS). Abra o link e cole o texto do cupom abaixo.",
-              false,
+              "QR lido, mas a SEFAZ bloqueou o download. Role para baixo: o botão <strong>Abrir cupom na SEFAZ</strong> e o link estão no card abaixo.",
+              true,
               "err"
             );
             return false;
@@ -478,6 +490,36 @@
         }
         showPageMsg("Lendo o texto colado…");
         processNfceText(text);
+      });
+      document.getElementById("btn-clipboard-paste").addEventListener("click", function () {
+        if (!navigator.clipboard || !navigator.clipboard.readText) {
+          showPageMsg(
+            "Este celular não deixa colar automático. Toque longo na caixa de texto → Colar.",
+            false,
+            "err"
+          );
+          document.getElementById("nfce-paste").focus();
+          return;
+        }
+        navigator.clipboard
+          .readText()
+          .then(function (text) {
+            if (!String(text || "").trim()) {
+              showPageMsg("Área de transferência vazia. Copie o texto na SEFAZ primeiro.", false, "err");
+              return;
+            }
+            document.getElementById("nfce-paste").value = text;
+            showPageMsg("Texto colado. Atualizando preços…");
+            processNfceText(text);
+          })
+          .catch(function () {
+            showPageMsg(
+              "Sem permissão para ler a área de transferência. Toque longo na caixa → Colar.",
+              false,
+              "err"
+            );
+            document.getElementById("nfce-paste").focus();
+          });
       });
     })();
   </script>

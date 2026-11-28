@@ -61,6 +61,16 @@
       <input id="nfce-url" type="url" class="field-input" placeholder="https://… (link do QR da NFC-e)" autocomplete="off" />
       <div class="shop-actions">
         <button type="button" class="btn-keep" id="btn-fetch-url">Buscar e atualizar preços</button>
+        <a class="btn-keep btn-keep-secondary" id="btn-open-sefaz" href="#" target="_blank" rel="noopener" hidden>Abrir link na SEFAZ</a>
+      </div>
+    </section>
+
+    <section class="card" id="paste-card" hidden>
+      <h2>Colar cupom (quando a SEFAZ bloqueia)</h2>
+      <p class="footer-note">O navegador não consegue baixar a nota sozinho (CORS). Abra o link na SEFAZ → selecione tudo (Ctrl+A) → copie → cole abaixo.</p>
+      <textarea id="nfce-paste" class="field-input" rows="8" placeholder="Cole aqui o texto ou HTML da consulta da NFC-e…"></textarea>
+      <div class="shop-actions">
+        <button type="button" class="btn-keep" id="btn-paste-import">Atualizar preços com o texto colado</button>
       </div>
     </section>
   </main>
@@ -152,20 +162,59 @@
         });
       }
 
+      /**
+       * Tenta baixar o cupom: direto, depois proxies CORS públicos.
+       * Tries to download the receipt: direct, then public CORS proxies.
+       */
       function fetchCupom(url) {
-        return fetch(url, { method: "GET", redirect: "follow" })
-          .then(function (r) {
-            if (!r.ok) throw new Error("HTTP " + r.status);
-            return r.text();
-          })
-          .catch(function () {
-            var proxied =
-              "https://api.allorigins.win/raw?url=" + encodeURIComponent(url);
-            return fetch(proxied).then(function (r) {
-              if (!r.ok) throw new Error("Proxy HTTP " + r.status);
+        var proxies = [
+          function (u) {
+            return u;
+          },
+          function (u) {
+            return "https://api.allorigins.win/raw?url=" + encodeURIComponent(u);
+          },
+          function (u) {
+            return "https://corsproxy.io/?" + encodeURIComponent(u);
+          },
+          function (u) {
+            return "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u);
+          }
+        ];
+
+        function tryAt(i) {
+          if (i >= proxies.length) {
+            return Promise.reject(new Error("cors"));
+          }
+          var target = proxies[i](url);
+          return fetch(target, { method: "GET", redirect: "follow", credentials: "omit" })
+            .then(function (r) {
+              if (!r.ok) throw new Error("HTTP " + r.status);
               return r.text();
+            })
+            .then(function (text) {
+              var t = String(text || "");
+              if (t.length < 80) throw new Error("resposta vazia");
+              return t;
+            })
+            .catch(function () {
+              return tryAt(i + 1);
             });
-          });
+        }
+        return tryAt(0);
+      }
+
+      function showPasteFallback(url) {
+        var pasteCard = document.getElementById("paste-card");
+        var openBtn = document.getElementById("btn-open-sefaz");
+        pasteCard.hidden = false;
+        if (url && /^https?:\/\//i.test(url)) {
+          openBtn.hidden = false;
+          openBtn.href = url;
+        }
+        try {
+          pasteCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } catch (e) {}
       }
 
       function importFromText(text) {
@@ -263,6 +312,22 @@
         };
       }
 
+      function processNfceText(text) {
+        var result = importFromText(text);
+        if (!result.ok) {
+          showPageMsg(result.error, false, "err");
+          return false;
+        }
+        document.getElementById("paste-card").hidden = true;
+        showPageMsg(
+          "<strong>Leitura concluída</strong> · <a href=\"precos.html\">Ver catálogo</a>",
+          true,
+          "ok"
+        );
+        showResultPopup(result);
+        return true;
+      }
+
       function processNfceUrl(url) {
         url = extractUrl(url);
         if (!url || !/^https?:\/\//i.test(url)) {
@@ -270,25 +335,15 @@
           return Promise.resolve(false);
         }
         document.getElementById("nfce-url").value = url;
-        showPageMsg("QR lido. Atualizando preços no catálogo…");
+        showPageMsg("QR lido. Baixando cupom (pode levar alguns segundos)…");
         return fetchCupom(url)
           .then(function (text) {
-            var result = importFromText(text);
-            if (!result.ok) {
-              showPageMsg(result.error, false, "err");
-              return false;
-            }
-            showPageMsg(
-              "<strong>Leitura concluída</strong> · <a href=\"precos.html\">Ver catálogo</a>",
-              true,
-              "ok"
-            );
-            showResultPopup(result);
-            return true;
+            return processNfceText(text);
           })
           .catch(function () {
+            showPasteFallback(url);
             showPageMsg(
-              "QR lido, mas não consegui baixar o cupom (bloqueio SEFAZ/CORS). Tente de novo mais tarde.",
+              "QR lido, mas a SEFAZ bloqueou o download automático (CORS). Abra o link e cole o texto do cupom abaixo.",
               false,
               "err"
             );
@@ -414,6 +469,15 @@
       });
       document.getElementById("btn-fetch-url").addEventListener("click", function () {
         processNfceUrl(document.getElementById("nfce-url").value);
+      });
+      document.getElementById("btn-paste-import").addEventListener("click", function () {
+        var text = document.getElementById("nfce-paste").value;
+        if (!String(text || "").trim()) {
+          showPageMsg("Cole o texto da consulta da NFC-e antes de atualizar.", false, "err");
+          return;
+        }
+        showPageMsg("Lendo o texto colado…");
+        processNfceText(text);
       });
     })();
   </script>
